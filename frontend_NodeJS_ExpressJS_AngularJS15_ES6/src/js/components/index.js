@@ -3,10 +3,6 @@ import angular from 'angular';
 let componentsModule = angular.module('app.components', []);
 
 
-import prueba from './prueba/prueba.component';
-componentsModule.component('prueba', prueba);
-
-
 
 import ListErrors from './list-errors.component'
 componentsModule.component('listErrors', ListErrors);
