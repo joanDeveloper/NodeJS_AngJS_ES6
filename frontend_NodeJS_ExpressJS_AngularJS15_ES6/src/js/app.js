@@ -22,15 +22,16 @@ import './config/app.templates';
 import './layout';
 import './components';
 import './home';
-import './profile';
-import './article';
 import './services';
-import './auth';
-import './settings';
-import './editor';
 import './contact';
 import './listProd';
 import 'ngmap';
+import './auth';
+
+/* import './article';
+import './profile';
+import './settings';
+import './editor'; */
 
 
 // Create and bootstrap application
@@ -42,15 +43,15 @@ const requires = [
   'app.layout',
   'app.components',
   'app.home',
-  'app.profile',
-  'app.article',
   'app.services',
   'app.auth',
-  'app.settings',
-  'app.editor',
   'app.contact', 
   'app.listProd',
   'ngMap',
+  /* 'app.article',
+  'app.settings',
+  'app.editor',
+  'app.profile', */
   toastr,
   /* angularMaterialize */
   

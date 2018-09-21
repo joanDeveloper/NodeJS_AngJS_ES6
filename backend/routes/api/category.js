@@ -5,16 +5,17 @@ var Test = mongoose.model('Test');
 
 //return a list of categories
 router.get('/', function(req, res, next) {
-  /*console.log(res);
-  console.log("hola");*/
-  Category.find().then(function(category){
+  /* console.log(res); */
+  console.log("hola");
+  return res.json({ category: "category" });
+  /* Category.find().then(function(category){
     console.log(category);
     Test.populate(category, {path: "test"},function(err, category){
       return res.json({category: category});
     });
 
   }).catch(next);
-  
+   */
 });
 
 //return details category

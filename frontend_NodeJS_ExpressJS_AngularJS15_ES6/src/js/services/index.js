@@ -6,26 +6,28 @@ let servicesModule = angular.module('app.services', []);
 import ToasterService from './toaster.service';
 servicesModule.service('Toaster', ToasterService);
 
-import UserService from './user.service';
-servicesModule.service('User', UserService);
+import ContactService from './contact.service';
+servicesModule.service('Contact', ContactService);
+
+import TestService from './test.service';
+servicesModule.service('TestService', TestService);
+
+
 
 import JwtService from './jwt.service'
 servicesModule.service('JWT', JwtService);
 
-import ProfileService from './profile.service';
-servicesModule.service('Profile', ProfileService);
+import UserService from './user.service';
+servicesModule.service('User', UserService);
 
-import ArticlesService from './articles.service';
-servicesModule.service('Articles', ArticlesService);
 
-import CommentsService from './comments.service';
-servicesModule.service('Comments', CommentsService);
+
+
+
 
 import TagsService from './tags.service';
 servicesModule.service('Tags', TagsService);
 
-import ContactService from './contact.service';
-servicesModule.service('Contact', ContactService);
 
 
 export default servicesModule;

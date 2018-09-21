@@ -7,7 +7,18 @@ function HomeConfig($stateProvider) {
     controller: 'HomeCtrl',
     controllerAs: '$ctrl',
     templateUrl: 'home/home.html',
-    title: 'Home'
+    title: 'Home',
+    resolve: {
+      categories: function (TestService, $state, $stateParams) {
+        /* TestService.getAll().then(function (response) {
+          console.log(response)
+        }); */
+        return TestService.getAll().then(
+          (categories) => categories,
+          (err) => $state.go('app.home')
+        )
+      }
+    }
   });
 
 };
