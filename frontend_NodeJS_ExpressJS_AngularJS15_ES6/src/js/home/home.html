@@ -1,21 +1,17 @@
  <div class="home-page">
+   
+   <My-Hero info="$ctrl.hero"></My-Hero>
 
-  <!-- <uib-accordion close-others="oneAtATime">
-    <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen"
-      is-disabled="status.isFirstDisabled">
-      This content is straight in the template.
-    </div>
-  </uib-accordion> -->
-
+<section>
+   <div class="divStandar gridCategoryContainer">
+     <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>
+   </div>
+</section>
 
   
-  <!-- Splash banner that only shows when not logged in -->
-  <div class="banner" show-authed="false">
-    <div class="container">
-      <h1 class="logo-font" ng-bind="::$ctrl.appName | lowercase"></h1>
-      <p>A place to share your knowledge.</p>
-    </div>
-  </div>
+  
+  
+  
   <div style="width:100%; height: 900px; " map-lazy-load="https://maps.google.com/maps/api/js">
     <ng-map center="[38.8100743, -0.6066551]" style="width:100%; height: 100%; " zoom="15">
       <marker no-watcher="true" title="prueba" position="[38.8100743, -0.6066551]">
@@ -25,21 +21,28 @@
   </div>
 dsfsdfsdf
   <probando-component></probando-component>{{$ctrl.a}}
-  <Follow-Btn user="$ctrl.a" u="poco"></Follow-Btn>
+
+
+  <Follow-Btn css="$ctrl.css" user="$ctrl.a" u="poco"></Follow-Btn>
+  
+  
+  
   <div class="divmio">divmio
     <md-button class="md-fab" aria-label="Eat cake" ng>
-      fvdsgd
+      material diseny
     </md-button>
   </div>
-  <div class="row">
-      <div style="background-color: aquamarine" class="col-md-3 divmio" >divmio</div>
-      <div class="col-md-3 divmio" style="background-color:blue;">divmio2</div>
-      <div class="col-md-6 divmio" style="background-color:yellow;">divmio3</div>
-  </div>
+
 
 
 
   
   
+<!-- <uib-accordion close-others="oneAtATime">
+    <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen"
+      is-disabled="status.isFirstDisabled">
+      This content is straight in the template.
+    </div>
+  </uib-accordion> -->
 
 </div>

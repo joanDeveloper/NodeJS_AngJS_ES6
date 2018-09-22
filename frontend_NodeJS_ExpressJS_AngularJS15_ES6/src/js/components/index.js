@@ -3,8 +3,13 @@ import angular from 'angular';
 let componentsModule = angular.module('app.components', []);
 
 
-import probandoComponent from './prueba/prueba.component';
-componentsModule.component('prueba', probandoComponent);
+import MyHero from './Hero/hero.component';
+componentsModule.component('myHero', MyHero);
+
+import MyCard from "./Card/card.componet";
+componentsModule.component("myCard", MyCard);
+
+
 
 
 

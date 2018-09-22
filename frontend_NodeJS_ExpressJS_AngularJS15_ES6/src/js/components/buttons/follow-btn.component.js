@@ -1,11 +1,14 @@
 class FollowBtnCtrl {
   constructor( $state) {
     'ngInject';
-
+    /* $ctrl.css = {
+      "background-color": "blue",
+      "color": "black"
+    } */
     
 
     this._$state = $state;
-    console.log(this._$state)
+    
   }
 
 
@@ -14,7 +17,8 @@ class FollowBtnCtrl {
 let FollowBtn= {
   bindings: {
     user: '=',
-    u: '@'
+    u: '@',
+    css:'='
   },
   controller: FollowBtnCtrl,
   templateUrl: 'components/buttons/follow-btn.html'

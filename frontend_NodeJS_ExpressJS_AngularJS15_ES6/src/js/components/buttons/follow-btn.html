@@ -1,8 +1,11 @@
 <button
-  style="background-color: red"
+  
   >
   <i class="ion-plus-round"></i>
-  &nbsp;
+  &nbsp;<span ng-style={{$ctrl.css}}>
   boton{{ $ctrl.u }}
    {{ $ctrl.user }}
+
+  {{$ctrl.css|json}}
+  </span>
 </button>

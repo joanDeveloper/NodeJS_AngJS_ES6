@@ -1,44 +1,43 @@
-:root{
+:root {
   /* 
   Typography
    * ======================================================================== */
-    --font-family: 'Rubik', Helvetica, Arial, sans-serif;
-
+  --font-family: 'Rubik', Helvetica, Arial, sans-serif;
   /*
    * Media queries breakpoints
    * ======================================================================== */
-
-    --sc-xs-min: 480px;  /* Extra small screen / phone */
-    --sc-sm-min: 768px;  /* Small screen / tablet */
-    --sc-md-min: 992px;  /* Medium screen / desktop */
-    --sc-lg-min: 1200px; /* Large screen / wide desktop */
-
-
- /*
+  --sc-xs-min: 480px;
+  /* Extra small screen / phone */
+  --sc-sm-min: 768px;
+  /* Small screen / tablet */
+  --sc-md-min: 992px;
+  /* Medium screen / desktop */
+  --sc-lg-min: 1200px;
+  /* Large screen / wide desktop */
+  /*
   * Colors
   * ======================================================================== */
-    --bgColorBody:#F9F9F9;
-    --texColor:#888888;
-    --gris-claro: #f9f9f9;  
-    --titleColor:#363949;
-    --white:#FFFFFF;
-
-    --red: #e62c3d;
-    --yell: #f9c468;
-    --oran:#ef7752;
-
-
+  --bgColorBody: #F9F9F9;
+  --texColor: #888888;
+  --gris-claro: #f9f9f9;
+  --titleColor: #363949;
+  --white: #FFFFFF;
+  --red: #e62c3d;
+  --yell: #f9c468;
+  --oran: #ef7752;
+  --yell2: #F5D64A;
+  --pink: #FF57CF;
   /*
   * Sizes
   * ======================================================================== */
-    --generalWidth:1000px;
-    --iconSize:85px;
-    --fontSizeTitle:3.5rem;
-    --fontSizeSubtitle: 2.5rem;
-    --fontSizeText:1.5rem;
-    --slimLetters:100;
-
+  --generalWidth: 1000px;
+  --iconSize: 85px;
+  --fontSizeTitle: 3.5rem;
+  --fontSizeSubtitle: 2.5rem;
+  --fontSizeText: 1.5rem;
+  --slimLetters: 100;
 }
+
 body {
   margin: 0;
   font-family: var(--font-family);
@@ -48,3 +47,93 @@ body {
 a {
   color: #000;
 }
+
+section {
+  margin-top: 80px;
+}
+
+
+/*
+HOMEPAGE
+*/
+.divStandar {
+  max-width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (max-width: 1024px) {
+  .divStandar {
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .divStandar {
+    width: 250px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+.gridCategoryContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-row-gap: 20px;
+}
+
+.gridCategory {
+  width: 250px;
+  height: 300px;
+  display: grid;
+  grid-template-rows: 150px 1fr;
+}
+
+.imgCategory {
+  width: 100%;
+  position: relative;
+}
+
+.imgCategory>img {
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+.textCategory {
+  position: relative;
+  text-align: center;
+  font-size: var(--fontSizeText);
+}
+
+.textCategory>p {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+/* .businInte{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: minmax(250px, 1fr);
+    grid-template-areas: 
+      "cont1 c"
+      "cont2 a";;
+    height: 500px;
+  }
+  .cont1{
+    grid-area: cont1;    
+  }
+  .a{
+    grid-area: a;    
+  } */
