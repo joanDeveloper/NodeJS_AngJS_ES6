@@ -6,14 +6,7 @@ var mongoose_pag = require('mongoose-pagination');
 
 //return a list of categories
 router.get('/', function(req, res, next) {
-<<<<<<< HEAD
-  /* console.log(res); */
-  /* console.log("hola");
-  return res.json({ category: "category" }); */
-   Category.find().then(function(category){
-=======
   Category.find().then(function(category){
->>>>>>> 5121581160e48ab0fa942bde2d27f53d568931b6
     console.log(category);
     if(!category){ 
       return res.sendStatus(401);
@@ -26,9 +19,6 @@ router.get('/', function(req, res, next) {
     });
 
   }).catch(next);
-<<<<<<< HEAD
-   
-=======
 
 });
 
@@ -51,7 +41,6 @@ router.get('/pagination/:page?', function(req, res, next) {
     
   });
   
->>>>>>> 5121581160e48ab0fa942bde2d27f53d568931b6
 });
 
 //return details category

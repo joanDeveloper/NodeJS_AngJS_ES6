@@ -5,8 +5,9 @@ class HomeCtrl {
     this.appName = AppConstants.appName;
     this._$scope = $scope;
     this.categories = categories;
-    console.log(this.categories)
-
+    this.a = categories.category[0].name;
+    console.log(this.categories.category)
+    
     var vm = this;
     NgMap.getMap().then(function (map) {
       vm.map = map;
