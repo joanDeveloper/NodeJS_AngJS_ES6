@@ -2,9 +2,11 @@ var mongoose = require('mongoose');
 var router = require('express').Router();
 var User = mongoose.model('User');
 var bcrypt = require('bcrypt-nodejs');
+var md_auth = require('../../middleware/athenticated');
+var jwt = require('../../utils/jwt');
 
 // return a list of users
-router.get('/', function(req, res, next) {
+router.get('/', md_auth.ensureAuth,function(req, res, next) {
   //console.log(res);
   //console.log("hola user");
   User.find().then(function(user){
@@ -121,7 +123,18 @@ router.post('/login', function(req, res, next) {
 		if (users) {
 			bcrypt.compare(password, users.password, (err, check) => {
 				if (check) {
-          return res.status(200).send({message:'Password correct'});
+          //return res.status(200).send({message:'Password correct'});
+          if ( values.get_token ) {
+						return res.status(200).send({
+						  token: jwt.create_token( users )
+
+						});
+
+					}else{
+						users.password = undefined;
+						return res.status(200).send({ users });
+
+					}
 
 				}else{
 					return res.status(404).send({message:'Password incorrect'});
