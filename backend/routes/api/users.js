@@ -4,6 +4,7 @@ var User = mongoose.model('User');
 var bcrypt = require('bcrypt-nodejs');
 var md_auth = require('../../middleware/athenticated');
 var jwt = require('../../utils/jwt');
+var passport = require('passport');
 
 // return a list of users
 router.get('/', md_auth.ensureAuth,function(req, res, next) {
@@ -150,6 +151,28 @@ router.post('/login', function(req, res, next) {
   });
   
 });
+
+//sign-in social
+router.get('/auth/googleplus', passport.authenticate('google', { scope: [
+  'https://www.googleapis.com/auth/plus.login',
+  'https://www.googleapis.com/auth/plus.profile.emails.read'] })
+);
+router.get('/auth/googleplus/callback',
+  passport.authenticate('google', {
+   successRedirect : 'http://localhost:8081',
+   failureRedirect: '/' }));
+
+/*router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
+router.get('/auth/facebook/callback',
+      passport.authenticate('facebook',{ 
+      successRedirect: 'http://nodejs-angular-final1-yomogan.c9users.io:8080/#!/auth/sociallogin', 
+      failureRedirect: '/' }));
+      
+router.get('/auth/twitter', passport.authenticate('twitter'));
+router.get('/auth/twitter/callback',
+    passport.authenticate('twitter',{
+      successRedirect: 'http://nodejs-angular-final1-yomogan.c9users.io:8080/#!/auth/sociallogin',
+      failureRedirect: '/' }));*/
 
 
 module.exports = router;
