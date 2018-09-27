@@ -4,6 +4,7 @@ class ListDetailsCtrl {
     console.log("llega aquiiiii",tests)
     this.appName = AppConstants.appName;
     this._$scope = $scope;
+    this.u = tests[0];
   }
 }
 

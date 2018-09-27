@@ -29,10 +29,6 @@ import './listProd';
 import 'ngmap';
 import './auth';
 
-/* import './article';
-import './profile';
-import './settings';
-import './editor'; */
 
 
 // Create and bootstrap application
@@ -50,12 +46,7 @@ const requires = [
   "app.contact",
   "app.listProd",
   "ngMap",
-  /* 'app.article',
-  'app.settings',
-  'app.editor',
-  'app.profile', */
   toastr
-  /* angularMaterialize */
 ];
 
 // Mount on window for testing

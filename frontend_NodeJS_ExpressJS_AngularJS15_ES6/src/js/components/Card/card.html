@@ -1,8 +1,10 @@
-<div class="gridCategory" ng-click="$ctrl.prueba($ctrl.info)">
-    <div class="imgCategory">
-        <img src="../../../images/{{$ctrl.info.name | lowercase}}.svg" alt="Image">
+<a ng-click="openCategory($ctrl.info)" class="pointer">
+    <div class="gridCategory">
+        <div class="imgCategory">
+            <img src="../../../images/{{$ctrl.info.name | lowercase}}.svg" alt="Image">
+        </div>
+        <div class="textCategory">
+            <p>{{$ctrl.info.name}}</p>
+        </div>
     </div>
-    <div class="textCategory">
-        <p>{{$ctrl.info.name}}</p>
-    </div>
-</div>
+</a>

@@ -101,28 +101,30 @@ router.post('/register', function(req, res, next) {
 
 //sign-in manual
 router.post('/login', function(req, res, next) {
-  var values = req.body;
+  var values = req.body.user;
 	var email = values.email;
-	var password = values.password;
-
+	var password1 = values.password;
+  console.log("0");
   if(!email){
     return res.status(422).json({errors: {email: "Please, write your email"}});
 
   }
 
-  if(!password){
+  if(!password1){
     return res.status(422).json({errors: {password: "Please, write your password"}});
 
   }
 
 	User.findOne( { email:email }, ( err, users ) => {
+    console.log("1");
 		if (err) {
 			return res.status(500).send({message:'Error petition user'});
 
 		}
 
 		if (users) {
-			bcrypt.compare(password, users.password, (err, check) => {
+      console.log("2");
+			bcrypt.compare(password1, users.password, (err, check) => {
 				if (check) {
           //return res.status(200).send({message:'Password correct'});
           if ( values.get_token ) {
@@ -144,6 +146,7 @@ router.post('/login', function(req, res, next) {
 			});
 
 		}else{
+      console.log("3");
 			return res.status(404).send({message:'User not exist'});
 
 		}

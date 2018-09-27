@@ -11,7 +11,9 @@ function ListDetailsConfig($stateProvider) {
       tests: function ($state, $stateParams, TestService) {
         console.log($stateParams.id);
         /* debugger */
-        TestService.getTestsOfOneCategory();
+        return TestService.getTestsOfOneCategory($stateParams.id).then(
+          tests => tests, 
+          err => $state.go("app.home"));
         return { hola: $stateParams.id, h: "2" };
       }
     }

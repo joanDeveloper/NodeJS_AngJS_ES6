@@ -15,7 +15,8 @@ class AuthCtrl {
 
     this._User.attemptAuth(this.authType, this.formData).then(
       (res) => {
-        this._$state.go('app.home');
+        console.log(res)
+        /* this._$state.go('app.home'); */
       },
       (err) => {
         this.isSubmitting = false;
