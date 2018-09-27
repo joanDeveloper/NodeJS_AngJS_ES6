@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
+  idsocial: String,
   user:String,
   name: String,
   surname:String,
@@ -10,7 +11,8 @@ var UserSchema = new mongoose.Schema({
   type_plan:String,
   date_init:String,
   date_expiration:String,
-  ubication:String
+  ubication:String,
+  media:String
   //test:[{type: mongoose.Schema.Types.ObjectId, ref: 'Test'}],
 }, {timestamps: true});
 
