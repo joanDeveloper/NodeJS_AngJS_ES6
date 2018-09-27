@@ -6,9 +6,9 @@ class CardCtrl {
     
   }
     
-    prueba () {
-        console.log("yeeeeeeeeeeeee");
-        /* this._$state.go('app.contact'); */
+    prueba (info) {
+        /* console.log(info); */
+        this._$state.go('app.contact');/*test/list/idcategoria/numero pagina*/
     }
 }
 
