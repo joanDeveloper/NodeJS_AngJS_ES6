@@ -22,6 +22,20 @@ export default class TestService {
         return deferred.promise;
     }
 
+    getTestsOfOneCategory(id) {
+        console.log("getTestsOfOneCategory:  ", id);
+
+        let deferred = this._$q.defer();
+        this._$http({
+          url: `${this._AppConstants.api}/test/list/${id}`,
+          method: "GET"
+        }).then(
+            (res) => deferred.resolve(res.data), 
+            (err) => deferred.reject(err)
+        );
+        return deferred.promise;
+    }
+
     getTestDetails(slug) {
         let deferred = this._$q.defer();
 

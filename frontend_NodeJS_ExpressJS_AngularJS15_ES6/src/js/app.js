@@ -22,40 +22,31 @@ import './config/app.templates';
 import './layout';
 import './components';
 import './home';
+import "./listDetails";
 import './services';
 import './contact';
 import './listProd';
 import 'ngmap';
 import './auth';
 
-/* import './article';
-import './profile';
-import './settings';
-import './editor'; */
 
 
 // Create and bootstrap application
 const requires = [
-  'ui.router',
-  'ui.bootstrap',
-  'ngMaterial',
-  'templates',
-  'app.layout',
-  'app.components',
-  'app.home',
-  'app.services',
-  'app.auth',
-  'app.contact', 
-  'app.listProd',
-  'ngMap',
-  /* 'app.article',
-  'app.settings',
-  'app.editor',
-  'app.profile', */
-  toastr,
-  /* angularMaterialize */
-  
-  
+  "ui.router",
+  "ui.bootstrap",
+  "ngMaterial",
+  "templates",
+  "app.layout",
+  "app.components",
+  "app.home",
+  "app.listDetails",
+  "app.services",
+  "app.auth",
+  "app.contact",
+  "app.listProd",
+  "ngMap",
+  toastr
 ];
 
 // Mount on window for testing

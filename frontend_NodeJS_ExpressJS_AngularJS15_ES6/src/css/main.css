@@ -52,10 +52,15 @@ section {
   margin-top: 80px;
 }
 
-
+.pointer{
+  cursor: pointer;
+}
 /*
 HOMEPAGE
 */
+
+/*CSS category*/
+
 .divStandar {
   max-width: 1000px;
   margin-right: auto;

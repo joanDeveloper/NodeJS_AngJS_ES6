@@ -3,13 +3,14 @@ class CardCtrl {
     "ngInject";
     this._$state = $state;
     
-    
+    $scope.openCategory = function(info) {
+      /* console.log(info._id); */
+      $state.go("app.listDetails", { id: info._id });
+    };
   }
+  
     
-    prueba () {
-        console.log("yeeeeeeeeeeeee");
-        /* this._$state.go('app.contact'); */
-    }
+  
 }
 
 let CardComponent = {
