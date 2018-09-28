@@ -33,15 +33,18 @@ if (!isProduction) {
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  //mongoose.connect('mongodb://localhost/conduit');
   mongoose.connect('mongodb://localhost/cognitive_brain');
   mongoose.set('debug', true);
+  
 }
 
 require('./models/User');
 require('./models/Category');
 require('./models/Test');
 require('./config/passport');
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(require('./routes'));
 

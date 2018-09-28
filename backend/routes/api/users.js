@@ -7,14 +7,30 @@ var jwt = require('../../utils/jwt');
 var passport = require('passport');
 
 // return a list of users
-router.get('/', md_auth.ensureAuth,function(req, res, next) {
+router.get('/', md_auth.ensureAuth ,function(req, res, next) {
   //console.log(res);
   //console.log("hola user");
-  User.find().then(function(user){
-    console.log(user);
-    return res.json({user: user});
+  console.log(req.user.sub);
+  User.findOne( { '_id':req.user.sub }, ( err, users ) => {
+		if (err) {
+			return res.status(500).send({message:'Error petition user'});
 
-  }).catch(next);
+		}
+
+		if (users) {
+			console.log(req.user.sub);
+      User.find().then(function(user){
+        console.log(user);
+        return res.json({user: user});
+
+      }).catch(next);
+
+		}else{
+			return res.status(404).send({message:'User invalid'});
+
+		}
+
+  });
 
 });
 
@@ -36,7 +52,7 @@ router.get('/:id', function(req, res, next) {
 //Sign up manual
 router.post('/register', function(req, res, next) {
   //console.log("arriba a sign-up");
-  let param = req.body;
+  let param = req.body.user;
   console.log(param);
   
   if(param.user && param.email && param.password1 && param.password2){
@@ -55,7 +71,9 @@ router.post('/register', function(req, res, next) {
     user.date_expiration = "";
     user.ubication = "";
 
-    User.find({ $or: [{email:user.email.toLowerCase()},{user:user.user.toLowerCase()} ]}).exec((err, users) => {
+    //falta comparar el password 1 amb el 2
+    User.find({ $or: [{email:user.email.toLowerCase()},{user:user.user.toLowerCase()} ]})
+    .exec((err, users) => {
       if (err) {
 				return res.status(500).send({message:'Error petition user'});
 
@@ -72,15 +90,10 @@ router.post('/register', function(req, res, next) {
 						if (err) return res.status(500).send({message:'Error to save user'});
 						//console.log(userStored);
 						if (userStored) {
-							res.status(200).send({
-								user: userStored
-
-							});
+              res.status(200).send({user: userStored});
+              
 						}else{
-							res.status(404).send({
-								message: "Don't register user"
-
-							});
+							res.status(404).send({message: "Don't register user"});
 
             }
             
@@ -101,7 +114,7 @@ router.post('/register', function(req, res, next) {
 
 //sign-in manual
 router.post('/login', function(req, res, next) {
-  var values = req.body;
+  var values = req.body.user;
 	var email = values.email;
 	var password = values.password;
 
@@ -125,17 +138,10 @@ router.post('/login', function(req, res, next) {
 			bcrypt.compare(password, users.password, (err, check) => {
 				if (check) {
           //return res.status(200).send({message:'Password correct'});
-          if ( values.get_token ) {
-						return res.status(200).send({
-						  token: jwt.create_token( users )
+          return res.status(200).send({
+            token: jwt.create_token( users )
 
-						});
-
-					}else{
-						users.password = undefined;
-						return res.status(200).send({ users });
-
-					}
+          });
 
 				}else{
 					return res.status(404).send({message:'Password incorrect'});
@@ -159,20 +165,20 @@ router.get('/auth/googleplus', passport.authenticate('google', { scope: [
 );
 router.get('/auth/googleplus/callback',
   passport.authenticate('google', {
-   successRedirect : 'http://localhost:8081',
+   successRedirect : 'http://localhost:3000/api/category',
    failureRedirect: '/' }));
 
-/*router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
+router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
 router.get('/auth/facebook/callback',
       passport.authenticate('facebook',{ 
-      successRedirect: 'http://nodejs-angular-final1-yomogan.c9users.io:8080/#!/auth/sociallogin', 
+      successRedirect: 'http://localhost:3000/api/category', 
       failureRedirect: '/' }));
       
 router.get('/auth/twitter', passport.authenticate('twitter'));
 router.get('/auth/twitter/callback',
     passport.authenticate('twitter',{
-      successRedirect: 'http://nodejs-angular-final1-yomogan.c9users.io:8080/#!/auth/sociallogin',
-      failureRedirect: '/' }));*/
+      successRedirect: 'http://localhost:3000/api/category',
+      failureRedirect: '/' }));
 
 
 module.exports = router;

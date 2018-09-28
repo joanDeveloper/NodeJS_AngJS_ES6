@@ -99,11 +99,12 @@ passport.use(new FacebookStrategy({
     //console.log(profile);
     //Search for the user in database
     User.findOne({ 'idsocial' : profile.id }, function(err, user) {
-      //console.log(user);
+      console.log(user);
       if (err){
         console.log('err');
         return done(err);
       }if (user) {
+        console.log('USUARIO EXISTE');
         return done(null, user);
       } else {
         console.log('USUARIO NO EXISTE');
