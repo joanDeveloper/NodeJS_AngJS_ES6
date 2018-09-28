@@ -1,25 +1,8 @@
-/*var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-
-passport.use(new LocalStrategy({
-  usernameField: 'user[email]',
-  passwordField: 'user[password]'
-}, function(email, password, done) {
-  User.findOne({email: email}).then(function(user){
-    if(!user || !user.validPassword(password)){
-      return done(null, false, {errors: {'email or password': 'is invalid'}});
-    }
-
-    return done(null, user);
-  }).catch(done);
-}));*/
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var FacebookStrategy = require('passport-facebook').Strategy;
+var GitHubStrategy = require('passport-github2').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
 var socialKeys = require('../credentials/credentials.json');
@@ -88,46 +71,6 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-//Passport strategy to connect with Facebook
-passport.use(new FacebookStrategy({
-  clientID: socialKeys.FACEBOOK_CLIENT_ID,
-  clientSecret: socialKeys.FACEBOOK_CLIENT_SECRET,
-  callbackURL: socialKeys.FACEBOOK_CALLBACK,
-  profileFields: ['id', 'displayName', 'name', 'email', 'link', 'locale', 'photos'],
-  passReqToCallback: true
-}, function(req, accessToken, refreshToken, profile, done) {
-    //console.log(profile);
-    //Search for the user in database
-    User.findOne({ 'idsocial' : profile.id }, function(err, user) {
-      console.log(user);
-      if (err){
-        console.log('err');
-        return done(err);
-      }if (user) {
-        console.log('USUARIO EXISTE');
-        return done(null, user);
-      } else {
-        console.log('USUARIO NO EXISTE');
-          var user = new User({
-              idsocial: profile.id,
-              username: profile.name.givenName,
-              email: profile.emails[0].value,
-              bio: profile.profileUrl,
-          });
-          //console.log(user);
-          user.save(function(err) {
-            console.log(err);
-              if(err){
-                  console.log('USER:');
-                  console.log(user);
-                  return done(null, user);
-              }
-          });
-      }
-    });
-  
-}));//FacebookStrategy end
-
 passport.use(new TwitterStrategy({
     consumerKey     : socialKeys.TWITTER_CLIENT_ID,
     consumerSecret  : socialKeys.TWITTER_CLIENT_SECRET,
@@ -167,4 +110,67 @@ passport.use(new TwitterStrategy({
     });
 }));
 
+passport.use(new GitHubStrategy({
+  clientID: socialKeys.GITHUB_CLIENT_ID,
+  clientSecret: socialKeys.GITHUB_CLIENT_SECRET,
+  callbackURL: socialKeys.GITHUB_CALLBACK
+},
+  function(accessToken, refreshToken, profile, done) {
+    /*User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return done(err, user);
+    });*/
+    console.log(profile);
+    console.log(profile.id);
+    console.log(profile._json.avatar_url);
+    User.findOne({ 'idsocial' : profile.id }, function(err, user) {
+      console.log(user);
+      if (err){
+        console.log('err');
+        return done(err);
+      }if (user) {
+        console.log('USUARIO EXISTE');
+        return done(null, user);
+      } else {
+        console.log('USUARIO NO EXISTE');
+          var user = new User({
+              idsocial: profile.id,
+              username: profile.login,
+              //email: profile.emails[0].value,
+              media: profile._json.avatar_url,
+          });
+          //console.log(user);
+          user.save(function(err,user) {
+            console.log(err);
+              if(err){
+                  console.log('USER:');
+                  console.log(user);
+                  return done(null, user);
+              }
+              if(user){
+                return done(null, user);
+              }
+          });
+      }
+    });
+  }
+));
+
+
+/*passport.use(new LinkedInStrategy({
+  consumerKey: socialKeys.LINKEDIN_API_KEY,
+  consumerSecret: socialKeys.LINKEDIN_SECRET_KEY,
+  callbackURL: socialKeys.LINKEDIN_CALLBACK,
+  
+},
+function(token, tokenSecret, profile, done) {
+  console.log(profile);
+  process.nextTick(function () {
+    // To keep the example simple, the user's LinkedIn profile is returned to
+    // represent the logged-in user.  In a typical application, you would want
+    // to associate the LinkedIn account with a user record in your database,
+    // and return that user instead.
+    return done(null, profile);
+  });
+}
+));*/
 
