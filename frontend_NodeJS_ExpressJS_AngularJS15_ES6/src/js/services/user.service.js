@@ -15,24 +15,24 @@ export default class User {
 
   attemptAuth(type, credentials) {
     let route = type === "login" ? "/login" : "/register";
-
+    console.log("credentials");
     return this._$http({
-      url: this._AppConstants.api + '/users' + route,
-      method: 'POST',
-      data: {
-        user: credentials
-      }
-    }).then(
-      (res) => {
-        console.log(res)
-        if(type==="login"){
-          /* this._JWT.save(res.data.user.token); */
-          /* this.current = res.data.user; */
+      url: this._AppConstants.api + "/users" + route,
+      method: "POST",
+      data: credentials      
+    }).then(res => {
+      console.log(res);
+      if (type === "login") {
+        if (res.headers.status===422) {
+          console.log("ye es 422")
         }
-
-        return res;
+        console.log(res)
+        /* this._JWT.save(res.data.token); */
+        /* this.current = res.data.user; */
       }
-    );
+
+      return res;
+    });
   }
 
   update(fields) {

@@ -7,28 +7,28 @@ var jwt = require('../../utils/jwt');
 var passport = require('passport');
 
 // return a list of users
-router.get('/', md_auth.ensureAuth ,function(req, res, next) {
+router.get('/', md_auth.ensureAuth, function (req, res, next) {
   //console.log(res);
   //console.log("hola user");
   console.log(req.user.sub);
-  User.findOne( { '_id':req.user.sub }, ( err, users ) => {
-		if (err) {
-			return res.status(500).send({message:'Error petition user'});
+  User.findOne({ '_id': req.user.sub }, (err, users) => {
+    if (err) {
+      return res.status(500).send({ message: 'Error petition user' });
 
-		}
+    }
 
-		if (users) {
-			console.log(req.user.sub);
-      User.find().then(function(user){
+    if (users) {
+      console.log(req.user.sub);
+      User.find().then(function (user) {
         console.log(user);
-        return res.json({user: user});
+        return res.json({ user: user });
 
       }).catch(next);
 
-		}else{
-			return res.status(404).send({message:'User invalid'});
+    } else {
+      return res.status(404).send({ message: 'User invalid' });
 
-		}
+    }
 
   });
 
@@ -72,38 +72,38 @@ router.post('/register', function (req, res, next) {
     user.ubication = "";
 
     //falta comparar el password 1 amb el 2
-    User.find({ $or: [{email:user.email.toLowerCase()},{user:user.user.toLowerCase()} ]})
-    .exec((err, users) => {
-      if (err) {
-        return res.status(500).send({ message: 'Error petition user' });
+    User.find({ $or: [{ email: user.email.toLowerCase() }, { user: user.user.toLowerCase() }] })
+      .exec((err, users) => {
+        if (err) {
+          return res.status(500).send({ message: 'Error petition user' });
 
-      }
+        }
 
-      if (users && users.length >= 1) {
-        return res.status(200).send({ message: 'User already exist' });
+        if (users && users.length >= 1) {
+          return res.status(200).send({ message: 'User already exist' });
 
-      } else {
-        //encriptacion password
-        bcrypt.hash(param.password1, null, null, (err, hash) => {
-					user.password = hash;
-					user.save((err,  userStored) => {
-						if (err) return res.status(500).send({message:'Error to save user'});
-						//console.log(userStored);
-						if (userStored) {
-              res.status(200).send({user: userStored});
-              
-						}else{
-							res.status(404).send({message: "Don't register user"});
+        } else {
+          //encriptacion password
+          bcrypt.hash(param.password1, null, null, (err, hash) => {
+            user.password = hash;
+            user.save((err, userStored) => {
+              if (err) return res.status(500).send({ message: 'Error to save user' });
+              //console.log(userStored);
+              if (userStored) {
+                res.status(200).send({ user: userStored });
 
-            }
+              } else {
+                res.status(404).send({ message: "Don't register user" });
+
+              }
+
+            });
 
           });
 
-        });
+        }
 
-      }
-
-    });
+      });
 
   } else {
     return res.json({ message: "Complete su formulario" });
@@ -113,10 +113,10 @@ router.post('/register', function (req, res, next) {
 });
 
 //sign-in manual
-router.post('/login', function(req, res, next) {
+router.post('/login', function (req, res, next) {
   var values = req.body.user;
-	var email = values.email;
-	var password = values.password;
+  var email = values.email;
+  var password = values.password1;
 
   if (!email) {
     return res.status(422).json({ errors: { email: "Please, write your email" } });
@@ -139,7 +139,7 @@ router.post('/login', function(req, res, next) {
         if (check) {
           //return res.status(200).send({message:'Password correct'});
           return res.status(200).send({
-            token: jwt.create_token( users )
+            token: jwt.create_token(users)
 
           });
 
@@ -167,20 +167,23 @@ router.get('/auth/googleplus', passport.authenticate('google', {
 );
 router.get('/auth/googleplus/callback',
   passport.authenticate('google', {
-   successRedirect : 'http://localhost:3000/api/category',
-   failureRedirect: '/' }));
+    successRedirect: 'http://localhost:3000/api/category',
+    failureRedirect: '/'
+  }));
 
-router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
 router.get('/auth/facebook/callback',
-      passport.authenticate('facebook',{ 
-      successRedirect: 'http://localhost:3000/api/category', 
-      failureRedirect: '/' }));
-      
+  passport.authenticate('facebook', {
+    successRedirect: 'http://localhost:3000/api/category',
+    failureRedirect: '/'
+  }));
+
 router.get('/auth/twitter', passport.authenticate('twitter'));
 router.get('/auth/twitter/callback',
-    passport.authenticate('twitter',{
-      successRedirect: 'http://localhost:3000/api/category',
-      failureRedirect: '/' }));
+  passport.authenticate('twitter', {
+    successRedirect: 'http://localhost:3000/api/category',
+    failureRedirect: '/'
+  }));
 
 
 module.exports = router;

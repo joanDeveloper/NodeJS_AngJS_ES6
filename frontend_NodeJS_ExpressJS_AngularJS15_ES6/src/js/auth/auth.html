@@ -21,21 +21,26 @@
           <fieldset ng-disabled="$ctrl.isSubmitting">
 
             <fieldset class="form-group" ng-show="$ctrl.authType === 'register'">
-              <input required class="form-control form-control-lg"
+              <input class="form-control form-control-lg"
                 type="text"
                 placeholder="Username"
-                ng-model="$ctrl.formData.user" />
+                ng-model="$ctrl.formData.user" 
+                ng-style="$ctrl.userError"
+                ng-focus="$ctrl.userError={}"/>
+                <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>
             </fieldset>
 
             <fieldset class="form-group">
-              <input required class="form-control form-control-lg"
+              <input class="form-control form-control-lg"
                 type="email"
                 placeholder="Email"
-                ng-model="$ctrl.formData.email" />
+                ng-model="$ctrl.formData.email" 
+                ng-style="$ctrl.emailError"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
             </fieldset>
 
             <fieldset class="form-group">
-              <input required class="form-control form-control-lg"
+              <input class="form-control form-control-lg"
                 type="password"
                 placeholder="Password"
                 ng-model="$ctrl.formData.password1"
@@ -45,12 +50,12 @@
             </fieldset>
 
             <fieldset class="form-group" ng-show="$ctrl.authType === 'register'">
-              <input required class="form-control form-control-lg"
+              <input class="form-control form-control-lg"
                 type="password" 
                 placeholder="Password" 
                 ng-model="$ctrl.formData.password2"
                 ng-style="$ctrl.errorPass" />
-                <p ng-style="$ctrl.errorPassText" ng-show="$ctrl.errorPass.border">Los password no coinciden reviselos.</p>
+                <p ng-style="$ctrl.colError.text" ng-show="$ctrl.errorPass.border">{{$ctrl.errorMessage}}</p>
             </fieldset>
             <button class="btn btn-lg btn-primary pull-xs-right"
               type="submit"
