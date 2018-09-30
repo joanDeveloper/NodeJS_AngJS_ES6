@@ -52,7 +52,7 @@ router.get('/:id', function (req, res, next) {
 //Sign up manual
 router.post('/register', function (req, res, next) {
   //console.log("arriba a sign-up");
-  let param = req.body.user;
+  let param = req.body;
   console.log(param);
 
   if (param.user && param.email && param.password1 && param.password2) {
@@ -75,25 +75,25 @@ router.post('/register', function (req, res, next) {
     User.find({ $or: [{ email: user.email.toLowerCase() }, { user: user.user.toLowerCase() }] })
       .exec((err, users) => {
         if (err) {
-          return res.status(500).send({ message: 'Error petition user' });
+          return res.status(422).send({ message: 'Error petition user' });
 
         }
 
         if (users && users.length >= 1) {
-          return res.status(200).send({ message: 'User already exist' });
+          return res.status(422).send({ message: 'User already exist' });
 
         } else {
           //encriptacion password
           bcrypt.hash(param.password1, null, null, (err, hash) => {
             user.password = hash;
             user.save((err, userStored) => {
-              if (err) return res.status(500).send({ message: 'Error to save user' });
+              if (err) return res.status(422).send({ message: 'Error to save user' });
               //console.log(userStored);
               if (userStored) {
-                res.status(200).send({ user: userStored });
+                res.status(422).send({ user: userStored });
 
               } else {
-                res.status(404).send({ message: "Don't register user" });
+                res.status(422).send({ message: "Don't register user" });
 
               }
 
@@ -114,7 +114,7 @@ router.post('/register', function (req, res, next) {
 
 //sign-in manual
 router.post('/login', function (req, res, next) {
-  var values = req.body.user;
+  var values = req.body;
   var email = values.email;
   var password = values.password1;
 
@@ -130,7 +130,7 @@ router.post('/login', function (req, res, next) {
 
   User.findOne({ email: email }, (err, users) => {
     if (err) {
-      return res.status(500).send({ message: 'Error petition user' });
+      return res.status(422).send({ message: 'Error petition user' });
 
     }
 
@@ -144,13 +144,13 @@ router.post('/login', function (req, res, next) {
           });
 
         } else {
-          return res.status(404).send({ message: 'Password incorrect' });
+          return res.status(422).send({ message: 'Password incorrect' });
 
         }
       });
 
     } else {
-      return res.status(404).send({ message: 'User not exist' });
+      return res.status(422).send({ message: 'User not exist' });
 
     }
 
@@ -171,19 +171,18 @@ router.get('/auth/googleplus/callback',
     failureRedirect: '/'
   }));
 
-router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'public_profile'] }));
-router.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: 'http://localhost:3000/api/category',
-    failureRedirect: '/'
-  }));
-
+/*
 router.get('/auth/twitter', passport.authenticate('twitter'));
 router.get('/auth/twitter/callback',
-  passport.authenticate('twitter', {
+    passport.authenticate('twitter',{
+      successRedirect: 'http://localhost:3000/api/category',
+      failureRedirect: '/' }));*/
+
+router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
+router.get('/auth/github/callback',
+  passport.authenticate('github', {
     successRedirect: 'http://localhost:3000/api/category',
     failureRedirect: '/'
   }));
-
 
 module.exports = router;

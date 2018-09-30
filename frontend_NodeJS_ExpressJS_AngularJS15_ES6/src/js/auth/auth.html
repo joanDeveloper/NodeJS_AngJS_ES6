@@ -57,13 +57,20 @@
                 ng-style="$ctrl.errorPass" />
                 <p ng-style="$ctrl.colError.text" ng-show="$ctrl.errorPass.border">{{$ctrl.errorMessage}}</p>
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right"
+            <button class="btn btn-lg btn-primary col-md-12"
               type="submit"
               ng-bind="::$ctrl.title">
             </button>
+            <p ng-style="$ctrl.colError.text" ng-show="$ctrl.errorDB">{{$ctrl.errorMessage}}</p>
 
           </fieldset>
         </form>
+
+        <hr>
+        <h1 class="text-xs-center"> Social Login</h1>
+        <div ng-show="$ctrl.authType === 'login'"> 
+          <button class="btn btn-lg col-md-12" style="color:white; background-color: #E03E44; margin-top: 30px; font-weight: 700;" type="button" ng-click="$ctrl.logSocial('googleplus')">Google </button>
+          <button class="btn btn-lg col-md-12" style="color:white; background-color: #5E5E5E; margin-top: 30px; font-weight: 700;"type="button" ng-click="$ctrl.logSocial('github')">Git hub</button>
       </div>
 
     </div>

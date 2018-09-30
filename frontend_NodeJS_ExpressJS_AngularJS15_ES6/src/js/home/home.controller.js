@@ -1,11 +1,11 @@
 class HomeCtrl {
-  constructor(NgMap, AppConstants, $scope, categories, $stateParams, $state) {
+  constructor(NgMap, AppConstants, $scope, categories, $stateParams, $state, auth) {
     "ngInject";
-
+    console.log("hom ctr l4",auth)  
     this.appName = AppConstants.appName;
     this._$scope = $scope;
     this.categories = categories.category;
-
+    console.log("hom ctr l8",this.current)
     this.css = {
       "background-color": "red"
     };

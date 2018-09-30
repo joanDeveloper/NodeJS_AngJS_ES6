@@ -13,6 +13,15 @@ export default class User {
   }
 
 
+  socialAuth(type) {
+    let route = type === "googleplus" ? "/auth/googleplus" : "/auth/github";
+     console.log(route)
+    return this._$http({
+      url: this._AppConstants.api + "/users" + route,
+      method: "GET",
+    });
+  }
+
   attemptAuth(type, credentials) {
     let route = type === "login" ? "/login" : "/register";
     console.log("credentials");
@@ -23,14 +32,10 @@ export default class User {
     }).then(res => {
       console.log(res);
       if (type === "login") {
-        if (res.headers.status===422) {
-          console.log("ye es 422")
-        }
-        console.log(res)
-        /* this._JWT.save(res.data.token); */
-        /* this.current = res.data.user; */
+        console.log("us l35",res)
+        this._JWT.save(res.data.token);
+        this.current = res.data.token;
       }
-
       return res;
     });
   }
@@ -67,19 +72,22 @@ export default class User {
       deferred.resolve(true);
 
     } else {
+      console.log("us 75", typeof this._JWT.get())
       this._$http({
-        url: this._AppConstants.api + '/user',
+        url: this._AppConstants.api + '/users/',
         method: 'GET',
         headers: {
-          Authorization: 'Token ' + this._JWT.get()
+          authorization: this._JWT.get()
         }
       }).then(
         (res) => {
           this.current = res.data.user;
+          console.log("service user83",this.current);
           deferred.resolve(true);
         },
 
         (err) => {
+          console.log("service user90", err);
           this._JWT.destroy();
           deferred.resolve(false);
         }
