@@ -1,1 +1,13 @@
-<div>lista productos</div>
+<section>
+    <div class="divStandar gridCategoryContainer">
+      <a class="pointer" ng-repeat="test in $ctrl.detailTest" >
+          <div class="gridCategory">
+                <div class="imgCategory">
+                    <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">
+                </div>
+                <p>{{test.description}}</p>
+              
+          </div>
+      </a>
+    </div>
+  </section>

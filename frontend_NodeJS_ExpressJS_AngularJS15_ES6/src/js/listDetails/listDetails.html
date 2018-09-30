@@ -1,3 +1,14 @@
 <section>
-  dentro{{$ctrl.u.name}}
+  <div class="divStandar gridCategoryContainer">
+    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test._id)"  id="{{test._id}}">
+        <div class="gridCategory">
+            <div class="imgCategory">
+                <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">
+            </div>
+            <div class="textCategory">
+                <p>{{test.name}}</p>
+            </div>
+        </div>
+    </a>
+  </div>
 </section>

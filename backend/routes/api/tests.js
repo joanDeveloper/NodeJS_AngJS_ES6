@@ -39,12 +39,14 @@ router.get('/pagination/:page?', function(req, res, next) {
 
 //return details test
 router.get('/detail/:id', function(req, res, next) {
+  console.log("ea");
+  console.log(req.params);
     Test.find({'_id':req.params.id}).then(function(test){
       console.log(test);
       if(!test){ 
-        return res.sendStatus(401); 
+        return res.sendStatus(422); 
       }
-      return res.json({test: test});
+      return res.json({test});
       
     }).catch(next);
   
@@ -60,7 +62,7 @@ router.get('/list/:id/:page?', function(req, res, next) {
 
   }
   
-  var items_per_page = 1;
+  var items_per_page = 2;
   Test.find({id_category:req.params.id}).paginate(page, items_per_page, (err, test, total)=>{  
     console.log(test);
     if(!test){ 
