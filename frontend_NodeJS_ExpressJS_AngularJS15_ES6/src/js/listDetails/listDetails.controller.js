@@ -1,10 +1,16 @@
 class ListDetailsCtrl {
-  constructor(AppConstants, $scope, tests) {
+  constructor(AppConstants, $scope, tests, $state) {
     "ngInject";
-    console.log("llega aquiiiii",tests)
+   // console.log("llega aquiiiii",tests.test)
     this.appName = AppConstants.appName;
     this._$scope = $scope;
-    this.u = tests[0];
+    this.u = tests.test;
+
+    $scope.openTest = function(id_) {
+      console.log("id_test: "+id_);
+      $state.go("app.listProd", { id: id_ });
+    };
+
   }
 }
 

@@ -61,3 +61,5 @@ angular.module('app').run(appRun);
 angular.bootstrap(document, ['app'], {
   strictDi: true
 });
+
+angular.module('app', ['ui.carousel']);

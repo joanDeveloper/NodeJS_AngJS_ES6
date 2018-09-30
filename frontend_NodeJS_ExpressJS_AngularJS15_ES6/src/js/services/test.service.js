@@ -36,22 +36,17 @@ export default class TestService {
         return deferred.promise;
     }
 
-    getTestDetails(slug) {
+    getTestDetails(id) {
+        console.log("getTestDetails:  ", id);
+
         let deferred = this._$q.defer();
-
-        if (!slug.replace(" ", "")) {
-            deferred.reject("Article slug is empty");
-            return deferred.promise;
-        }
-
         this._$http({
-            url: this._AppConstants.api + '/category/' + slug,
-            method: 'GET'
+          url: `${this._AppConstants.api}/test/detail/${id}`,
+          method: "GET"
         }).then(
-            (res) => deferred.resolve(res.data),
+            (res) => deferred.resolve(res.data), 
             (err) => deferred.reject(err)
         );
-
         return deferred.promise;
     }
 
