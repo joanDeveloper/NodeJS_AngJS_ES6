@@ -34,6 +34,33 @@ router.get('/', md_auth.ensureAuth, function (req, res, next) {
 
 });
 
+router.get('/panel-admin', md_auth.ensureAuth, function (req, res, next) {
+  console.log(req.user.type_user);
+  User.findOne({ '_id': req.user.sub }, (err, users) => {
+    if (err) {
+      return res.status(422).send({ message: 'Error petition user' });
+
+    }
+
+    //console.log(users);
+    if (users) {
+      if(users.type_user==1){
+        return res.json({ message: "eres admin" });
+
+      }else{
+        return res.status(422).send({ message: 'No eres administrador' });
+
+      }
+      
+    }else {
+      return res.status(422).send({ message: 'User invalid' });
+
+    }
+
+  });
+
+});
+
 //return details user
 router.get('/:id', function (req, res, next) {
   /*console.log("hola user");
@@ -65,7 +92,7 @@ router.post('/register', function (req, res, next) {
     user.email = param.email;
     user.password1 = param.password1;
     user.password2 = param.password2;
-    user.type_user = "";
+    user.type_user = 0;
     user.type_plan = "";
     user.date_init = "";
     user.date_expiration = "";

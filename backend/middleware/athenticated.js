@@ -11,9 +11,10 @@ exports.ensureAuth = function (req, res, next){
 	}
 
 	var token = req.headers.authorization.replace(/['"]+/g, '');//remove simple and double quotes
-	
+	console.log(token);
 	try{
 		var payload = jwt.decode(token, secret);
+		console.log(payload);
 		if (payload.exp <= moment().unix()) {
 			return res.status(401).send({message:'token expirated'});
 
@@ -26,6 +27,7 @@ exports.ensureAuth = function (req, res, next){
 
 	console.log(payload);
 	req.user = payload;
-    next();
+  	next();
     
 }
+

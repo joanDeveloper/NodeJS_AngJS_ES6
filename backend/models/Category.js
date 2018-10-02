@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 //var Schema = mongoose.Schema;
 
 var CategorySchema = new mongoose.Schema({
-  name: String,
+  name: {type: String, lowercase: true, unique: false, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
   test:[
     {
       _id:{
@@ -10,7 +10,7 @@ var CategorySchema = new mongoose.Schema({
         ref: 'Test'
       }
     }],
-  description:String
+  description:{type: String, lowercase: true, unique: false, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true}
   
 }, {timestamps: true});
 
