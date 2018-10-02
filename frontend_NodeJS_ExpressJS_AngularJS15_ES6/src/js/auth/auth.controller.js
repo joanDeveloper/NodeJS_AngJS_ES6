@@ -6,6 +6,8 @@ class AuthCtrl {
     this._$state = $state;
     this.title = $state.current.title;
     this.authType = $state.current.name.replace("app.", "");
+    
+    console.log("ssssssssssss",this.authType);
     this.colError = {
       border: { border: "solid 1px #DC3545 " },
       text: { color: "#DC3545" }

@@ -15,9 +15,14 @@ export default class User {
 
   socialAuth(type) {
     let route = type === "googleplus" ? "/auth/googleplus" : "/auth/github";
-     console.log(route)
+    console.log(this._AppConstants.api + "/users" + route);
+    
     return this._$http({
-      url: this._AppConstants.api + "/users" + route,
+      //url: this._AppConstants.api + "/users" + route,
+
+      url: 'https://localhost:3000/api'+ "/users" + route,
+      
+
       method: "GET",
     });
   }
@@ -100,8 +105,9 @@ export default class User {
 
   ensureAuthIs(bool) {
     let deferred = this._$q.defer();
-
+    console.log("us ensureAuthIs l108", bool);
     this.verifyAuth().then((authValid) => {
+      console.log("us ensureAuthIs l108", authValid);
       if (authValid !== bool) {
         this._$state.go('app.home')
         deferred.resolve(false);

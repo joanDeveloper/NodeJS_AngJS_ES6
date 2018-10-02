@@ -69,8 +69,14 @@
         <hr>
         <h1 class="text-xs-center"> Social Login</h1>
         <div ng-show="$ctrl.authType === 'login'"> 
-          <button class="btn btn-lg col-md-12" style="color:white; background-color: #E03E44; margin-top: 30px; font-weight: 700;" type="button" ng-click="$ctrl.logSocial('googleplus')">Google </button>
-          <button class="btn btn-lg col-md-12" style="color:white; background-color: #5E5E5E; margin-top: 30px; font-weight: 700;"type="button" ng-click="$ctrl.logSocial('github')">Git hub</button>
+          <a href="http://localhost:3000/api/users/auth/googleplus">
+          <button class="btn btn-lg col-md-12" style="color:white; background-color: #E03E44; margin-top: 30px; font-weight: 700;"
+            type="button">Google </button>
+          </a>
+          <a href="http://localhost:3000/api/users/auth/github">
+            <button class="btn btn-lg col-md-12" style="color:white; background-color: #5E5E5E; margin-top: 30px; font-weight: 700;"
+              type="button">Git hub</button>
+          </a>
       </div>
 
     </div>

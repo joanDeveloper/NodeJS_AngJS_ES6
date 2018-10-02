@@ -3,7 +3,7 @@ import authInterceptor from './auth.interceptor'
 function AppConfig($httpProvider, $stateProvider, $locationProvider, $urlRouterProvider, toastrConfig) {
   'ngInject';
 
-  $httpProvider.interceptors.push(authInterceptor);
+  /* $httpProvider.interceptors.push(authInterceptor); */
 
   /*
     If you don't want hashbang routing, uncomment this line.

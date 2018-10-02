@@ -8,6 +8,23 @@ class AppHeaderCtrl {
     $scope.$watch('User.current', (newUser) => {
       this.currentUser = newUser;
     })
+
+
+
+    var vm = this;
+
+
+    this.logout = User.logout.bind(User);
+
+    if (this.currentUser) {
+      $scope.avatarUrl = function () {
+        if (vm.currentUser.image == "" || vm.currentUser.image == null) {
+          return 'http://robohash.org/' + vm.currentUser.username + '?set=set2&bgset=bg2&size=70x70';
+        } else {
+          return vm.currentUser.image;
+        }
+      };
+    }
   }
 }
 
