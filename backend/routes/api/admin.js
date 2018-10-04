@@ -3,7 +3,7 @@ var router = require('express').Router();
 var User = mongoose.model('User');
 var md_auth = require('../../middleware/athenticated');
 
-router.get('/count-user', md_auth.ensureAuth, function (req, res, next) {
+router.get('/control-user', md_auth.ensureAuth, function (req, res, next) {
     console.log(req.user.type_user);
     User.findOne({ '_id': req.user.sub }, (err, users) => {
         if (err) {
@@ -21,15 +21,15 @@ router.get('/count-user', md_auth.ensureAuth, function (req, res, next) {
                     }
 
                     //return res.json({ users: users_count });
-                    info_user().then((value)=> {//promise
-                        return res.status(200).send({users_count, value});
+                    info_user().then((users)=> {//promise
+                        return res.json({users_count, users});
 
                     });
                 
                 });
             
             }else{
-                return res.status(422).send({ message: 'No eres administrador' });
+                return res.status(422).send({ message: 'Admin invalid' });
 
             }
         
@@ -41,7 +41,7 @@ router.get('/count-user', md_auth.ensureAuth, function (req, res, next) {
     });
 
 });
-
+/* promise */
 async function info_user(){
 	try {
         var user = await User.find().exec().then((user) => {

@@ -2,6 +2,7 @@ var router = require('express').Router();
 
 router.use('/users', require('./users'));
 router.use('/admin', require('./admin'));
+router.use('/profile', require('./profile'));
 router.use('/contact', require('./contact'));
 router.use('/category', require('./category'));
 router.use('/test', require('./tests'));
