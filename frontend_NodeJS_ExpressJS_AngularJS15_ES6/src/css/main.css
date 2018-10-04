@@ -27,6 +27,11 @@
   --oran: #ef7752;
   --yell2: #F5D64A;
   --pink: #FF57CF;
+  --rojo: #e62c3d;
+  --amarillo: #f9c468;
+  --naranja: #ef7752;
+  --textGeneral: #888888;
+  --blueGeneral: #363949;
   /*
   * Sizes
   * ======================================================================== */
@@ -36,6 +41,7 @@
   --fontSizeSubtitle: 2.5rem;
   --fontSizeText: 1.5rem;
   --slimLetters: 100;
+  --boldLetters:700;
 }
 
 body {
@@ -52,9 +58,122 @@ section {
   margin-top: 80px;
 }
 
-.pointer{
+/*************************************/
+
+#footer {
+  background-color: var(--blueGeneral);
+}
+
+.root {
+  background: #fff;
+  padding: 2rem;
+}
+
+.gloriaGrid {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-areas: "elem1" "elem2" "elem3";
+  color: var(--textGeneral);
+}
+
+.elemsTitle>p {
+  color: var(--white);
+  font-weight: var(--boldLetters);
+}
+
+.elem1 {
+  grid-area: elem1;
+  padding: 20px;
+}
+
+.elem2 {
+  grid-area: elem2;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.elem3 {
+  grid-area: elem3;
+  padding: 20px;
+  text-align: right;
+}
+
+.gloriaItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.gloriaTitle {
+  color: #555;
+  font-size: 1.6rem;
+  padding-left: 2rem;
+}
+
+.hiddenSm {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .gloriaGrid {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "elem1 elem3" "elem2 elem2";
+  }
+}
+
+@media (min-width: 992px) {
+  .gloriaGrid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "elem1 elem2 elem3";
+  }
+}
+
+.btnColor {
+  /* background-color: var(--blueGeneral);
+  color:var(--white);
+  height: 40px;
+  width: 150px; */
+  background-color: var(--blueGeneral);
+  /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: var(--fontSizeText);
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s;
+  /* Safari */
+  transition-duration: 0.4s;
   cursor: pointer;
 }
+
+.btnColor:hover {
+  background-color: var(--white);
+  ;
+  color: var(--blueGeneral);
+  border: 1px solid var(--blueGeneral);
+}
+
+#inpEmail {
+  height: 30px;
+  ;
+  width: 200px
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 /*
 HOMEPAGE
 */

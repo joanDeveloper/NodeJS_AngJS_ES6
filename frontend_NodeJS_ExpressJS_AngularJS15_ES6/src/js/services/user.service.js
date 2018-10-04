@@ -28,14 +28,14 @@ export default class User {
   }
 
   attemptAuth(type, credentials) {
-    let route = type === "login" ? "/login" : "/register";
-    console.log("credentials");
+    let route = "/"+type ;
+    console.log("credentials", credentials, type );
     return this._$http({
       url: this._AppConstants.api + "/users" + route,
       method: "POST",
       data: credentials      
     }).then(res => {
-      console.log(res);
+      console.log("res us",res);
       if (type === "login") {
         console.log("us l35",res)
         this._JWT.save(res.data.token);

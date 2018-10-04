@@ -10,6 +10,7 @@ function AuthConfig($stateProvider, $httpProvider) {
     title: 'Sign in',
     resolve: {
       auth: function(User) {
+        console.log("444")
         return User.ensureAuthIs(false);
       }
     }
@@ -22,6 +23,19 @@ function AuthConfig($stateProvider, $httpProvider) {
     title: 'Sign up',
     resolve: {
       auth: function(User) {
+        alert("popopoop")
+        return User.ensureAuthIs(false);
+      }
+    }
+  })
+
+  .state('app.sociallogin', {
+    url: '/sociallogin',
+    controller: 'SocialCtrl as $ctrl',
+    title: 'social login',
+    resolve: {
+      auth: function (User) {
+        console.log("esta en ",User);
         return User.ensureAuthIs(false);
       }
     }

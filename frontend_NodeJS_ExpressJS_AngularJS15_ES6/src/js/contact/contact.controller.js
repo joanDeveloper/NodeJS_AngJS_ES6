@@ -21,7 +21,7 @@ class ContactCtrl {
             console.log("Entra en la funcion");
             var data = {
                 name: $scope.vm.inputName,
-                from: 'prueba@gmail.com',
+                from: 'gmc.yanez@gmail.com',
                 to: $scope.vm.inputEmail,
                 subject: $scope.vm.inputSubject,
                 text: $scope.vm.inputMessage,
