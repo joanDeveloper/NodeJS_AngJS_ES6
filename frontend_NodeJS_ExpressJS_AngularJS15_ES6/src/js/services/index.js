@@ -20,7 +20,8 @@ servicesModule.service('JWT', JwtService);
 import UserService from './user.service';
 servicesModule.service('User', UserService);
 
-
+import AdminService from "./admin.service";
+servicesModule.service("Admin", AdminService);
 
 
 

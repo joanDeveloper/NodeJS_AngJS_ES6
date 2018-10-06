@@ -12,6 +12,7 @@
     "angular": "^1.5.0-rc.2",
     "angular-animate": "^1.7.4",
     "angular-aria": "^1.7.4",
+    "angular-base64": "^2.0.5",
     "angular-material": "^1.1.10",
     "angular-toastr": "^2.1.1",
     "angular-ui-bootstrap": "^2.5.6",

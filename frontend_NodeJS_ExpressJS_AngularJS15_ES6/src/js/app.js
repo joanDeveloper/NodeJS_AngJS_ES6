@@ -22,6 +22,7 @@ import './config/app.templates';
 import './layout';
 import './components';
 import './home';
+import "./admin";
 import "./listDetails";
 import './services';
 import './contact';
@@ -41,6 +42,7 @@ const requires = [
   "app.layout",
   "app.components",
   "app.home",
+  "app.admin",
   "app.listDetails",
   "app.services",
   "app.auth",

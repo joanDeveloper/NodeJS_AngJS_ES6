@@ -18,4 +18,11 @@ export default class JWT {
     this._$window.localStorage.removeItem(this._AppConstants.jwtKey);
   }
 
+
+  decodeToken () {
+    let token = this.get();
+    console.log(token);
+    let res = token.split(".");
+    return JSON.parse(atob(res[1]));
+  };
 }

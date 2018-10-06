@@ -3,6 +3,18 @@ function AuthConfig($stateProvider, $httpProvider) {
 
   $stateProvider
 
+  .state('app.sociallogin', {
+    url: '/sociallogin',
+    controller: 'SocialCtrl as $ctrl',
+    title: 'social login',
+    resolve: {
+      auth: function (User) {
+        console.log("esta en ", User);
+        return User.ensureAuthIs(false);
+      }
+    }
+  })
+
   .state('app.login', {
     url: '/login',
     controller: 'AuthCtrl as $ctrl',
@@ -23,23 +35,13 @@ function AuthConfig($stateProvider, $httpProvider) {
     title: 'Sign up',
     resolve: {
       auth: function(User) {
-        alert("popopoop")
+        alert("poporegisterpoop");
         return User.ensureAuthIs(false);
       }
     }
   })
 
-  .state('app.sociallogin', {
-    url: '/sociallogin',
-    controller: 'SocialCtrl as $ctrl',
-    title: 'social login',
-    resolve: {
-      auth: function (User) {
-        console.log("esta en ",User);
-        return User.ensureAuthIs(false);
-      }
-    }
-  });
+  ;
 
 };
 

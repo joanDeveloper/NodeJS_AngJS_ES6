@@ -1,5 +1,5 @@
 class HomeCtrl {
-  constructor(NgMap, AppConstants, $scope, categories, $stateParams, $state, auth) {
+  constructor(NgMap, AppConstants, $scope, categories, $stateParams, $state, auth, JWT) {
     "ngInject";
     console.log("hom ctr l4",auth)  
     this.appName = AppConstants.appName;
@@ -9,6 +9,10 @@ class HomeCtrl {
     this.css = {
       "background-color": "red"
     };
+
+    
+   
+
     this.hero = {
       bg: {
         /* 
@@ -49,8 +53,19 @@ class HomeCtrl {
     });
 
     $scope.openCategory = function() {
-      $state.go("app.listDetails", { id: "5ba257bf2e7034041b5d35e1" });
+      console.log( JWT.decodeToken());
     };
+
+    /* function myFunction() {
+      let token = JWT.get();
+      console.log(token)
+      let res = token.split(".");
+      console.log(typeof res);
+      let datos = $base64.decode(res[1])
+      return datos;
+    }
+    console.log("token: ", myFunction()); */
+
     // if ("geolocation" in navigator) {
     //   // check if geolocation is supported/enabled on current browser
     //   navigator.geolocation.getCurrentPosition(

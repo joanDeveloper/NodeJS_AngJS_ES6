@@ -29,7 +29,7 @@ export default class User {
 
   attemptAuth(type, credentials) {
     let route = "/"+type ;
-    console.log("credentials", credentials, type );
+    console.log("credentials", credentials, this._AppConstants.api + "/users" + type);
     return this._$http({
       url: this._AppConstants.api + "/users" + route,
       method: "POST",

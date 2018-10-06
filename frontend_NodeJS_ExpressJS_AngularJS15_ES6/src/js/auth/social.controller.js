@@ -13,12 +13,14 @@ class SocialCtrl {
 
     this._User.attemptAuth(this.authType, null).then(
       (res) => {
+        console.log("res: ctr social", res)
         this._toaster.showToaster('success','Successfully Logged In');
         /* this._$state.go('app.home'); */
       },
       (err) => {
         this._toaster.showToaster('error','Error trying to login');
-        this.errors = err.data.errors;
+        console.log(err)
+        this.errors = err;
       }
     )
   }
