@@ -57,6 +57,7 @@ passport.use(new GoogleStrategy({
           var user = new User({
               idsocial: profile.id,
               user: profile.name.givenName,
+              name: profile.name.givenName,
               email: profile.emails[0].value,
               media: profile.photos[0].value,
           });
@@ -65,6 +66,8 @@ passport.use(new GoogleStrategy({
             if(err){
               console.log(err);
                 return done(null, user);
+            }else{
+              return done(null, user);
             }
           });
       }
@@ -103,8 +106,12 @@ passport.use(new TwitterStrategy({
                 });
               console.log(user);
               user.save(function(err) {
-              		if(err) throw err;
-              			done(null, user);
+                if(err){
+                  console.log(err);
+                    return done(null, user);
+                }else{
+                  return done(null, user);
+                }
               });
             }
         });
@@ -117,12 +124,40 @@ passport.use(new GitHubStrategy({
   callbackURL: socialKeys.GITHUB_CALLBACK
 },
   function(accessToken, refreshToken, profile, done) {
-    /*User.findOrCreate({ githubId: profile.id }, function (err, user) {
-      return done(err, user);
-    });*/
+    console.log("github");
     console.log(profile);
     console.log(profile.id);
     console.log(profile._json.avatar_url);
+    /*User.findOrCreate({ 'idsocial': profile.id }, function (err, user) {
+      if (err){
+        console.log('err');
+        return done(err);
+      }if (user) {
+        console.log('USUARIO EXISTE');
+        return done(null, user);
+      } else {
+        console.log('USUARIO NO EXISTE');
+          var user = new User({
+              idsocial: profile.id,
+              user: profile._json.login,
+              name: profile._json.login,
+              email: profile.emails[0].value,
+              media: profile._json.avatar_url,
+          });
+          //console.log(user);
+          user.save(function(err,user) {
+            console.log(err);
+              if(err){
+                  console.log('USER:');
+                  console.log(user);
+                  return done(null, user);
+              }
+              if(user){
+                return done(null, user);
+              }
+          });
+      }
+    });*/
     User.findOne({ 'idsocial' : profile.id }, function(err, user) {
       console.log(user);
       if (err){
@@ -135,8 +170,9 @@ passport.use(new GitHubStrategy({
         console.log('USUARIO NO EXISTE');
           var user = new User({
               idsocial: profile.id,
-              username: profile.login,
-              //email: profile.emails[0].value,
+              user: profile._json.login,
+              name: profile._json.login,
+              email: profile.emails[0].value,
               media: profile._json.avatar_url,
           });
           //console.log(user);

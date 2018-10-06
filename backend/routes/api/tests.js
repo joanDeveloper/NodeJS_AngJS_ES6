@@ -62,7 +62,7 @@ router.get('/list/:id/:page?', function(req, res, next) {
 
   }
   
-  var items_per_page = 12;
+  var items_per_page = 50;
   Test.find({id_category:req.params.id}).paginate(page, items_per_page, (err, test, total)=>{  
     console.log(test);
     if(!test){ 

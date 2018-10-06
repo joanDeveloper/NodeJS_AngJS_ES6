@@ -34,32 +34,7 @@ router.get('/', md_auth.ensureAuth, function (req, res, next) {
 
 });
 
-router.get('/panel-admin', md_auth.ensureAuth, function (req, res, next) {
-  console.log(req.user.type_user);
-  User.findOne({ '_id': req.user.sub }, (err, users) => {
-    if (err) {
-      return res.status(422).send({ message: 'Error petition user' });
 
-    }
-
-    //console.log(users);
-    if (users) {
-      if(users.type_user==1){
-        return res.json({ message: "eres admin" });
-
-      }else{
-        return res.status(422).send({ message: 'No eres administrador' });
-
-      }
-      
-    }else {
-      return res.status(422).send({ message: 'User invalid' });
-
-    }
-
-  });
-
-});
 
 //return details user
 router.get('/:id', function (req, res, next) {
@@ -121,6 +96,7 @@ router.post('/register', function (req, res, next) {
     user.date_init = "";
     user.date_expiration = "";
     user.ubication = "";
+    user.media = 'http://robohash.org/'+ param.user +'?set=set2&bgset=bg2&size=256x256';
 
     //falta comparar el password 1 amb el 2
     User.find({ $or: [{ email: user.email.toLowerCase() }, { user: user.user.toLowerCase() }] })
