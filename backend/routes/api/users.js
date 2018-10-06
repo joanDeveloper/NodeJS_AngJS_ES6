@@ -34,6 +34,7 @@ router.get('/', md_auth.ensureAuth, function (req, res, next) {
 
 });
 
+<<<<<<< HEAD
 router.get('/panel-admin', md_auth.ensureAuth, function (req, res, next) {
   console.log(req.user.type_user);
   User.findOne({ '_id': req.user.sub }, (err, users) => {
@@ -60,6 +61,9 @@ router.get('/panel-admin', md_auth.ensureAuth, function (req, res, next) {
   });
 
 });
+=======
+
+>>>>>>> 225e03ec8f225fc13182bc312d0f4127a63c87c5
 
 //return details user
 router.get('/:id', function (req, res, next) {
@@ -97,6 +101,7 @@ router.post('/register', function (req, res, next) {
     user.date_init = "";
     user.date_expiration = "";
     user.ubication = "";
+    user.media = 'http://robohash.org/'+ param.user +'?set=set2&bgset=bg2&size=256x256';
 
     //falta comparar el password 1 amb el 2
     User.find({ $or: [{ email: user.email.toLowerCase() }, { user: user.user.toLowerCase() }] })

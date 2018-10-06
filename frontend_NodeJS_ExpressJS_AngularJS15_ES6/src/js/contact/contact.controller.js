@@ -4,6 +4,13 @@ class ContactCtrl {
 
         this.appName = AppConstants.appName;
         this._$scope = $scope;
+        this.hero = {
+            info: {
+              title: "Contact",
+              subtitle: ""
+              
+            }
+          };
 
         $scope.contact = {
             inputName: "",
