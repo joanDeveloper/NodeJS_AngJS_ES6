@@ -11,9 +11,9 @@ var uglify        = require('gulp-uglify');
 var merge         = require('merge-stream');
 
 // Where our files are located
-var jsFiles   = "src/js/**/*.js";
-var viewFiles = "src/js/**/*.html";
-var cssFiles = "src/css/**/*.css";
+var jsFiles   = "../frontend/src/js/**/*.js";
+var viewFiles = "../frontend/src/js/**/*.html";
+var cssFiles = "../frontend/src/css/**/*.css";
 
 var interceptErrors = function(error) {
   var args = Array.prototype.slice.call(arguments);
@@ -30,8 +30,9 @@ var interceptErrors = function(error) {
 
 
 gulp.task('browserify', ['views'], function() {
-  return browserify('./src/js/app.js')
-      .transform(babelify, {presets: ["es2015"]})
+  return browserify('../frontend/src/js/app.js')
+      .transform(babelify, {presets: ["@babel/preset-env",
+      "@babel/preset-react"]})
       .transform(ngAnnotate)
       .bundle()
       .on('error', interceptErrors)
@@ -42,13 +43,13 @@ gulp.task('browserify', ['views'], function() {
 });
 
 gulp.task('html', function() {
-  return gulp.src("src/index.html")
+  return gulp.src("../frontend/src/index.html")
       .on('error', interceptErrors)
       .pipe(gulp.dest('./build/'));
 });
 /*-----------------------------*/
   gulp.task('css', function () {
-    return gulp.src("src/css/*.css")
+    return gulp.src("../frontend/src/css/*.css")
       .on('error', interceptErrors)
       .pipe(gulp.dest('./build/css'));
   });
@@ -60,13 +61,13 @@ gulp.task('html', function() {
   });
 
   gulp.task('img', function () {
-    return gulp.src("src/images/*.*")
+    return gulp.src("../frontend/src/images/*.*")
       .on('error', interceptErrors)
       .pipe(gulp.dest('./build/images'));
   });
 
   gulp.task('fonts', function () {
-    return gulp.src("src/fonts/*.*")
+    return gulp.src("../frontend/src/fonts/*.*")
       .on('error', interceptErrors)
       .pipe(gulp.dest('./build/fonts'));
   });
@@ -78,7 +79,7 @@ gulp.task('views', function() {
       }))
       .on('error', interceptErrors)
       .pipe(rename("app.templates.js"))
-      .pipe(gulp.dest('./src/js/config/'));
+      .pipe(gulp.dest('../frontend/src/js/config/'));
 });
 
 // This task is used for building production ready
@@ -106,7 +107,7 @@ gulp.task('default', ['html', 'css', 'fonts', 'js', 'img', 'browserify'], functi
     }
   });
 
-  gulp.watch("src/index.html", ['html']);
+  gulp.watch("../frontend/src/index.html", ['html']);
   gulp.watch(viewFiles, ['views']);
   gulp.watch(cssFiles, ['css']);
   gulp.watch(jsFiles, ['browserify']);
