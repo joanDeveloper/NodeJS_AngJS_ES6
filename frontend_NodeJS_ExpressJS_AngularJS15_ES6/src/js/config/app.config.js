@@ -16,9 +16,17 @@ function AppConfig($httpProvider, $stateProvider, $locationProvider, $urlRouterP
     abstract: true,
     templateUrl: 'layout/app-view.html',
     resolve: {
-      auth: function(User) {
-        /* console.log("appconfig 20",User.verifyAuth()); */
+      auth: function (User, JWT, $rootScope) {
+        /* console.log("tokennnnn", JWT.decodeToken()); */
+        console.log("appconfig 20",User.verifyAuth()); 
+        JWT.decodeToken().then(function(data){
+          $rootScope.user=data;
+          console.log("$rootScope", $rootScope.user);
+        })
+        
+        
         return User.verifyAuth();
+        /* console.log($rootScope.user);*/
       }
     }
   });

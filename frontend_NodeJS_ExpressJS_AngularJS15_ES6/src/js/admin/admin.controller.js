@@ -1,11 +1,11 @@
 class AdminCtrl {
-  constructor(NgMap, AppConstants, $scope, categories, $stateParams, $state, auth, JWT) {
+  constructor(NgMap, AppConstants, $scope,  $stateParams, $state, auth, JWT) {
     "ngInject";
     
-    var vm = this;
+    /* var vm = this;
     NgMap.getMap().then(function (map) {
       vm.map = map;
-    });
+    }); */
   
   }
 }

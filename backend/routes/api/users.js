@@ -34,36 +34,7 @@ router.get('/', md_auth.ensureAuth, function (req, res, next) {
 
 });
 
-<<<<<<< HEAD
-router.get('/panel-admin', md_auth.ensureAuth, function (req, res, next) {
-  console.log(req.user.type_user);
-  User.findOne({ '_id': req.user.sub }, (err, users) => {
-    if (err) {
-      return res.status(422).send({ message: 'Error petition user' });
 
-    }
-
-    //console.log(users);
-    if (users) {
-      if (users.type_user == 1) {
-        return res.json({ message: "eres admin" });
-
-      } else {
-        return res.status(422).send({ message: 'No eres administrador' });
-
-      }
-
-    } else {
-      return res.status(422).send({ message: 'User invalid' });
-
-    }
-
-  });
-
-});
-=======
-
->>>>>>> 225e03ec8f225fc13182bc312d0f4127a63c87c5
 
 //return details user
 router.get('/:id', function (req, res, next) {
@@ -78,6 +49,30 @@ router.get('/:id', function (req, res, next) {
 
   }).catch(next);
 
+});
+
+router.post('/users/sociallogin', function (req, res, next) {
+  let memorystore = req.sessionStore;
+  let sessions = memorystore.sessions;
+  let sessionUser;
+  for (var key in sessions) {
+    sessionUser = (JSON.parse(sessions[key]).passport.user);
+  }
+
+  User.findOne({ '_id': sessionUser }, function (err, user) {
+    console.log(err);
+    console.log(user);
+    if (err)
+      return done(err);
+    // if the user is found then log them in
+    if (user) {
+      console.log(user);
+      user.token = user.generateJWT();
+      return res.json({ user: user.toAuthJSON() });// user found, return that user
+    } else {
+      return res.status(422).json(err);
+    }
+  });
 });
 
 //Sign up manual
@@ -101,7 +96,7 @@ router.post('/register', function (req, res, next) {
     user.date_init = "";
     user.date_expiration = "";
     user.ubication = "";
-    user.media = 'http://robohash.org/'+ param.user +'?set=set2&bgset=bg2&size=256x256';
+    user.media = 'http://robohash.org/' + param.user + '?set=set2&bgset=bg2&size=256x256';
 
     //falta comparar el password 1 amb el 2
     User.find({ $or: [{ email: user.email.toLowerCase() }, { user: user.user.toLowerCase() }] })
@@ -122,7 +117,7 @@ router.post('/register', function (req, res, next) {
               if (err) return res.status(422).send({ message: 'Error to save user' });
               //console.log(userStored);
               if (userStored) {
-                res.status(422).send({ user: userStored });
+                res.json({ user: userStored });
 
               } else {
                 res.status(422).send({ message: "Don't register user" });
@@ -150,6 +145,7 @@ router.post('/login', function (req, res, next) {
   var email = values.email;
   var password = values.password1;
 
+  //console.log("pass: "+password);
   if (!email) {
     return res.status(422).json({ errors: { email: "Please, write your email" } });
 
@@ -167,7 +163,9 @@ router.post('/login', function (req, res, next) {
     }
 
     if (users) {
+      //console.log("passUs: "+users.password);
       bcrypt.compare(password, users.password, (err, check) => {
+        //console.log(check);
         if (check) {
           //return res.status(200).send({message:'Password correct'});
           return res.status(200).send({
@@ -190,6 +188,33 @@ router.post('/login', function (req, res, next) {
 
 });
 
+router.post('/sociallogin', function (req, res, next) {
+  //console.log("entra en sociallogin backend");
+  let memorystore = req.sessionStore;
+  let sessions = memorystore.sessions;
+  let sessionUser;
+  for (var key in sessions) {
+    sessionUser = (JSON.parse(sessions[key]).passport.user);
+  }
+  //console.log(sessionUser);
+  User.findOne({ '_id': sessionUser }, function (err, user) {
+    //console.log(err);
+    //console.log(user);
+    if (err)
+      return done(err);
+    if (user) {
+      console.log(user);
+      return res.status(200).send({
+        token: jwt.create_token(user)
+
+      });
+
+    } else {
+      return res.status(422).json(err);
+    }
+  });
+});
+
 //sign-in social
 router.get('/auth/googleplus', passport.authenticate('google', {
   scope: [
@@ -199,7 +224,7 @@ router.get('/auth/googleplus', passport.authenticate('google', {
 );
 router.get('/auth/googleplus/callback',
   passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/api/category',
+    successRedirect: 'http://localhost:8081/#!/sociallogin',
     failureRedirect: '/'
   }));
 
@@ -213,7 +238,7 @@ router.get('/auth/twitter/callback',
 router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
 router.get('/auth/github/callback',
   passport.authenticate('github', {
-    successRedirect: 'http://localhost:3000/api/category',
+    successRedirect: 'http://localhost:8081/#!/sociallogin',
     failureRedirect: '/'
   }));
 

@@ -7,12 +7,7 @@ function AdminConfig($stateProvider) {
     controller: 'AdminCtrl',
     controllerAs: '$ctrl',
     templateUrl: 'admin/admin.html',
-    title: 'Admin',
-    resolve: {
-      datos: function (Admin) {
-        console.log("Ddd")
-      }
-    }
+    title: 'Admin'
   });
 
 };

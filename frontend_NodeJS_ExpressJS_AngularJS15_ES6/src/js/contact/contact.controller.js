@@ -1,5 +1,5 @@
 class ContactCtrl {
-    constructor(AppConstants, $scope, Contact, Toaster/*, $state , Toaster */) {
+    constructor(AppConstants, $scope, Contact, Toaster, $rootScope/*, $state , Toaster */) {
         'ngInject';
 
         this.appName = AppConstants.appName;
@@ -11,7 +11,7 @@ class ContactCtrl {
               
             }
           };
-
+        this.datosUser = $rootScope.user;
         $scope.contact = {
             inputName: "",
             inputEmail: "",

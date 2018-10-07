@@ -9,6 +9,7 @@ function SettingsConfig($stateProvider, JWT, $rootScope) {
     title: "Settings",
     resolve: {
       auth: function(User) {
+        console.log("tokennnnn", JWT.decodeToken());
         /* let datos=JWT.decodeToken();
         $rootScope.user={
           type:datos.type_user,

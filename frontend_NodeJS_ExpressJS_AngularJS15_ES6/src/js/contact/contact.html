@@ -1,7 +1,7 @@
 <My-Hero info="$ctrl.hero"></My-Hero>
 
 <section class="containerContact"> 
-    <h4>Escribe su consulta</h4>
+    <h4>Escribe su consulta {{$ctrl.datosUser.name}}</h4>
         
     <form id="contact_form" name="contact_form" class="form-contact" ng-submit="vm.SubmitContact()">
         <input class="inputs" required ng-model="vm.inputName" type="text" id="inputName" name="inputName" placeholder="Your name" class="" dir="auto" maxlength="100">    

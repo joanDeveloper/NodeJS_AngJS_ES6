@@ -102,6 +102,9 @@ export default class User {
     return deferred.promise;
   }
 
+  getCurrent(){
+    return this.current;
+  }
 
   ensureAuthIs(bool) {
     let deferred = this._$q.defer();
