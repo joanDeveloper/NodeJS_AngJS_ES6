@@ -1,6 +1,6 @@
 <section>
   <div class="divStandar gridCategoryContainer">
-    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test._id)"  id="{{test._id}}">
+    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">
         <div class="gridCategory">
             <div class="imgCategory">
                 <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">

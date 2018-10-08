@@ -1,7 +1,7 @@
 class ListDetailsCtrl {
   constructor(AppConstants, $scope, tests, $state) {
     "ngInject";
-   // console.log("llega aquiiiii",tests.test)
+    //console.log("llega aquiiiii",tests.test)
     this.appName = AppConstants.appName;
     this._$scope = $scope;
     this.u = tests.test;

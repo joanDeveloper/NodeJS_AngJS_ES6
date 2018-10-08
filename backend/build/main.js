@@ -94981,9 +94981,9 @@ var CardCtrl = function CardCtrl($state, $scope) {
   this._$state = $state;
 
   $scope.openCategory = function (info) {
-    /* console.log(info._id); */
+    console.log(info.slug);
     $state.go("app.listDetails", {
-      id: info._id
+      slug: info.slug
     });
   };
 };
@@ -95554,7 +95554,7 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('layout/app-view.html', '<app-header></app-header>\n    <div ui-view class="containerBody"></div>\n<app-footer></app-footer>\n');
   $templateCache.put('layout/footer.html', '<footer id="footer">\n  <div >\n    <div class="gloriaGrid">\n  \n      <div class="elem1">\n        <div class="elemsTitle">\n          <p>Cognitive Brain S.L.</p>\n        </div>\n        <div>\n          <div>Cognitive Brain</div>\n          <div>C/ islas canarias 6,</div>\n          <div>46870 Ontinyent, Valencia, Espa\xF1a.</div>\n          <div>cognitivebrain@info.com</div>\n          <div>+34 960 00 00 00</div>\n        </div>\n      </div>\n  \n      <div class="elem2">\n        <div>\n          <p>Apuntate a nuestra newsletter para estar siempre al d\xEDa.</p>\n        </div>\n        <div class="gloriaTitle">\n          <input id="inpEmail" type="email" placegolder="Tu email"></input>\n          <button type="button" class="btnColor">SUSCRIBETE</button>\n        </div>\n      </div>\n  \n      <div class="elem3">\n        <div class="elemsTitle">\n          <p>MISI\xD3N</p>\n        </div>\n        <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae velit aliquid expedita dolorem pariatur amet nemo dicta, repudiandae totam, inventore natus, quos sed repellat quo ipsa et nostrum magni delectus</div>\n      </div>\n  \n    </div>\n  </div>\n\n</footer>\n');
   $templateCache.put('layout/header.html', '\n<header class="header" >\n  <a ui-sref="app.home" class="logo">Empresa</a>\n  <input class="menu-btn" type="checkbox" id="menu-btn" />\n  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>\n  <ul class="menu">\n    \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.home">Home</a>\n    </li>\n   \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">Contact</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.login">Sing in</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a ng-click="$ctrl.logout()" >Log out</a>\n    </li>\n    \n    <li show-authed="true" class="nav-item">\n      <a style="padding: 0px;">\n        <img ng-src="{{$ctrl.user.media}}" style="height: 60px; padding:4px 30px 4px 30px;" alt="">\n      </a>\n    </li>\n    \n<!-- \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.listDetails">ListDetails</a>\n    </li> -->\n\n  </ul>\n</header>\n<!-- \n\n<nav class="navbar navbar-light">\n  <div class="container">\n\n    <a class="navbar-brand"\n      ui-sref="app.home"\n      ng-bind="::$ctrl.appName | lowercase">\n    </a>\n\n    \n    <ul show-authed="false"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.login">\n          Sign in\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.register">\n          Sign up\n        </a>\n      </li>\n\n    </ul>\n\n    \n    <ul show-authed="true"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.editor">\n          <i class="ion-compose"></i>&nbsp;New Article\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.settings">\n          <i class="ion-gear-a"></i>&nbsp;Settings\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">\n          Contact\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.listProd">\n          Lista productos\n        </a>\n      </li>\n\n     \n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.profile.main({ username: $ctrl.currentUser.username})">\n          <img ng-src="{{$ctrl.currentUser.image}}" class="user-pic" />\n          {{ $ctrl.currentUser.username }}\n        </a>\n      </li>\n\n    </ul>\n\n\n  </div>\n</nav>\n -->');
-  $templateCache.put('listDetails/listDetails.html', '<section>\n  <div class="divStandar gridCategoryContainer">\n    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test._id)"  id="{{test._id}}">\n        <div class="gridCategory">\n            <div class="imgCategory">\n                <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n            </div>\n            <div class="textCategory">\n                <p>{{test.name}}</p>\n            </div>\n        </div>\n    </a>\n  </div>\n</section>');
+  $templateCache.put('listDetails/listDetails.html', '<section>\n  <div class="divStandar gridCategoryContainer">\n    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">\n        <div class="gridCategory">\n            <div class="imgCategory">\n                <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n            </div>\n            <div class="textCategory">\n                <p>{{test.name}}</p>\n            </div>\n        </div>\n    </a>\n  </div>\n</section>');
   $templateCache.put('listProd/listProd.html', '<section>\n    <div class="divStandar gridCategoryContainer">\n      <a class="pointer" ng-repeat="test in $ctrl.detailTest" >\n          <div class="gridCategory">\n                <div class="imgCategory">\n                    <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n                </div>\n                <p>{{test.description}}</p>\n              \n          </div>\n      </a>\n    </div>\n  </section>');
   $templateCache.put('settings/settings.html', '<div class="settings-page">\n  <div class="container page">\n    <div class="row">\n      <div class="col-md-6 offset-md-3 col-xs-12">\n\n        <h1 class="text-xs-center">Your Settings</h1>\n\n        <list-errors errors="$ctrl.errors"></list-errors>\n\n        <form ng-submit="$ctrl.submitForm()">\n          <fieldset ng-disabled="$ctrl.isSubmitting">\n\n            <fieldset class="form-group">\n              <input class="form-control"\n                type="text"\n                placeholder="URL of profile picture"\n                ng-model="$ctrl.formData.image" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                type="text"\n                placeholder="Username"\n                ng-model="$ctrl.formData.username" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <textarea class="form-control form-control-lg"\n                rows="8"\n                placeholder="Short bio about you"\n                ng-model="$ctrl.formData.bio">\n              </textarea>\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                type="email"\n                placeholder="Email"\n                ng-model="$ctrl.formData.email" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                type="password"\n                placeholder="New Password"\n                ng-model="$ctrl.formData.password" />\n            </fieldset>\n\n            <button class="btn btn-lg btn-primary pull-xs-right"\n              type="submit">\n              Update Settings\n            </button>\n\n          </fieldset>\n        </form>\n\n        <!-- Line break for logout button -->\n        <hr />\n\n        <button class="btn btn-outline-danger"\n          ng-click="$ctrl.logout()">\n          Or click here to logout.\n        </button>\n\n      </div>\n    </div>\n  </div>\n</div>\n');
   $templateCache.put('testDetails/testDetails.html', '<section>\n  dentro de tests details\n</section>');
@@ -96046,23 +96046,23 @@ function ListDetailsConfig($stateProvider) {
   "ngInject";
 
   $stateProvider.state("app.listDetails", {
-    url: "/listDetails/:id",
+    url: "/listDetails/:slug",
     controller: "ListDetailsCtrl",
     controllerAs: "$ctrl",
     templateUrl: "listDetails/listDetails.html",
     title: "ListDetails",
     resolve: {
       tests: ["$state", "$stateParams", "TestService", function tests($state, $stateParams, TestService) {
-        console.log($stateParams.id);
+        console.log($stateParams.slug);
         /* debugger */
 
-        return TestService.getTestsOfOneCategory($stateParams.id).then(function (tests) {
+        return TestService.getTestsOfOneCategory($stateParams.slug).then(function (tests) {
           return tests;
         }, function (err) {
           return $state.go("app.home");
         });
         return {
-          hola: $stateParams.id,
+          hola: $stateParams.slug,
           h: "2"
         };
       }]
@@ -96085,7 +96085,7 @@ exports.default = void 0;
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var ListDetailsCtrl = function ListDetailsCtrl(AppConstants, $scope, tests, $state) {
-  "ngInject"; // console.log("llega aquiiiii",tests.test)
+  "ngInject"; //console.log("llega aquiiiii",tests.test)
 
   _classCallCheck(this, ListDetailsCtrl);
 
@@ -96552,13 +96552,13 @@ function () {
     }
   }, {
     key: "getTestsOfOneCategory",
-    value: function getTestsOfOneCategory(id) {
-      console.log("getTestsOfOneCategory:  ", id);
+    value: function getTestsOfOneCategory(slug) {
+      console.log("getTestsOfOneCategory:  ", slug);
 
       var deferred = this._$q.defer();
 
       this._$http({
-        url: "".concat(this._AppConstants.api, "/test/list/").concat(id),
+        url: "".concat(this._AppConstants.api, "/test/list/").concat(slug),
         method: "GET"
       }).then(function (res) {
         return deferred.resolve(res.data);
@@ -96570,13 +96570,13 @@ function () {
     }
   }, {
     key: "getTestDetails",
-    value: function getTestDetails(id) {
-      console.log("getTestDetails:  ", id);
+    value: function getTestDetails(slug) {
+      console.log("getTestDetails:  ", slug);
 
       var deferred = this._$q.defer();
 
       this._$http({
-        url: "".concat(this._AppConstants.api, "/test/detail/").concat(id),
+        url: "".concat(this._AppConstants.api, "/test/detail/").concat(slug),
         method: "GET"
       }).then(function (res) {
         return deferred.resolve(res.data);
