@@ -4,8 +4,8 @@ class CardCtrl {
     this._$state = $state;
     
     $scope.openCategory = function(info) {
-      /* console.log(info._id); */
-      $state.go("app.listDetails", { id: info._id });
+      console.log(info.slug); 
+      $state.go("app.listDetails", { slug: info.slug });
     };
   }
   

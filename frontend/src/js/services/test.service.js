@@ -22,12 +22,12 @@ export default class TestService {
         return deferred.promise;
     }
 
-    getTestsOfOneCategory(id) {
-        console.log("getTestsOfOneCategory:  ", id);
+    getTestsOfOneCategory(slug) {
+        console.log("getTestsOfOneCategory:  ", slug);
 
         let deferred = this._$q.defer();
         this._$http({
-          url: `${this._AppConstants.api}/test/list/${id}`,
+          url: `${this._AppConstants.api}/test/list/${slug}`,
           method: "GET"
         }).then(
             (res) => deferred.resolve(res.data), 
@@ -36,12 +36,12 @@ export default class TestService {
         return deferred.promise;
     }
 
-    getTestDetails(id) {
-        console.log("getTestDetails:  ", id);
+    getTestDetails(slug) {
+        console.log("getTestDetails:  ", slug);
 
         let deferred = this._$q.defer();
         this._$http({
-          url: `${this._AppConstants.api}/test/detail/${id}`,
+          url: `${this._AppConstants.api}/test/detail/${slug}`,
           method: "GET"
         }).then(
             (res) => deferred.resolve(res.data), 

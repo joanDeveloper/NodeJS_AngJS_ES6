@@ -3,6 +3,18 @@ var mongoose = require('mongoose');
 var Test = mongoose.model('Test');
 var mongoose_pag = require('mongoose-pagination');
 
+/*router.param('test', function(req, res, next, slug) {
+  console.log("slug: "+slug);
+  Test.findOne({ slug: slug})
+    .then(function (test) {
+      if (!test) { return res.sendStatus(422); }
+
+      req.test = test;
+
+      return next();
+    }).catch(next);
+});*/
+
 // return a list of all test
 router.get('/', function(req, res, next) {
     //console.log(res);
@@ -38,10 +50,10 @@ router.get('/pagination/:page?', function(req, res, next) {
 });
 
 //return details test
-router.get('/detail/:id', function(req, res, next) {
+router.get('/detail/:slug', function(req, res, next) {
   console.log("ea");
   console.log(req.params);
-    Test.find({'_id':req.params.id}).then(function(test){
+    Test.find({'slug_test':req.params.slug}).then(function(test){
       console.log(test);
       if(!test){ 
         return res.sendStatus(422); 
@@ -54,7 +66,7 @@ router.get('/detail/:id', function(req, res, next) {
 
 //return list test by category with pagination
 //faltaría meterle más test para poder paginarlos almenos de 2 en 2 o 3 en 3
-router.get('/list/:id/:page?', function(req, res, next) {
+router.get('/list/:slug/:page?', function(req, res, next) {
   var page = 1;
   console.log(req.params.page);
   if (req.params.page) {
@@ -63,7 +75,8 @@ router.get('/list/:id/:page?', function(req, res, next) {
   }
   
   var items_per_page = 50;
-  Test.find({id_category:req.params.id}).paginate(page, items_per_page, (err, test, total)=>{  
+  //console.log("slug list: "+ req.params.slug);
+  Test.find({slug_cat:req.params.slug}).paginate(page, items_per_page, (err, test, total)=>{  
     console.log(test);
     if(!test){ 
       return res.sendStatus(401);
