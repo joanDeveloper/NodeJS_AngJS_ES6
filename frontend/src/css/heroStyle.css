@@ -1,0 +1,29 @@
+.heroDiv {
+    width: 100%;
+    height: 350px;
+    /* background-color: var(--rojo); */
+    background: linear-gradient(to left, var(--red), var(--yell));
+    /* background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+    background-image: linear-gradient(to right, #f9d423 0%, #ff4e50 100%); */
+    position: relative;
+}
+
+.heroContainer {
+    max-width: 5000px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.heroTitle {
+    font-size: var(--fontSizeTitle);
+    color: var(--white);
+}
+
+.heroSubtitle {
+    font-size: var(--fontSizeSubtitle);
+    color: var(--white);
+}

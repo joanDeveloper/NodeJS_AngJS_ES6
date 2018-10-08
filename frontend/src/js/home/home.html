@@ -1,0 +1,37 @@
+ <div class="home-page">
+   
+   <My-Hero info="$ctrl.hero"></My-Hero>
+   
+   <button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button>
+   
+
+<section>
+   <div class="divStandar gridCategoryContainer">
+     <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>
+   </div>
+</section>
+
+
+  <Follow-Btn css="$ctrl.css" user="$ctrl.a" u="poco"></Follow-Btn>
+  
+  
+  
+  <div class="divmio">divmio
+    <md-button class="md-fab" aria-label="Eat cake" ng>
+      material diseny
+    </md-button>
+  </div>
+
+
+
+
+  
+  
+<!-- <uib-accordion close-others="oneAtATime">
+    <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen"
+      is-disabled="status.isFirstDisabled">
+      This content is straight in the template.
+    </div>
+  </uib-accordion> -->
+
+</div>
