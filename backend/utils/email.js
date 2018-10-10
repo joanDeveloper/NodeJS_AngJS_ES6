@@ -6,6 +6,7 @@ exports.sendEmail = function(req, res) {
   var emailTo = '';
   var emailFrom = '';
   var body = '';
+  var token = req.token;
 
   switch (req.body.type) {
     case 'user':
@@ -36,7 +37,17 @@ exports.sendEmail = function(req, res) {
         '</div>' +
         ' </body>';
       break;
-    case 'modify':
+    case 'change-passwd':
+    console.log("change"+token);
+      emailTo = req.body.to;
+      emailFrom = req.body.from;
+      console.log("to: "+emailTo + "from: " + emailFrom);
+      body = '<body>' +
+        '<div id="change-passwd">' +
+        '<div> <h1>Change Password</h1> </div>' +
+        '<section><a href="http://localhost:3000/api/profile/verify-token/'+ token +'">aqu&iacute;</a></section>' +
+        '</div>' +
+        ' </body>';
       break;
     case 'signup':
       break;
@@ -96,12 +107,14 @@ exports.sendEmail = function(req, res) {
   var email = {
     from: emailFrom,
     to: emailTo,
-    subject: req.body.subject,
-    text: req.body.text,
+  //  subject: req.body.subject,
+  subject:"test",
+    /*text: req.body.text,*/
     html: template
   };
 
   sgMail.send(email, function(error, info) {
+    console.log("error: "+error + "info: " + info);
     if (error) {
       res.status('401').json({
         err: info

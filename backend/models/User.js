@@ -13,8 +13,8 @@ var UserSchema = new mongoose.Schema({
   date_init:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
   date_expiration:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
   ubication:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
-  media:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true}
-
+  media:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
+  token:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true}
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
