@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 
 var CategorySchema = new mongoose.Schema({
   name: {type: String, lowercase: true, unique: false, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
+  slug:{type: String, lowercase: true, unique: false, required: [true, "can't be blank"], match: [/^[a-zA-Z0-9]+$/, 'is invalid'], index: true},
   test:[
     {
       _id:{

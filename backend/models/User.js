@@ -12,7 +12,8 @@ var UserSchema = new mongoose.Schema({
   type_plan:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], match: [/^[a-zA-Z]+$/, 'is invalid'], index: true},
   date_init:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
   date_expiration:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
-  ubication:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
+  lat:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
+  long:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
   media:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true},
   token:{type: String, lowercase: true, unique: false, required: [false, "can't be blank"], index: true}
 }, {timestamps: true});

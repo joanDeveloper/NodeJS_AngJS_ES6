@@ -212,6 +212,51 @@ router.post('/verify-token/:token', md_auth.ensureAuth, function (req, res, next
 
 });
 
+router.post('/data-update', md_auth.ensureAuth, function (req, res, next) {
+    console.log(req.user.type_user);
+    User.findOne({ '_id': req.user.sub }, (err, user) => {
+        if (err) {
+            return res.status(422).send({ message: 'Error petition user' });
+
+        }
+
+        if (user) {
+            //return res.json({ user:user });
+            let user = req.body.user;
+            let name = req.body.name;
+            let surname = req.body.surname;
+            let email = req.body.email;
+            let type_user = req.body.type_user;
+            
+            if (!user) return res.status(422).send({ message: 'empty user' });
+            if (!name) return res.status(422).send({ message: 'empty name' });
+            if (!surname) return res.status(422).send({ message: 'empty surname' });
+            if (!email) return res.status(422).send({ message: 'empty email' });
+            if (!type_user) return res.status(422).send({ message: 'empty type user' });
+
+            User.update({'_id':req.user.sub}, {user:user,
+                name:name,
+                surname:surname,
+                email:email,
+                type_user:type_user},
+                {multi:true},(err, user_updated) => {
+                    let u_up = JSON.stringify(user_updated);
+                    let json = JSON.parse(u_up);
+                    console.log(json);
+                    if(json.ok==1 && json.nModified==1){
+                        return res.json({ message: 'success updated user' });
+    
+                    }
+            });
+        }else {
+            return res.status(422).send({ message: 'User invalid' });
+
+        }
+
+    });
+
+});
+
 function remove_files_upload(res, file_path, msg){
 	fs.unlink(file_path, (err)=>{
         //if(err)return res.status(422).send({ message: 'Fail to delete file' });
