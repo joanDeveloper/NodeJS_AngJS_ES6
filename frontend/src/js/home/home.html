@@ -1,37 +1,63 @@
  <div class="home-page">
    
-   <My-Hero info="$ctrl.hero"></My-Hero>
+  <My-Hero info="$ctrl.hero"></My-Hero>
    
-   <button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button>
-   
-
-<section>
-   <div class="divStandar gridCategoryContainer">
-     <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>
-   </div>
-</section>
-
-
-  <Follow-Btn css="$ctrl.css" user="$ctrl.a" u="poco"></Follow-Btn>
+  <!--<button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button>-->
   
-  
-  
-  <div class="divmio">divmio
-    <md-button class="md-fab" aria-label="Eat cake" ng>
-      material diseny
-    </md-button>
+  <div class="container-text divStandar">
+    <div class="container-text__section">
+      <h3 class="container-text__title">Nuestros Servicios</h3>
+      <img src="../images/customer-service.svg" class="container-text__imgHome" alt="Servicios">
+      <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
+        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
+        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+      </p>
+    </div>
+
+    <div class="container-text__section">
+      <h3 class="container-text__title">Nuestro compromiso</h3>
+      <img src="../images/compromise.svg" class="container-text__imgHome" alt="Compromiso">
+      <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
+        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
+        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+      </p>
+    </div>
   </div>
 
+<h3 align="center">Categorías</h3>
 
+<section>
+  <div class="divStandar gridCategoryContainer">
+    <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>
+  </div>
+</section>
 
+<section class="container-plan divStandar">
+  <div class="container-plan__section">
+    <h2>Plan Basico</h2>
+    <img class="container-plan__imgHome" src="../images/buy1.svg" alt="Plan Basico">
+    <p class="container-text__parrafo">Test</p>
+    <p class="container-text__parrafo">20€/mes</p>
+    <button type="submit" class="btnColor">Comprar</button>
+  </div>
 
-  
-  
-<!-- <uib-accordion close-others="oneAtATime">
-    <div uib-accordion-group class="panel-default" heading="Static Header, initially expanded" is-open="status.isFirstOpen"
-      is-disabled="status.isFirstDisabled">
-      This content is straight in the template.
-    </div>
-  </uib-accordion> -->
+  <div class="container-plan__section">
+    <h2>Plan Intermedio</h2>
+    <img class="container-plan__imgHome" src="../images/buy2.svg" alt="Plan Intermedio">
+    <p class="container-text__parrafo">Soporte email + Test</p>
+    <p class="container-text__parrafo">35€/mes</p>
+    <button type="submit" class="btnColor">Comprar</button>
+  </div>
+
+  <div class="container-plan__section">
+    <h2>Plan Experto</h2>
+    <img class="container-plan__imgHome" src="../images/buy3.svg" alt="Plan Experto">
+    <p class="container-text__parrafo">Soporte email +  Skype + Test</p>
+    <p class="container-text__parrafo">50€/mes</p>
+    <button type="submit" class="btnColor">Comprar</button>
+  </div>
+</section>
 
 </div>

@@ -244,6 +244,64 @@ HOMEPAGE
   -webkit-transform: translate(-50%, -50%);
 }
 
+/* cajas home texto */
+.container-text{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  grid-row-gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+
+}
+.container-text .container-text__section{
+  -webkit-flex: 1 1 auto;
+  flex: 1 1 auto;
+  width: 450px; 
+  -webkit-transition: width 0.7s ease-out;
+  transition: width 0.7s ease-out;
+  
+}
+
+.container-text__imgHome{
+  width:350px;
+  left: 35px;
+  position: relative;
+}
+
+.container-text__parrafo{
+  text-align: justify;
+  font-size: var(--fontSizeText);
+  
+}
+.container-text__title{
+  font-size: var(--fontSizeSubtitle);
+}
+@media (max-width: 500px) {
+  .container-text .container-text__section .container-text__imgHome .container-text__parrafo{
+    width: 250px;
+  }
+}
+
+.container-plan{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  grid-row-gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  
+}
+
+.container-plan__section:hover{
+  padding: 5px;
+  
+}
+
+.container-plan__imgHome{
+  width:250px;
+  position: relative;
+}
+
+
 /* .businInte{
     width: 1000px;
     margin-left: auto;

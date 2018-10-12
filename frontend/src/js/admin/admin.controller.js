@@ -1,6 +1,7 @@
 class AdminCtrl {
   constructor(NgMap, datosUsers, AppConstants, $scope,  $stateParams, $state, auth, JWT) {
     "ngInject";
+    console.log("dat: "+datosUsers);
     this._Users = datosUsers.data.users.users;
     console.log("ctr admin", this._Users);
     
