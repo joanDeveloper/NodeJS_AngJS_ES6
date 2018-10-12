@@ -9,7 +9,8 @@ componentsModule.component('myHero', MyHero);
 import MyCard from "./Card/card.componet";
 componentsModule.component("myCard", MyCard);
 
-
+import MyPage from "./Page/page.component";
+componentsModule.component("myPage", MyPage);
 
 
 

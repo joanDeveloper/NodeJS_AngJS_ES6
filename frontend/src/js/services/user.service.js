@@ -40,6 +40,12 @@ export default class User {
         console.log("us l35", res)
         this._JWT.save(res.data.token);
         this.current = res.data.token;
+        this._JWT.decodeToken().then(function(data) {
+          console.log("$data", data);
+          $rootScope.user = data;
+          $rootScope.yo = "data";
+          console.log("$rootScope", $rootScope.user);
+        });
       }
       return res;
     });

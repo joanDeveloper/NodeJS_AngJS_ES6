@@ -1,0 +1,40 @@
+/* 
+    Admin WIEW 
+*/
+
+.divTableAdmin {
+    max-width: var(--generalWidth);
+}
+
+.infoWindowDiv {
+    width: 100%;
+}
+
+.myInfoWindows__imagenMap {
+    width: 100px;
+}
+
+.myInfoWindows__userNameMap {
+    color: var(--titleColor);
+    font-size: var(--fontSizeSubtitle);
+    font-weight: var(--boldLetters);
+    text-transform: uppercase;
+}
+.myInfoWindows__divInfo{
+    padding-top: 30px;
+    font-weight: var(--boldLetters);
+    font-size: var(--fontSizeText);
+}
+.myInfoWindows__label {
+    color: var(--texColor);
+}
+
+.myInfoWindows__infoLabel {
+    color: var(--titleColor);
+}
+
+@media (max-width: 576px) {
+    .divTableAdmin__email {
+        display: none;
+    }
+}

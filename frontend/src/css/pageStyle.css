@@ -1,0 +1,14 @@
+.pageContainer {
+    max-width: var(--generalWidth);
+    text-align: center;
+}
+
+.pageTitle {
+    font-size: var(--fontSizeTitle);
+    /* color: var(--titleColor); */
+}
+
+.pageText {
+    font-size: var(--fontSizeText);
+    color: var(--texColor);
+}

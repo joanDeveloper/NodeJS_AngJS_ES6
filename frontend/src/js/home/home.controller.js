@@ -12,7 +12,8 @@ class HomeCtrl {
 
     
    
-
+    this.page_1 = { title: "Lorem ipsum dolor", subtitle: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque eius, officia velit animi veritatis assumenda quasi ipsam, quam ab illo sint obcaecati temporibus repellendus natus amet eaque rerum sequi inventore?" };
+    
     this.hero = {
       bg: {
         /* 

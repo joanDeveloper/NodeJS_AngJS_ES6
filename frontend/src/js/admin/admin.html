@@ -1,51 +1,136 @@
- <div >
+<My-Hero info="$ctrl.hero"></My-Hero>
+<section>
+    <My-Page info="$ctrl.page_1"></My-Page>
+</section>
+
+<section><!-- MAP SECTION -->
     <div map-lazy-load="https://maps.google.com/maps/api/js">
-        <ng-map id="mapUsers" center="[38.8100743, -0.6066551]" style="width: 100%; height: 500px;" default-style="false" zoom="6">
-        
-            <marker 
-                ng-repeat="us in $ctrl._Users" 
-                no-watcher="true" 
-                id="{{us.id}}"
-                title="{{us.name}}" 
-                position="[{{us.lat}}, {{us.long}}]"
-                on-click="showDetailsOnMap(us)"
-                animation="DROP"
-                >
+        <ng-map id="mapUsers" center="[38.8100743, -0.6066551]" style="width: 100%; height: 500px;" default-style="false"
+            zoom="6">
+            <marker ng-repeat="us in $ctrl._Users" no-watcher="true" id="{{us.id}}" title="{{us.name}}" position="[{{us.lat}}, {{us.long}}]"
+                on-click="showDetailsOnMap(us)" animation="DROP">
             </marker>
             <info-window id="myInfoWindows">
-                <div class="infoWindowDiv" ng-non-bindable="true" >
-                    <h4 align="center">{{info._id}}</h4>
-                    <br>
-                    <h4 align="center">{{info.email}}</h4>
-                    <br>
-                    <img src="{{info.media}}" width="250px" heigth="350px" align="center"/>
+                <div class="infoWindowDiv" ng-non-bindable="true">
+                    <img class="myInfoWindows__imagenMap" src="{{info.media}}" align="center" />
+                    <span class="myInfoWindows__userNameMap">{{info.name}}</span>
+                    <div class="myInfoWindows__divInfo">
+                        <span class="myInfoWindows__label">Email:  </span>
+                        <span class="myInfoWindows__infoLabel">{{info.email}}</span>
+                    </div>
+                    <div class="myInfoWindows__divInfo">
+                        <span class="myInfoWindows__label">Tipo de Usuario: </span>
+                        <span class="myInfoWindows__infoLabel">{{info.type_user}}</span>
+                    </div>
+                    <div class="myInfoWindows__divInfo">
+                        <span class="myInfoWindows__label">Plan Contratado: </span>
+                        <span class="myInfoWindows__infoLabel">{{info.type_plan}}</span>
+                    </div>
+            
                 </div>
             </info-window>
-
-            <!-- <info-window id="myInfoWindow">
-                <div class="infoWindowDiv" ng-non-bindable="true" >
-                    <h4 align="center">{{info._id}}</h4>
-                    <br>
-                    <h4 align="center">{{info.email}}</h4>
-                    <br>
-                    <img src="{{info.media}}" width="250px" heigth="350px" align="center"></img>
-                    <br>
-                </div>
-            </info-window> -->
-            <!-- <info-window id="myInfoWindow">
-                <div class="infoWindowDiv" ng-non-bindable="true" ng-click="openDetails()">
-                    <h4 align="center">{{$ctrl.eventItem.name}}</h4>
-                    <br>
-                    <h4 align="center">{{$ctrl.eventItem.type}}</h4>
-                    <br>
-                    <img src="{{$ctrl.eventItem.imagen}}" width="250px" heigth="350px" align="center"></img>
-                    <br>
-                </div>
-            </info-window> -->
         </ng-map>
     </div>
-    <button type="button" ng-click="p()" class="btn btn-large btn-block btn-default">button</button>
-    <br/><br /><br /><br /><br /><br/>
-    
-    
-</div>
+</section>
+
+
+
+
+<section>
+    <My-Page info="$ctrl.page_1"></My-Page>
+</section>
+
+
+
+
+<section  ><!-- Users TABLE -->
+    <div class="divTableAdmin lateralMarginAuto">
+        <div class="row"><!-- SEARCH and PAGE-SIZE -->
+            <div class="col-sm-2 pull-left">
+                <label>PageSize:</label>
+                <select ng-model="data_limit" class="form-control">
+                    <option selected>3</option>
+                    <option>5</option>
+                    <option>10</option>
+                </select>
+            </div>
+            <div class="col-sm-6 pull-right">
+                <label>Search:</label>
+                <input type="text" ng-model="search" ng-change="filter()" placeholder="Search" class="form-control" />
+            </div>
+        </div>
+        <br />
+        
+        <div><!-- div TABLE -->
+            <table class="table table-striped table-bordered">
+                <!-- CABECERAS PARA ORDENAR -->
+                <thead>
+                    <th>Name&nbsp;
+                        <a ng-click="sort_with('name');">
+                            <i class="glyphicon glyphicon-sort pointer"></i>
+                        </a>
+                    </th>
+                    <th class="divTableAdmin__email">Email&nbsp;
+                        <a ng-click="sort_with('email');">
+                            <i class="glyphicon glyphicon-sort pointer"></i>
+                        </a>
+                    </th>
+                    <th class="divTableAdmin__email">T. Usuario&nbsp;
+                        <a ng-click="sort_with('type_user');">
+                            <i class="glyphicon glyphicon-sort pointer"></i>
+                        </a>
+                    </th>
+                    <th>T. Plan&nbsp;
+                        <a ng-click="sort_with('type_plan');">
+                            <i class="glyphicon glyphicon-sort pointer"></i>
+                        </a>
+                    </th>
+                    <th>Operaciones&nbsp;</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="data in searched = (fileUsuarios | filter:search | orderBy : base :reverse) | beginning_data2:(current_grid-1)*data_limit |  limitTo:data_limit  ">
+                        <td>{{data.name}}</td>
+                        <td class="divTableAdmin__email">{{data.email}}</td>
+                        <td class="divTableAdmin__email">{{data.type_user}}</td>
+                        <td>{{data.type_plan}}</td>
+                        <td>
+                            aun no hay nada
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- 
+            Mensaje si no hay registros 
+        -->
+        <div class="col-md-12" ng-show="filter_data == 0">
+            <div class="col-md-12">
+                <center>
+                    <h4>No records found..</h4>
+                </center>
+            </div>
+        </div>
+        
+        <!-- 
+            Parte de bajo paginacion y mensaje de cantidad
+
+            maxSize =====>>>>>>     NUMERO MAXIMO DE PAGINAS (NUMERO DE BOTONES MAXIMO) 
+            total items =====>>>>>> Numero de ITEMS que a PAGINAR
+            ng-model =====>>>>>>    PAGINA ACTUAL EN LA QUE SE PINCHA
+        
+        -->
+        <div >
+            <div >
+                <h5>{{filter_data}} Showing {{ searched.length }} of {{ entire_user}} entries</h5>
+            </div>
+            <div  ng-show="filter_data > 0">
+                <center>
+                    <ul uib-pagination class="pagination-sm" total-items="filter_data" ng-model="current_grid" max-size="5"
+                        on-select-page="page_position(page)" boundary-links="true" items-per-page="data_limit" rotate="false">
+                    </ul>
+                </center>
+            </div>
+        </div>
+    </div>
+</section>

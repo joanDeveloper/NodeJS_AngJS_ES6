@@ -1,18 +1,23 @@
  <div class="home-page">
+   <!-- <button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button> -->
    
-   <My-Hero info="$ctrl.hero"></My-Hero>
+  <My-Hero info="$ctrl.hero"></My-Hero> 
    
-   <button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button>
-   
+  <section>
+    <My-Page info="$ctrl.page_1"></My-Page>
+  </section>
 
-<section>
-   <div class="divStandar gridCategoryContainer">
-     <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>
-   </div>
-</section>
+  <section>
+    <div class="divStandar gridCategoryContainer">
+      <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>
+    </div>
+  </section>
 
+  <section>
+    <My-Page info="$ctrl.page_1"></My-Page>
+  </section>
 
-  <Follow-Btn css="$ctrl.css" user="$ctrl.a" u="poco"></Follow-Btn>
+  <!-- <Follow-Btn css="$ctrl.css" user="$ctrl.a" u="poco"></Follow-Btn>
   
   
   
@@ -20,7 +25,7 @@
     <md-button class="md-fab" aria-label="Eat cake" ng>
       material diseny
     </md-button>
-  </div>
+  </div> -->
 
 
 

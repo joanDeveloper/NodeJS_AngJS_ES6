@@ -58,6 +58,11 @@ section {
   margin-top: 80px;
 }
 
+.lateralMarginAuto{
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}
 /*************************************/
 
 #footer {
