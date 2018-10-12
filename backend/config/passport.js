@@ -75,49 +75,6 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-passport.use(new TwitterStrategy({
-    consumerKey     : socialKeys.TWITTER_CLIENT_ID,
-    consumerSecret  : socialKeys.TWITTER_CLIENT_SECRET,
-    userProfileURL: socialKeys.TWITTER_USER_PROFILE,
-    callbackURL   : socialKeys.TWITTER_CALLBACK
-    //userAuthorizationURL: 'https://api.twitter.com/oauth/authorize'
-  },
-  function(token, tokenSecret, profile, done) {
-    // make the code asynchronous
-    // User.findOne won't fire until we have all our data back from Twitter
-    process.nextTick(function() {
-        User.findOne({ 'idsocial' : profile.id }, function(err, user) {
-            // if there is an error, stop everything and return that
-            // ie an error connecting to the database
-            if (err)
-              return done(err);
-              
-            // if the user is found then log them in
-            if (user) {
-                return done(null, user); // user found, return that user
-            } else {
-              // if there is no user, create them
-              console.log(profile);
-              var user = new User({
-                  idsocial: profile.id,
-                  token: token,
-                  username: profile.username,
-                  email: profile.emails[0].value,
-                });
-              console.log(user);
-              user.save(function(err) {
-                if(err){
-                  console.log(err);
-                    return done(null, user);
-                }else{
-                  return done(null, user);
-                }
-              });
-            }
-        });
-    });
-}));
-
 passport.use(new GitHubStrategy({
   clientID: socialKeys.GITHUB_CLIENT_ID,
   clientSecret: socialKeys.GITHUB_CLIENT_SECRET,
