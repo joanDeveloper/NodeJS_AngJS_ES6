@@ -8,8 +8,18 @@ function AdminConfig($stateProvider) {
     templateUrl: "admin/admin.html",
     title: "Admin",
     resolve: {
-      datosUsers: function(Admin) {
-        return Admin.getUsers();
+      datosUsers: function (Admin, $q, Toaster, $state) {
+        let deferred = $q.defer();
+        Admin.checkUserType().then(res => {
+          if (res != null) {
+            deferred.resolve(res);
+          } else {
+            Toaster.showToaster("error", "User no valid. No Admin User");
+            $state.go("app.home");
+            deferred.resolve(null);
+          }
+        });
+        return deferred.promise;
       }
     }
   });

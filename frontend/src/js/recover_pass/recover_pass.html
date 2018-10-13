@@ -1,0 +1,51 @@
+<My-Hero info="$ctrl.hero"></My-Hero>
+
+<section>
+  <div class="container-recoverPass lateralMarginAuto" ng-show="$ctrl.formemail">
+
+    <form ng-submit="$ctrl.submitFormEmail()">
+      <fieldset ng-disabled="$ctrl.isSubmitting">
+
+        <fieldset class="form-group">
+          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Your email" ng-model="$ctrl.formData.email"
+            ng-style="$ctrl.emailError" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}" />
+        </fieldset>
+        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>
+
+        <fieldset class="form-group">
+          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Repeat your email" ng-model="$ctrl.formData.email2" ng-style="$ctrl.emailError"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}"/>
+        </fieldset>
+        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>
+
+        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>
+
+      </fieldset>
+    </form>
+
+  </div>
+</section>
+
+
+<section>
+  <div class="container-recoverPass lateralMarginAuto" ng-show="!$ctrl.formemail">
+
+    <form ng-submit="$ctrl.submitFormChangePass()">
+      <fieldset ng-disabled="$ctrl.isSubmitting">
+    
+        <fieldset class="form-group">
+          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Your password" ng-model="$ctrl.formDataPas.password" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />
+        </fieldset>
+        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>
+    
+        <fieldset class="form-group">
+          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Repeat your password" ng-model="$ctrl.formDataPas.password2" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />
+        </fieldset>
+        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>
+    
+        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>
+    
+      </fieldset>
+    </form>
+  </div>
+</section>

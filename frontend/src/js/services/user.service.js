@@ -40,12 +40,12 @@ export default class User {
         console.log("us l35", res)
         this._JWT.save(res.data.token);
         this.current = res.data.token;
-        this._JWT.decodeToken().then(function(data) {
-          console.log("$data", data);
+        /* this._JWT.decodeToken().then(function(data) {
+          console.log("$datassssssssssssssss", data);
           $rootScope.user = data;
           $rootScope.yo = "data";
           console.log("$rootScope", $rootScope.user);
-        });
+        }); */
       }
       return res;
     });
@@ -126,6 +126,31 @@ export default class User {
 
     });
 
+    return deferred.promise;
+  }
+
+  recoverPass(email) {
+    let token = this._JWT.get();
+    let deferred = this._$q.defer();
+    console.log("emailesdssssssssss", email, this._AppConstants.api + '/profile/update-token')
+    this._$http({
+        url: this._AppConstants.api + '/profile/update-token',
+        method: 'PUT',
+        headers: {
+          authorization: email
+        }
+        
+    }).then(
+        (res) => {
+            console.log("res ok",res)
+            deferred.resolve(res);
+        },
+
+        (err) => {
+            console.log("conf admin", err);
+            deferred.resolve(null);
+        }
+    )
     return deferred.promise;
   }
 

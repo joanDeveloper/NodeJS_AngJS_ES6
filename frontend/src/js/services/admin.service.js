@@ -7,7 +7,6 @@ export default class Admin {
         this._$http = $http;
         this._$state = $state;
         this._$q = $q;
-
         this.current = null;
 
     }
@@ -34,25 +33,29 @@ export default class Admin {
         )
 
         return deferred.promise;
-        /* let token = this._JWT.get();
+    }
+
+    checkUserType() {
+        let token = this._JWT.get();
         let deferred = this._$q.defer();
         this._$http({
-          url: AppConstants.api + "/admin/control-user",
-          method: "GET",
-          headers: {
-            authorization: token
-          }
-        }).then(res => {
-            console.log("conf admin t", res);
-            deferred.resolve(res);
-          },
+            url: this._AppConstants.api + '/admin/control-user',
+            method: 'GET',
+            headers: {
+                authorization: token
+            }
+        }).then(
+            (res) => {
+                console.log("sa", res)
+                deferred.resolve(res);
+            },
+            (err) => {
+                console.log("sa err ", err);
+                deferred.resolve(null);
+            }
+        )
 
-          err => {
-            console.log("conf admin", err);
-            deferred.resolve(null);
-          });
-
-        return deferred.promise; */
+        return deferred.promise;
     }
 
 }

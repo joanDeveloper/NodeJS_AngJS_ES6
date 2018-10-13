@@ -1,84 +1,65 @@
-<div class="auth-page">
-  <div class="container page">
-    <div class="row">
+<My-Hero info="$ctrl.hero"></My-Hero>
 
-      <div class="col-md-6 offset-md-3 col-xs-12">
-        <h1 class="text-xs-center" ng-bind="::$ctrl.title"></h1>
-        <p class="text-xs-center">
-          <a ui-sref="app.login"
-            ng-show="$ctrl.authType === 'register'">
-            Have an account?
-          </a>
-          <a ui-sref="app.register"
-            ng-show="$ctrl.authType === 'login'">
-            Need an account?
-          </a>
-        </p>
-
-        <list-errors errors="$ctrl.errors"></list-errors>
-
-        <form ng-submit="$ctrl.submitForm()">
-          <fieldset ng-disabled="$ctrl.isSubmitting">
-
-            <fieldset class="form-group" ng-show="$ctrl.authType === 'register'">
-              <input class="form-control form-control-lg"
-                type="text"
-                placeholder="Username"
-                ng-model="$ctrl.formData.user" 
-                ng-style="$ctrl.userError"
-                ng-focus="$ctrl.userError={}"/>
-                <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>
-            </fieldset>
-
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg"
-                type="email"
-                placeholder="Email"
-                ng-model="$ctrl.formData.email" 
-                ng-style="$ctrl.emailError"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
-            </fieldset>
-
-            <fieldset class="form-group">
-              <input class="form-control form-control-lg"
-                type="password"
-                placeholder="Password"
-                ng-model="$ctrl.formData.password1"
-                ng-style="$ctrl.errorPass"
-                ng-focus="$ctrl.errorPass={}"
-                 />
-            </fieldset>
-
-            <fieldset class="form-group" ng-show="$ctrl.authType === 'register'">
-              <input class="form-control form-control-lg"
-                type="password" 
-                placeholder="Password" 
-                ng-model="$ctrl.formData.password2"
-                ng-style="$ctrl.errorPass" />
-                <p ng-style="$ctrl.colError.text" ng-show="$ctrl.errorPass.border">{{$ctrl.errorMessage}}</p>
-            </fieldset>
-            <button class="btn btn-lg btn-primary col-md-12"
-              type="submit"
-              ng-bind="::$ctrl.title">
-            </button>
-            <p ng-style="$ctrl.colError.text" ng-show="$ctrl.errorDB">{{$ctrl.errorMessage}}</p>
-
-          </fieldset>
-        </form>
-        <a
-        <hr>
-        <h1 class="text-xs-center"> Social Login</h1>
-        <div ng-show="$ctrl.authType === 'login'"> 
-          <a href="http://localhost:3000/api/users/auth/googleplus">
-          <button class="btn btn-lg col-md-12" style="color:white; background-color: #E03E44; margin-top: 30px; font-weight: 700;"
-            type="button">Google </button>
-          </a>
-          <a href="http://localhost:3000/api/users/auth/github">
-            <button class="btn btn-lg col-md-12" style="color:white; background-color: #5E5E5E; margin-top: 30px; font-weight: 700;"
-              type="button">Git hub</button>
-          </a>
-      </div>
-
+<div>
+  <div class="container-auth lateralMarginAuto">
+    <div>
+      <!-- <h1 class="text-xs-center" ng-bind="::$ctrl.title"></h1> -->
+      <p class="text-xs-center">
+        <a ui-sref="app.login" ng-show="$ctrl.authType === 'register'">
+          Have an account?
+        </a>
+        <a ui-sref="app.register" ng-show="$ctrl.authType === 'login'">
+          Need an account?
+        </a>
+      </p>
     </div>
-  </div>
+
+    <div>
+      <form ng-submit="$ctrl.submitForm()">
+        <fieldset ng-disabled="$ctrl.isSubmitting">
+      
+          <fieldset class="form-group" ng-show="$ctrl.authType === 'register'">
+            <input class="form-control form-control-lg" type="text" placeholder="Username" ng-model="$ctrl.formData.user"
+              ng-style="$ctrl.userError" ng-focus="$ctrl.userError={}" />
+            <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>
+          </fieldset>
+      
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg" type="email" placeholder="Email" ng-model="$ctrl.formData.email"
+              ng-style="$ctrl.emailError" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+          </fieldset>
+      
+          <fieldset class="form-group">
+            <input class="form-control form-control-lg" type="password" placeholder="Password" ng-model="$ctrl.formData.password1"
+              ng-style="$ctrl.errorPass" ng-focus="$ctrl.errorPass={}" />
+          </fieldset>
+      
+          <fieldset class="form-group" ng-show="$ctrl.authType === 'register'">
+            <input class="form-control form-control-lg" type="password" placeholder="Password" ng-model="$ctrl.formData.password2"
+              ng-style="$ctrl.errorPass" />
+            <p ng-style="$ctrl.colError.text" ng-show="$ctrl.errorPass.border">{{$ctrl.errorMessage}}</p>
+          </fieldset>
+          <button class="btn btn-lg btn-primary col-md-12" type="submit" ng-bind="::$ctrl.title">
+          </button>
+          <p ng-style="$ctrl.colError.text" ng-show="$ctrl.errorDB">{{$ctrl.errorMessage}}</p>
+          <br/><br /><br />
+          <a ng-click="recover_pass('email')">¿Olvidaste tu contraseña?</a>
+        </fieldset>
+      </form>
+    </div>
+
+    <hr>
+    
+    <div ng-show="$ctrl.authType === 'login'">
+      <h1 class="text-xs-center"> Social Login</h1>
+      <a href="http://localhost:3000/api/users/auth/googleplus">
+        <button class="btn btn-lg col-md-12" style="color:white; background-color: #E03E44; margin-top: 30px; font-weight: 700;"
+          type="button">Google </button>
+      </a>
+      <a href="http://localhost:3000/api/users/auth/github">
+        <button class="btn btn-lg col-md-12" style="color:white; background-color: #5E5E5E; margin-top: 30px; font-weight: 700;"
+          type="button">Git hub</button>
+      </a>.
+    </div>
+
 </div>

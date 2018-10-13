@@ -2,13 +2,14 @@ class AdminCtrl {
   constructor(NgMap, datosUsers, AppConstants, $scope, $timeout,  $stateParams, $state, auth, JWT) {
     "ngInject";
     /* this._Users = datosUsers.data.users.users; */
+    console.log("00000000000000000000000", datosUsers);
     this._Users = datosUsers.data.users.users.map(function(us, key) {
       if (us.media == "https://robohash.org/") {
         us.media = us.media + us.name;
       }
       return us;
     });
-    console.log("ctr admin", this._Users);
+    console.log("00000000000000000000000", this._Users);
     
     var vm = this;
     var map;

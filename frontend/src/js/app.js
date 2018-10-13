@@ -23,6 +23,7 @@ import './layout';
 import './components';
 import './home';
 import "./admin";
+import "./recover_pass";;
 import "./listDetails";
 import './services';
 import './contact';
@@ -40,6 +41,7 @@ const requires = [
   "ngMaterial",
   "templates",
   "app.layout",
+  "app.recover_pass",
   "app.components",
   "app.home",
   "app.admin",

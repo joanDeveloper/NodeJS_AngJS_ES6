@@ -35,7 +35,7 @@ function AuthConfig($stateProvider, $httpProvider) {
     title: 'Sign up',
     resolve: {
       auth: function(User) {
-        alert("poporegisterpoop");
+        /* alert("poporegisterpoop"); */
         return User.ensureAuthIs(false);
       }
     }

@@ -102,7 +102,7 @@ router.post('/upload-avatar', [md_auth.ensureAuth, md_upload], function (req, re
 });
 
 router.put('/update-token', md_auth.ensureAuth, function (req, res, next) {
-    console.log(req.user.type_user);
+    console.log(555555555555555555555555);
     User.findOne({ '_id': req.user.sub }, (err, user) => {
         console.log(user);
         if (err) {
