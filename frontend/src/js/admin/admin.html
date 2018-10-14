@@ -85,6 +85,7 @@
                             <i class="glyphicon glyphicon-sort pointer"></i>
                         </a>
                     </th>
+                    <th>Bloqueado</th>
                     <th>Operaciones&nbsp;</th>
                 </thead>
                 <tbody>
@@ -94,7 +95,15 @@
                         <td class="divTableAdmin__email">{{data.type_user}}</td>
                         <td>{{data.type_plan}}</td>
                         <td>
-                            aun no hay nada
+                            <div class="btn-group">
+                                <label class="{{data.lockClassYes}}" id="Yes{{data._id}}" ng-click="lockUser(radioModel, data)" ng-model="radioModel" uib-btn-radio="'Yes'">Yes</label>
+                                <label class="{{data.lockClassNo}}" id="No{{data._id}}" ng-click="lockUser(radioModel, data)" ng-model="radioModel" uib-btn-radio="'No'">No</label>
+                            </div>
+                        </td>
+                        <td>
+                            <a ng-click="$ctrl.operacion()" class="btn btn-danger" title="Eliminar usuario">
+                                <i class="glyphicon glyphicon-remove"></i>
+                            </a>
                         </td>
                     </tr>
                 </tbody>

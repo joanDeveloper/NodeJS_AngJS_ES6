@@ -1,6 +1,6 @@
 function AppRun(AppConstants, $rootScope) {
   'ngInject';
-
+  $rootScope.swal = require('sweetalert2')
   // change page title based on state
   $rootScope.$on('$stateChangeSuccess', (event, toState) => {
     $rootScope.setPageTitle(toState.title);

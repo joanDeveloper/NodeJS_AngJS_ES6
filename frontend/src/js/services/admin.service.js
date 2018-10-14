@@ -58,4 +58,26 @@ export default class Admin {
         return deferred.promise;
     }
 
+    lockUser(email, lock) {
+        let token = this._JWT.get();
+        let deferred = this._$q.defer();
+        this._$http({
+          url: this._AppConstants.api + "/admin/lock-user",
+          method: "POST",
+          headers: {
+            authorization: token
+          },
+          data: {
+            email: email,
+              lock: lock
+          }
+        }).then(res => {
+            deferred.resolve(res);
+          }, err => {
+            deferred.resolve(null);
+          });
+
+        return deferred.promise;
+    }
+
 }

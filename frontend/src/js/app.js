@@ -1,6 +1,6 @@
 /* successRedirect: "http://localhost:8082/#!/sociallogin", */
 import angular from 'angular';
-
+/* import swal from 'sweetalert2'; */
 // Import our app config files
 import constants  from './config/app.constants';
 import appConfig  from './config/app.config';
@@ -52,6 +52,7 @@ const requires = [
   "app.listProd",
   "ngMap",
   toastr
+  
 ];
 
 // Mount on window for testing
@@ -62,6 +63,8 @@ angular.module('app').constant('AppConstants', constants);
 angular.module('app').config(appConfig);
 
 angular.module('app').run(appRun);
+
+/* angular.module("app").factory("swal", swal); */
 
 angular.bootstrap(document, ['app'], {
   strictDi: true
