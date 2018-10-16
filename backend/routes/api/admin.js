@@ -62,7 +62,8 @@ router.delete('/delete-user/:email', md_auth.ensureAuth, function (req, res, nex
             //console.log(lock);
             User.find({email:email, email:email}).remove(err => {
                 if (err) return res.status(422).send({message:'Error to remove user'});
-        
+                //falta devolver todos los usuarios
+
                 return res.json({message:"The user has been deleted"});
         
             });

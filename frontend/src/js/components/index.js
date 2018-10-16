@@ -6,6 +6,9 @@ let componentsModule = angular.module('app.components', []);
 import MyHero from './Hero/hero.component';
 componentsModule.component('myHero', MyHero);
 
+import MyTest from './Test/test.component';
+componentsModule.component('myTest', MyTest);
+
 import MyCard from "./Card/card.componet";
 componentsModule.component("myCard", MyCard);
 

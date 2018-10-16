@@ -101,47 +101,31 @@ router.post('/upload-avatar', [md_auth.ensureAuth, md_upload], function (req, re
 
 });
 
-router.put('/update-token', md_auth.ensureAuth, function (req, res, next) {
+router.put('/update-token', function (req, res, next) {
     console.log(555555555555555555555555);
-    User.findOne({ '_id': req.user.sub }, (err, user) => {
-        console.log(user);
-        if (err) {
-        return res.status(422).send({ message: 'Error petition user' });
-
-        }
-
-        if (user) {
-            req.body.type="change-passwd";
-            req.body.to=user.email;
-            req.body.from="joanmodaw@gmail.com";
-            function random() {
-                return Math.random().toString(36).substr(2);
-            };
+    //User.findOne({ '_id': req.user.sub }, (err, user) => {
+    let email = req.body.email;
+    console.log(req.body.email);
+        
+    req.body.type="change-passwd";
+    req.body.to=email;
+    req.body.from="joanmodaw@gmail.com";
+    function random() {
+        return Math.random().toString(36).substr(2);
+    };
              
-            function token() {
-                return "Token" + random() + random() + random() + random();
-            };
+    function token() {
+        return random() + random() + random() + random();
+    };
 
-            //console.log(token());
-            req.token=token();
-            //console.log(user._id);
-            User.update({email:user.email},{token:req.token}, (err, user_updated) => {
-                console.log("update: " + JSON.stringify(user_updated));
-                if(err)return res.status(422).send({ message: 'token not saved' });
-
-                if (user) {
-                    sendEmail.sendEmail(req,res);
-                    return true;  
-
-                }
-            
-            });
-            /*user.token;
-            console.log("token User: "+user.token);*/
-        }else {
-            return res.status(422).send({ message: 'User invalid' });
-
-        }
+    //console.log(token());
+    req.token=token();
+    //console.log(user._id);
+    User.update({email:email},{token:req.token}, (err, user_updated) => {
+        console.log("update: " + JSON.stringify(user_updated));
+        if(err)return res.status(422).send({ message: 'token not saved' });
+            sendEmail.sendEmail(req,res);
+            return true;  
 
     });
 

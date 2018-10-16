@@ -98605,7 +98605,7 @@ _angular.default.bootstrap(document, ['app'], {
 
 _angular.default.module('app', ['ui.carousel']);
 
-},{"./admin":18,"./auth":22,"./components":33,"./config/app.config":36,"./config/app.constants":37,"./config/app.run":38,"./config/app.templates":39,"./contact":43,"./home":46,"./layout":49,"./listDetails":50,"./listProd":53,"./recover_pass":56,"./services":61,"angular":13,"angular-material":6,"angular-toastr":8,"angular-ui-bootstrap":10,"angular-ui-router":11,"ngmap":14}],20:[function(require,module,exports){
+},{"./admin":18,"./auth":22,"./components":34,"./config/app.config":37,"./config/app.constants":38,"./config/app.run":39,"./config/app.templates":40,"./contact":44,"./home":47,"./layout":50,"./listDetails":51,"./listProd":54,"./recover_pass":57,"./services":62,"angular":13,"angular-material":6,"angular-toastr":8,"angular-ui-bootstrap":10,"angular-ui-router":11,"ngmap":14}],20:[function(require,module,exports){
 "use strict";
 
 AuthConfig.$inject = ["$stateProvider", "$httpProvider"];
@@ -99001,6 +99001,111 @@ exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var TestCtrl = function TestCtrl($state, $scope) {
+  "ngInject";
+
+  _classCallCheck(this, TestCtrl);
+
+  this._$state = $state;
+  console.log("entra en test component");
+
+  $scope.sumar = function (event) {
+    /*console.log(event);
+    console.log(event.target.defaultValue);
+    console.log("entra"+event.target.checked);*/
+    var suma = 0;
+    var total = document.getElementById('txtValor');
+    var num = parseFloat(event.target.defaultValue);
+
+    try {
+      if (total != null) {
+        if (isNaN(total.value)) total.value = 0;
+        suma = parseFloat(total.value);
+      }
+    } catch (ex) {
+      console.log('No existe el campo de la suma.');
+    }
+
+    if (event.target.checked == true) parseFloat(suma = suma + num);else parseFloat(suma = suma - num);
+    total.value = parseFloat(suma);
+    if (suma === 4.9) alert("Acertaste!!");
+  };
+  /* function memoria colores */
+
+
+  var cnt = 0;
+  var last;
+  var cont = 0;
+  var cont_acierto = 0; //window.addEventListener('load',$scope.colorMemory);
+
+  $scope.colorMemory = function colorMemory() {
+    console.log("entra en color memory");
+    var myArray = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'];
+    var i, j, k, l;
+
+    for (i = myArray.length; i; i--) {
+      j = Math.floor(Math.random() * i);
+      k = myArray[i - 1];
+      myArray[i - 1] = myArray[j];
+      myArray[j] = k;
+    }
+
+    var array = ["cardRed", "cardRed", "cardBlue", "cardBlue", "cardPink", "cardPink", "cardPurple", "cardPurple", "cardGreen", "cardGreen", "cardOrange", "cardOrange", "cardYellow", "cardYellow", "cardBrown", "cardBrown", "cardGrey", "cardGrey", "cardTurquesa", "cardTurquesa"];
+    array.map(function (currentValue, index, array) {
+      document.getElementById('cardList').innerHTML += "<div class='cardBlack' cl='" + array[myArray[index]] + "'></div>";
+    });
+    var list = document.querySelectorAll('div[cl^="card"]');
+
+    for (l = 0; l < list.length; l++) {
+      list[l].addEventListener('click', function () {
+        if (this.className == 'cardBlack') {
+          this.className = this.getAttribute('cl');
+          if (cnt == 1) {
+            if (last.className == this.className) {
+              cont_acierto++; //console.log(cont_acierto);
+
+              if (cont_acierto == 10) document.getElementById('text').innerHTML = 'Has ganado la partida!';
+            } else {
+              cont++;
+              setTimeout(function () {
+                last.className = this.className = "cardBlack";
+              }.bind(this), 500);
+              document.getElementById('test').innerHTML = cont;
+
+              if (cont >= 20) {
+                cont_acierto = 0;
+                document.getElementById('text-game-over').innerHTML = 'GAME OVER'; //location.reload();
+              }
+            }
+          } else last = this;
+          cnt = 1 - cnt;
+        }
+      }, false);
+    }
+  };
+};
+TestCtrl.$inject = ["$state", "$scope"];
+
+var TestComponent = {
+  bindings: {
+    info: "="
+  },
+  controller: TestCtrl,
+  templateUrl: "components/Test/test.html"
+};
+var _default = TestComponent;
+exports.default = _default;
+
+},{}],28:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
@@ -99087,7 +99192,7 @@ var ArticleList = {
 var _default = ArticleList;
 exports.default = _default;
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99104,7 +99209,7 @@ var ArticleMeta = {
 var _default = ArticleMeta;
 exports.default = _default;
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99120,7 +99225,7 @@ var ArticlePreview = {
 var _default = ArticlePreview;
 exports.default = _default;
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99178,7 +99283,7 @@ var ListPagination = {
 var _default = ListPagination;
 exports.default = _default;
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99249,7 +99354,7 @@ var FavoriteBtn = {
 var _default = FavoriteBtn;
 exports.default = _default;
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99284,7 +99389,7 @@ var FollowBtn = {
 var _default = FollowBtn;
 exports.default = _default;
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99295,6 +99400,8 @@ exports.default = void 0;
 var _angular = _interopRequireDefault(require("angular"));
 
 var _hero = _interopRequireDefault(require("./Hero/hero.component"));
+
+var _test = _interopRequireDefault(require("./Test/test.component"));
 
 var _card = _interopRequireDefault(require("./Card/card.componet"));
 
@@ -99321,6 +99428,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var componentsModule = _angular.default.module('app.components', []);
 
 componentsModule.component('myHero', _hero.default);
+componentsModule.component('myTest', _test.default);
 componentsModule.component("myCard", _card.default);
 componentsModule.component("myPage", _page.default);
 componentsModule.component('listErrors', _listErrors.default);
@@ -99334,7 +99442,7 @@ componentsModule.component('listPagination', _listPagination.default);
 var _default = componentsModule;
 exports.default = _default;
 
-},{"./Card/card.componet":24,"./Hero/hero.component":25,"./Page/page.component":26,"./article-helpers/article-list.component":27,"./article-helpers/article-meta.component":28,"./article-helpers/article-preview.component":29,"./article-helpers/list-pagination.component":30,"./buttons/favorite-btn.component":31,"./buttons/follow-btn.component":32,"./list-errors.component":34,"./show-authed.directive":35,"angular":13}],34:[function(require,module,exports){
+},{"./Card/card.componet":24,"./Hero/hero.component":25,"./Page/page.component":26,"./Test/test.component":27,"./article-helpers/article-list.component":28,"./article-helpers/article-meta.component":29,"./article-helpers/article-preview.component":30,"./article-helpers/list-pagination.component":31,"./buttons/favorite-btn.component":32,"./buttons/follow-btn.component":33,"./list-errors.component":35,"./show-authed.directive":36,"angular":13}],35:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99350,7 +99458,7 @@ var ListErrors = {
 var _default = ListErrors;
 exports.default = _default;
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 "use strict";
 
 ShowAuthed.$inject = ["User"];
@@ -99398,7 +99506,7 @@ function ShowAuthed(User) {
 var _default = ShowAuthed;
 exports.default = _default;
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 "use strict";
 
 AppConfig.$inject = ["$httpProvider", "$stateProvider", "$locationProvider", "$urlRouterProvider", "toastrConfig"];
@@ -99455,7 +99563,7 @@ function AppConfig($httpProvider, $stateProvider, $locationProvider, $urlRouterP
 var _default = AppConfig;
 exports.default = _default;
 
-},{"./auth.interceptor":40}],37:[function(require,module,exports){
+},{"./auth.interceptor":41}],38:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99473,7 +99581,7 @@ var AppConstants = {
 var _default = AppConstants;
 exports.default = _default;
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 "use strict";
 
 AppRun.$inject = ["AppConstants", "$rootScope"];
@@ -99506,7 +99614,7 @@ function AppRun(AppConstants, $rootScope) {
 var _default = AppRun;
 exports.default = _default;
 
-},{"sweetalert2":15}],39:[function(require,module,exports){
+},{"sweetalert2":15}],40:[function(require,module,exports){
 "use strict";
 
 angular.module('templates', []).run(['$templateCache', function ($templateCache) {
@@ -99524,13 +99632,14 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('layout/footer.html', '<footer id="footer">\n  <div >\n    <div class="gloriaGrid">\n  \n      <div class="elem1">\n        <div class="elemsTitle">\n          <p>Cognitive Brain S.L.</p>\n        </div>\n        <div>\n          <div>Cognitive Brain</div>\n          <div>C/ islas canarias 6,</div>\n          <div>46870 Ontinyent, Valencia, Espa\xF1a.</div>\n          <div>cognitivebrain@info.com</div>\n          <div>+34 960 00 00 00</div>\n        </div>\n      </div>\n  \n      <div class="elem2">\n        <div>\n          <p>Apuntate a nuestra newsletter para estar siempre al d\xEDa.</p>\n        </div>\n        <div class="gloriaTitle">\n          <input id="inpEmail" type="email" placegolder="Tu email"></input>\n          <button type="button" class="btnColor">SUSCRIBETE</button>\n        </div>\n      </div>\n  \n      <div class="elem3">\n        <div class="elemsTitle">\n          <p>MISI\xD3N</p>\n        </div>\n        <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae velit aliquid expedita dolorem pariatur amet nemo dicta, repudiandae totam, inventore natus, quos sed repellat quo ipsa et nostrum magni delectus</div>\n      </div>\n  \n    </div>\n  </div>\n\n</footer>\n');
   $templateCache.put('layout/header.html', '\n<header class="header" >\n  <a ui-sref="app.home" class="logo" style="color:#EA5047">Cognitive Brain</a>\n  <input class="menu-btn" type="checkbox" id="menu-btn" />\n  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>\n  <ul class="menu">\n    \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.home">Home</a>\n    </li>\n   \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">Contact</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.login">Sing in</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a ng-click="$ctrl.logout()" >Log out</a>\n    </li>\n    \n    <li show-authed="true" class="nav-item">\n      <a style="padding: 0px;">\n        <img ng-src="{{$ctrl.user.media}}" style="height: 60px; padding:4px 30px 4px 30px;" alt="">\n      </a>\n    </li>\n    \n<!-- \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.listDetails">ListDetails</a>\n    </li> -->\n\n  </ul>\n</header>\n<!-- \n\n<nav class="navbar navbar-light">\n  <div class="container">\n\n    <a class="navbar-brand"\n      ui-sref="app.home"\n      ng-bind="::$ctrl.appName | lowercase">\n    </a>\n\n    \n    <ul show-authed="false"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.login">\n          Sign in\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.register">\n          Sign up\n        </a>\n      </li>\n\n    </ul>\n\n    \n    <ul show-authed="true"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.editor">\n          <i class="ion-compose"></i>&nbsp;New Article\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.settings">\n          <i class="ion-gear-a"></i>&nbsp;Settings\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">\n          Contact\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.listProd">\n          Lista productos\n        </a>\n      </li>\n\n     \n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.profile.main({ username: $ctrl.currentUser.username})">\n          <img ng-src="{{$ctrl.currentUser.image}}" class="user-pic" />\n          {{ $ctrl.currentUser.username }}\n        </a>\n      </li>\n\n    </ul>\n\n\n  </div>\n</nav>\n -->');
   $templateCache.put('listDetails/listDetails.html', '<section>\n  <div class="divStandar gridCategoryContainer">\n    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">\n        <div class="gridCategory">\n            <div class="imgCategory">\n                <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n            </div>\n            <div class="textCategory">\n                <p>{{test.name}}</p>\n            </div>\n        </div>\n    </a>\n  </div>\n</section>');
-  $templateCache.put('listProd/listProd.html', '<section>\n    <div class="divStandar gridCategoryContainer">\n      <a class="pointer" ng-repeat="test in $ctrl.detailTest" >\n          <div class="gridCategory">\n                <div class="imgCategory">\n                    <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n                </div>\n                <p>{{test.description}}</p>\n              \n          </div>\n      </a>\n    </div>\n  </section>');
+  $templateCache.put('listProd/listProd.html', '<my-test ng-repeat="detailTest in $ctrl.detailTest" info="detailTest"></my-test>');
   $templateCache.put('recover_pass/recover_pass.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<section>\n  <div class="container-recoverPass lateralMarginAuto" ng-show="$ctrl.formemail">\n\n    <form ng-submit="$ctrl.submitFormEmail()">\n      <fieldset ng-disabled="$ctrl.isSubmitting">\n\n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Your email" ng-model="$ctrl.formData.email"\n            ng-style="$ctrl.emailError" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n\n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Repeat your email" ng-model="$ctrl.formData.email2" ng-style="$ctrl.emailError"\n            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}"/>\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n\n        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>\n\n      </fieldset>\n    </form>\n\n  </div>\n</section>\n\n\n<section>\n  <div class="container-recoverPass lateralMarginAuto" ng-show="!$ctrl.formemail">\n\n    <form ng-submit="$ctrl.submitFormChangePass()">\n      <fieldset ng-disabled="$ctrl.isSubmitting">\n    \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Your password" ng-model="$ctrl.formDataPas.password" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n    \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Repeat your password" ng-model="$ctrl.formDataPas.password2" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n    \n        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>\n    \n      </fieldset>\n    </form>\n  </div>\n</section>');
   $templateCache.put('settings/settings.html', '<div class="settings-page">\n  <div class="container page">\n    <div class="row">\n      <div class="col-md-6 offset-md-3 col-xs-12">\n\n        <h1 class="text-xs-center">Your Settings</h1>\n\n        <list-errors errors="$ctrl.errors"></list-errors>\n\n        <form ng-submit="$ctrl.submitForm()">\n          <fieldset ng-disabled="$ctrl.isSubmitting">\n\n            <fieldset class="form-group">\n              <input class="form-control"\n                type="text"\n                placeholder="URL of profile picture"\n                ng-model="$ctrl.formData.image" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                type="text"\n                placeholder="Username"\n                ng-model="$ctrl.formData.username" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <textarea class="form-control form-control-lg"\n                rows="8"\n                placeholder="Short bio about you"\n                ng-model="$ctrl.formData.bio">\n              </textarea>\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                type="email"\n                placeholder="Email"\n                ng-model="$ctrl.formData.email" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                type="password"\n                placeholder="New Password"\n                ng-model="$ctrl.formData.password" />\n            </fieldset>\n\n            <button class="btn btn-lg btn-primary pull-xs-right"\n              type="submit">\n              Update Settings\n            </button>\n\n          </fieldset>\n        </form>\n\n        <!-- Line break for logout button -->\n        <hr />\n\n        <button class="btn btn-outline-danger"\n          ng-click="$ctrl.logout()">\n          Or click here to logout.\n        </button>\n\n      </div>\n    </div>\n  </div>\n</div>\n');
   $templateCache.put('testDetails/testDetails.html', '<section>\n  dentro de tests details\n</section>');
   $templateCache.put('components/Card/card.html', '<a ng-click="openCategory($ctrl.info)" class="pointer">\n    <div class="gridCategory">\n        <div class="imgCategory">\n            <img src="../../../images/{{$ctrl.info.name | lowercase}}.svg" alt="Image">\n        </div>\n        <div class="textCategory">\n            <p>{{$ctrl.info.name}}</p>\n        </div>\n    </div>\n</a>');
   $templateCache.put('components/Hero/hero.html', '<div class="heroDiv" ng-style={{$ctrl.info.bg}}>\n    <div class="heroContainer">   \n        <p  class="heroTitle"> {{$ctrl.info.info.title}} </p>\n        <p class="heroSubtitle"> {{$ctrl.info.info.subtitle}} </p>\n    </div>\n</div>\n<!--<ui-carousel slides="{{ $ctrl.info.info.slides }}" on-init="carouselDemo.onCarouselInit()" slides-to-show="1" slides-to-scroll="1" initial-slide="0">\n       \n    <carousel-item>\n        <h2>{{ item.title }}</h2>\n        <img src="{{ item.image }}" alt="Image" />\n         \n    </carousel-item>\n\n        \n    <carousel-prev>\n        <button>Prev</button>\n          \n    </carousel-prev>\n\n    <carousel-next>\n        <button>next</button>\n          \n    </carousel-next>\n</ui-carousel>-->\n\n \n  ');
   $templateCache.put('components/Page/page.html', '<div class="pageContainer lateralMarginAuto">   \n    <p  class="pageTitle"> {{$ctrl.info.title}} </p>\n    <p class="pageText"> {{$ctrl.info.subtitle}} </p>\n</div>\n\n \n  ');
+  $templateCache.put('components/Test/test.html', '<section ng-if="$ctrl.info.name==\'Monedas\' || $ctrl.info.name==\'Series\' \n|| $ctrl.info.name==\'Sopa de letras\' || $ctrl.info.name==\'Completa la frase\' \n|| $ctrl.info.name==\'Logica 1\' || $ctrl.info.name==\'Logica 2\' || $ctrl.info.name==\'Percepcion 1\' \n|| $ctrl.info.name==\'Percepcion 2\'">\n    <h3>Problema {{$ctrl.info.name}}</h3>\n    <p>\n        Susana que es la abuelita de Jose, le ha pedido a su nieto que vaya \n        a comprar a la panaderia. Tiene que comprar 3 barras de pan a 50 centimos cada una, \n        2 bollos a 80 centimos cada uno y una docena de huevos que cuestan 1,80. \n        Calcula cual es el total y que monedas debe entregar a la dependienta.\n    </p>\n    <img src="../../images/1.gif" height="50" width="50">\n    <input type="checkbox" value="1" ng-click="sumar($event)" />\n\n    <img src="../../images/1.gif" height="50" width="50">\n    <input type="checkbox" value="1" ng-click="sumar($event)"/>\n\n    <img src="../../images/2.png" height="50" width="50">\n    <input type="checkbox" value="2" ng-click="sumar($event)"/>\n\n    <img src="../../images/2.png" height="50" width="50">\n    <input type="checkbox" value="2" ng-click="sumar($event)"/>\n\n    <img src="../../images/20c.gif" height="50" width="50">\n    <input type="checkbox" value="0.20" ng-click="sumar($event)"/>\n\n    <img src="../../images/20c.gif" height="50" width="50">\n    <input type="checkbox" value="0.20" ng-click="sumar($event)"/>\n\n    <img src="../../images/5c.jpg" height="50" width="50">\n    <input type="checkbox" value="0.05" ng-click="sumar($event)"/>\n\n    <img src="../../images/50c.jpg" height="50" width="50">\n    <input type="checkbox" value="0.50" ng-click="sumar($event)"/>\n\n    <img src="../../images/1c.gif" height="50" width="50">\n    <input type="checkbox" value="0.01" ng-click="sumar($event)"/>\n\n    <div>\n        <label><strong>Total</strong><label>\n        <input type="text" id="txtValor" value="0" />\n    </div>\n</section>\n\n<section ng-if="$ctrl.info.name==\'Memoria colores\' || $ctrl.info.name==\'Memoria numeros\' ">\n    <div ng-init="colorMemory()">\n        <h3>Problema {{$ctrl.info.name}}</h3>\n        <p>{{$ctrl.info.description}}</p>\n        Intentos:<div id="test"></div>\n        <div id="audio"></div>\n        <div id="text" align="center"></div>\n        <div id="text-game-over" align="center"></div>\n        <div id="cardList" style="margin-left:325px;"></div>\n    </div>\n</section>');
   $templateCache.put('components/article-helpers/article-list.html', '<article-preview\n  article="article"\n  ng-repeat="article in $ctrl.list">\n</article-preview>\n\n<div class="article-preview"\n  ng-hide="!$ctrl.loading">\n  Loading articles...\n</div>\n\n<div class="article-preview"\n  ng-show="!$ctrl.loading && !$ctrl.list.length">\n  No articles are here... yet.\n</div>\n\n<list-pagination\n total-pages="$ctrl.listConfig.totalPages"\n current-page="$ctrl.listConfig.currentPage"\n ng-hide="$ctrl.listConfig.totalPages <= 1">\n</list-pagination>\n');
   $templateCache.put('components/article-helpers/article-meta.html', '<div class="article-meta">\n  <a ui-sref="app.profile.main({ username:$ctrl.article.author.username })">\n    <img ng-src="{{$ctrl.article.author.image}}" />\n  </a>\n\n  <div class="info">\n    <a class="author"\n      ui-sref="app.profile.main({ username:$ctrl.article.author.username })"\n      ng-bind="$ctrl.article.author.username">\n    </a>\n    <span class="date"\n      ng-bind="$ctrl.article.createdAt | date: \'longDate\' ">\n    </span>\n  </div>\n\n  <ng-transclude></ng-transclude>\n</div>\n');
   $templateCache.put('components/article-helpers/article-preview.html', '<div class="article-preview">\n  <article-meta article="$ctrl.article">\n    <favorite-btn\n      article="$ctrl.article"\n      class="pull-xs-right">\n      {{$ctrl.article.favoritesCount}}\n    </favorite-btn>\n  </article-meta>\n\n  <a ui-sref="app.article({ slug: $ctrl.article.slug })" class="preview-link">\n    <h1 ng-bind="$ctrl.article.title"></h1>\n    <p ng-bind="$ctrl.article.description"></p>\n    <span>Read more...</span>\n    <ul class="tag-list">\n      <li class="tag-default tag-pill tag-outline"\n        ng-repeat="tag in $ctrl.article.tagList">\n        {{tag}}\n      </li>\n    </ul>\n  </a>\n</div>\n');
@@ -99539,7 +99648,7 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('components/buttons/follow-btn.html', '<button\n  \n  >\n  <i class="ion-plus-round"></i>\n  &nbsp;<span ng-style={{$ctrl.css}}>\n  boton{{ $ctrl.u }}\n   {{ $ctrl.user }}\n\n  {{$ctrl.css|json}}\n  </span>\n</button>\n');
 }]);
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 "use strict";
 
 authInterceptor.$inject = ["JWT", "AppConstants", "$window", "$q"];
@@ -99577,7 +99686,7 @@ function authInterceptor(JWT, AppConstants, $window, $q) {
 var _default = authInterceptor;
 exports.default = _default;
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 "use strict";
 
 ContactConfig.$inject = ["$stateProvider"];
@@ -99602,7 +99711,7 @@ function ContactConfig($stateProvider) {
 var _default = ContactConfig;
 exports.default = _default;
 
-},{}],42:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99671,7 +99780,7 @@ ContactCtrl.$inject = ["AppConstants", "$scope", "Contact", "Toaster", "$rootSco
 var _default = ContactCtrl;
 exports.default = _default;
 
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99697,7 +99806,7 @@ contactModule.controller('ContactCtrl', _contact2.default);
 var _default = contactModule;
 exports.default = _default;
 
-},{"./contact.config":41,"./contact.controller":42,"angular":13}],44:[function(require,module,exports){
+},{"./contact.config":42,"./contact.controller":43,"angular":13}],45:[function(require,module,exports){
 "use strict";
 
 HomeConfig.$inject = ["$stateProvider"];
@@ -99734,7 +99843,7 @@ function HomeConfig($stateProvider) {
 var _default = HomeConfig;
 exports.default = _default;
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99855,7 +99964,7 @@ function () {
 var _default = HomeCtrl;
 exports.default = _default;
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99882,7 +99991,7 @@ homeModule.controller('HomeCtrl', _home2.default);
 var _default = homeModule;
 exports.default = _default;
 
-},{"./home.config":44,"./home.controller":45,"angular":13}],47:[function(require,module,exports){
+},{"./home.config":45,"./home.controller":46,"angular":13}],48:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99910,7 +100019,7 @@ var AppFooter = {
 var _default = AppFooter;
 exports.default = _default;
 
-},{}],48:[function(require,module,exports){
+},{}],49:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -99978,7 +100087,7 @@ var AppHeader = {
 var _default = AppHeader;
 exports.default = _default;
 
-},{}],49:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100003,7 +100112,7 @@ layoutModule.component('appFooter', _footer.default);
 var _default = layoutModule;
 exports.default = _default;
 
-},{"./footer.component":47,"./header.component":48,"angular":13}],50:[function(require,module,exports){
+},{"./footer.component":48,"./header.component":49,"angular":13}],51:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100030,7 +100139,7 @@ listDetailsModule.controller("ListDetailsCtrl", _listDetails2.default);
 var _default = listDetailsModule;
 exports.default = _default;
 
-},{"./listDetails.config":51,"./listDetails.controller":52,"angular":13}],51:[function(require,module,exports){
+},{"./listDetails.config":52,"./listDetails.controller":53,"angular":13}],52:[function(require,module,exports){
 "use strict";
 
 ListDetailsConfig.$inject = ["$stateProvider"];
@@ -100071,7 +100180,7 @@ function ListDetailsConfig($stateProvider) {
 var _default = ListDetailsConfig;
 exports.default = _default;
 
-},{}],52:[function(require,module,exports){
+},{}],53:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100102,7 +100211,7 @@ ListDetailsCtrl.$inject = ["AppConstants", "$scope", "tests", "$state"];
 var _default = ListDetailsCtrl;
 exports.default = _default;
 
-},{}],53:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100128,7 +100237,7 @@ listProdModule.controller('ListProdCtrl', _listProd2.default);
 var _default = listProdModule;
 exports.default = _default;
 
-},{"./listProd.config":54,"./listProd.controller":55,"angular":13}],54:[function(require,module,exports){
+},{"./listProd.config":55,"./listProd.controller":56,"angular":13}],55:[function(require,module,exports){
 "use strict";
 
 ListProdConfig.$inject = ["$stateProvider"];
@@ -100170,7 +100279,7 @@ function ListProdConfig($stateProvider) {
 var _default = ListProdConfig;
 exports.default = _default;
 
-},{}],55:[function(require,module,exports){
+},{}],56:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100190,7 +100299,7 @@ var ListProdCtrl = function ListProdCtrl(AppConstants, $scope, test) {
   this._$scope = $scope; // console.log("detail: " + JSON.stringify(test));
 
   var g = JSON.parse(t);
-  console.log(g.test);
+  console.log("ee", g.test);
   this.detailTest = g.test;
 };
 ListProdCtrl.$inject = ["AppConstants", "$scope", "test"];
@@ -100198,7 +100307,7 @@ ListProdCtrl.$inject = ["AppConstants", "$scope", "test"];
 var _default = ListProdCtrl;
 exports.default = _default;
 
-},{}],56:[function(require,module,exports){
+},{}],57:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100225,7 +100334,7 @@ recover_passModule.controller('Recover_passCtrl', _recover_pass2.default);
 var _default = recover_passModule;
 exports.default = _default;
 
-},{"./recover_pass.config":57,"./recover_pass.controller":58,"angular":13}],57:[function(require,module,exports){
+},{"./recover_pass.config":58,"./recover_pass.controller":59,"angular":13}],58:[function(require,module,exports){
 "use strict";
 
 Recover_passConfig.$inject = ["$stateProvider"];
@@ -100256,7 +100365,7 @@ function Recover_passConfig($stateProvider) {
 var _default = Recover_passConfig;
 exports.default = _default;
 
-},{}],58:[function(require,module,exports){
+},{}],59:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100349,7 +100458,7 @@ function () {
 var _default = Recover_passCtrl;
 exports.default = _default;
 
-},{}],59:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100458,7 +100567,7 @@ function () {
 
 exports.default = Admin;
 
-},{}],60:[function(require,module,exports){
+},{}],61:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100510,7 +100619,7 @@ function () {
 
 exports.default = Contact;
 
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100549,7 +100658,7 @@ servicesModule.service('Tags', _tags.default);
 var _default = servicesModule;
 exports.default = _default;
 
-},{"./admin.service":59,"./contact.service":60,"./jwt.service":62,"./tags.service":63,"./test.service":64,"./toaster.service":65,"./user.service":66,"angular":13}],62:[function(require,module,exports){
+},{"./admin.service":60,"./contact.service":61,"./jwt.service":63,"./tags.service":64,"./test.service":65,"./toaster.service":66,"./user.service":67,"angular":13}],63:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100644,7 +100753,7 @@ function () {
 
 exports.default = JWT;
 
-},{}],63:[function(require,module,exports){
+},{}],64:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100688,7 +100797,7 @@ function () {
 
 exports.default = Tags;
 
-},{}],64:[function(require,module,exports){
+},{}],65:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100777,7 +100886,7 @@ function () {
 
 exports.default = TestService;
 
-},{}],65:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100837,7 +100946,7 @@ function () {
 
 exports.default = Toaster;
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -101016,8 +101125,8 @@ function () {
       this._$http({
         url: this._AppConstants.api + '/profile/update-token',
         method: 'PUT',
-        headers: {
-          authorization: email
+        data: {
+          email: email
         }
       }).then(function (res) {
         console.log("res ok", res);

@@ -136,8 +136,8 @@ export default class User {
     this._$http({
         url: this._AppConstants.api + '/profile/update-token',
         method: 'PUT',
-        headers: {
-          authorization: email
+        data: {
+          email: email
         }
         
     }).then(

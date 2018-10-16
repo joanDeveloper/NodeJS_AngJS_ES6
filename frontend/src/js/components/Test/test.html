@@ -1,0 +1,55 @@
+<section ng-if="$ctrl.info.name=='Monedas' || $ctrl.info.name=='Series' 
+|| $ctrl.info.name=='Sopa de letras' || $ctrl.info.name=='Completa la frase' 
+|| $ctrl.info.name=='Logica 1' || $ctrl.info.name=='Logica 2' || $ctrl.info.name=='Percepcion 1' 
+|| $ctrl.info.name=='Percepcion 2'">
+    <h3>Problema {{$ctrl.info.name}}</h3>
+    <p>
+        Susana que es la abuelita de Jose, le ha pedido a su nieto que vaya 
+        a comprar a la panaderia. Tiene que comprar 3 barras de pan a 50 centimos cada una, 
+        2 bollos a 80 centimos cada uno y una docena de huevos que cuestan 1,80. 
+        Calcula cual es el total y que monedas debe entregar a la dependienta.
+    </p>
+    <img src="../../images/1.gif" height="50" width="50">
+    <input type="checkbox" value="1" ng-click="sumar($event)" />
+
+    <img src="../../images/1.gif" height="50" width="50">
+    <input type="checkbox" value="1" ng-click="sumar($event)"/>
+
+    <img src="../../images/2.png" height="50" width="50">
+    <input type="checkbox" value="2" ng-click="sumar($event)"/>
+
+    <img src="../../images/2.png" height="50" width="50">
+    <input type="checkbox" value="2" ng-click="sumar($event)"/>
+
+    <img src="../../images/20c.gif" height="50" width="50">
+    <input type="checkbox" value="0.20" ng-click="sumar($event)"/>
+
+    <img src="../../images/20c.gif" height="50" width="50">
+    <input type="checkbox" value="0.20" ng-click="sumar($event)"/>
+
+    <img src="../../images/5c.jpg" height="50" width="50">
+    <input type="checkbox" value="0.05" ng-click="sumar($event)"/>
+
+    <img src="../../images/50c.jpg" height="50" width="50">
+    <input type="checkbox" value="0.50" ng-click="sumar($event)"/>
+
+    <img src="../../images/1c.gif" height="50" width="50">
+    <input type="checkbox" value="0.01" ng-click="sumar($event)"/>
+
+    <div>
+        <label><strong>Total</strong><label>
+        <input type="text" id="txtValor" value="0" />
+    </div>
+</section>
+
+<section ng-if="$ctrl.info.name=='Memoria colores' || $ctrl.info.name=='Memoria numeros' ">
+    <div ng-init="colorMemory()">
+        <h3>Problema {{$ctrl.info.name}}</h3>
+        <p>{{$ctrl.info.description}}</p>
+        Intentos:<div id="test"></div>
+        <div id="audio"></div>
+        <div id="text" align="center"></div>
+        <div id="text-game-over" align="center"></div>
+        <div id="cardList" style="margin-left:325px;"></div>
+    </div>
+</section>
