@@ -1,0 +1,40 @@
+<My-Hero info="$ctrl.hero"></My-Hero>
+
+<div class="lateralMarginAuto contMedia">
+    <img class="avatar" src="{{$ctrl.datos_usuario.media}}{{$ctrl.datos_usuario.name}}" alt="">
+</div>
+
+<div class="lateralMarginAuto contForm">
+    <form id="profile_form" name="profile_form" class="form-profile" ng-submit="$ctrl.Submitprofile()">   
+
+        <div class="divInput">
+            <label for="user_name">Nombre de usuario</label>
+            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.user" type="text" id="user_name" name="user_name">
+            <div ng-show='sfIn.tb.$dirty && sfIn.tb.$invalid'>
+                <span ng-show='sfIn.tb.$error.required'>Required</span>
+            </div>
+        </div>
+
+        <div class="divInput">
+            <label for="name">Nombre {{$ctrl.datos_usuario.media}}</label>
+            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.name" id="name" name="name" type="text">
+        </div>
+
+        <div class="divInput">
+            <label for="surname">Apellido</label>
+            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.surname" id="surname" name="surname" type="text">
+        </div>
+
+        <div class="divInput">
+            <label for="email">Email</label>
+            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.email" type="email" id="email" name="email" >
+        </div>
+
+        <div class="divInput">
+            <input class="btnContact btnActualizar inputsProfile" type="submit" value="Actualizar"/>
+
+        </div>
+        
+    </form>
+
+</div>

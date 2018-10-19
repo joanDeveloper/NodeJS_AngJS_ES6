@@ -114,22 +114,22 @@ class AdminCtrl {
     
   }/*-------------------END CONSTRUCTOR------------- */
   
-  operacion(){
+  deleteUser(data){
+    console.log("dfbshjdbfjhsdbf", data.email);
     this._rootScope.swal({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      title: 'ELIMINAR',
+      text: "Estas seguro de borrar un usuario?",
       type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '',
+      confirmButtonText: 'Si, eliminarlo!'
     }).then((result) => {
       if (result.value) {
-        swal(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
+        this._Admin.deleteUser(data.email).then(res => {
+          console.log(res)
+          this._rootScope.swal("Eliminacion exitosa!", "El usuario ha sido eliminado");
+        });
       }
     })
   }

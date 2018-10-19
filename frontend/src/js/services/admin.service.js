@@ -80,4 +80,24 @@ export default class Admin {
         return deferred.promise;
     }
 
+    deleteUser(email) {
+        let token = this._JWT.get();
+        let deferred = this._$q.defer();
+        console.log(token);
+        this._$http({
+            url: this._AppConstants.api + "/admin/delete-user/"+email,
+            method: "DELETE",
+            headers: {
+                authorization: token
+            }
+        }).then(res => {
+            deferred.resolve(res);
+        }, err => {
+            console.log("xxxxxxxxxx", err)
+            deferred.resolve(null);
+        });
+
+        return deferred.promise;
+    }
+
 }

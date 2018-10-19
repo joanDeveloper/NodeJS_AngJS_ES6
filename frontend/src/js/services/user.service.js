@@ -64,6 +64,23 @@ export default class User {
     )
   }
 
+  userDetails() {
+    let deferred = this._$q.defer();
+    this._$http({
+      url: this._AppConstants.api + "/profile/",
+      method: "GET",
+      headers: {
+        authorization: this._JWT.get()
+      }
+    }).then(res => {
+        deferred.resolve(res);
+      },
+      err => {
+        deferred.resolve(null);
+      });
+    return deferred.promise;
+  }
+
   logout() {
     this.current = null;
     this._JWT.destroy();
@@ -136,8 +153,8 @@ export default class User {
     this._$http({
         url: this._AppConstants.api + '/profile/update-token',
         method: 'PUT',
-        headers: {
-          authorization: email
+        data: {
+          email: email
         }
         
     }).then(
