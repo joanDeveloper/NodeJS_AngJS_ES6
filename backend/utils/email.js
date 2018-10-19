@@ -45,7 +45,7 @@ exports.sendEmail = function(req, res) {
       body = '<body>' +
         '<div id="change-passwd">' +
         '<div> <h1>Change Password</h1> </div>' +
-        '<section><a href="http://localhost:3000/api/profile/verify-token/'+ token +'">aqu&iacute;</a></section>' +
+        '<section><a href="http://localhost:8081/#!/recover_pass/'+ token +'">aqu&iacute;</a></section>' +
         '</div>' +
         ' </body>';
       break;

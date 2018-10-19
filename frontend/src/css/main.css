@@ -71,6 +71,78 @@ section {
   padding: 20px;
 }
 
+/*
+    ******************************************  Test
+    ******************************************  
+    ******************************************          
+*/
+#cardList {
+
+  /*position: absolute;*/
+  width: 600px;
+
+}
+
+div[cl^="card"] {
+  height: 100px;
+  width: 100px;
+  margin: 5px;
+  display: inline-block;
+}
+
+div.cardBlack {
+  background-color: #000;
+}
+
+div.cardRed {
+  background-color: #f00;
+}
+
+div.cardBlue {
+  background-color: #00f;
+}
+
+div.cardGreen {
+  background-color: #0f0;
+}
+
+div.cardYellow {
+  background-color: yellow;
+}
+
+div.cardPurple {
+  background-color: purple;
+}
+
+div.cardBrown {
+  background-color: brown;
+}
+
+div.cardOrange {
+  background-color: orange;
+}
+
+div.cardGrey {
+  background-color: grey;/*94f9c2*/
+}
+
+div.cardTurquesa {
+  background-color: #94f9c2;
+}
+
+div.cardPink {
+  background-color: pink;
+}
+
+div#text{
+    font-size: 40px;
+    color: blue;
+}
+
+div#text-game-over{
+    font-size: 40px;
+    color: red;
+}
 /* .businInte{
     width: 1000px;
     margin-left: auto;

@@ -96,7 +96,7 @@ router.post('/register', function (req, res, next) {
     user.date_init = "";
     user.date_expiration = "";
     user.ubication = "";
-    user.media = 'http://robohash.org/' + param.user + '?set=set2&bgset=bg2&size=256x256';
+    user.media = 'http://robohash.org/';
 
     //falta comparar el password 1 amb el 2
     User.find({ $or: [{ email: user.email.toLowerCase() }, { user: user.user.toLowerCase() }] })

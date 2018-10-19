@@ -7,10 +7,10 @@ class ListProdCtrl {
         this._$scope = $scope;
        // console.log("detail: " + JSON.stringify(test));
         let g = JSON.parse(t);
-        console.log(g.test);
+        console.log("ee",g.test);
         this.detailTest = g.test;
-
     }
+
 }
 
 export default ListProdCtrl;
