@@ -1,0 +1,15 @@
+<My-Hero info="$ctrl.hero"></My-Hero>
+
+<div class="lateralMarginAuto contChat">
+    <h1>Chat with support</h1>
+    <div ng-repeat="message in messages">
+        <strong>{{message.user.name}}:</strong>
+        <span>{{message.data}}</span>
+    </div>
+    <form ng-submit="send()">
+        <div class="form-group">
+            <input ng-model="textbox">
+        </div>
+    </form>
+
+</div>

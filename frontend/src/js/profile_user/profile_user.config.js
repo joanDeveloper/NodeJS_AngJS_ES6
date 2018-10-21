@@ -13,13 +13,18 @@ function Profile_userConfig($stateProvider) {
 
         User.userDetails().then(res => {
           console.log("res ok config servie", res);
+          if (res==null) {
+            Toaster.showToaster("error", "Ha habido un problema con tus datos, por favor intentalo mas tarde");
+            $state.go("app.home");
+            deferred.resolve(null);  
+          }
           deferred.resolve(res);
         },
         
         err => {
           Toaster.showToaster("error", "Ha habido un problema con tus datos, por favor intentalo mas tarde");
-          console.log("err config servie", err);
           $state.go("app.home");
+          console.log("err config servie", err);
           deferred.resolve(null);
           });
         return deferred.promise;

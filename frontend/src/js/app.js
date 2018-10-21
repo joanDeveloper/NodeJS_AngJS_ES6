@@ -7,6 +7,9 @@ import appConfig  from './config/app.config';
 import appRun     from './config/app.run';
 /* import 'angular-bootstrap'; */
 import 'angular-ui-bootstrap';
+import "angular-chat";
+import "rltm";
+
 /* import 'angular-animate';
 import 'angular-aria'; */
 import 'angular-material';
@@ -29,11 +32,14 @@ import './contact';
 import './listProd';
 import 'ngmap';
 import './auth';
-import "./profile_user";;
+import "./profile_user";
+import "./user_chat";
+import "./admin_chat";
 
 
 // Create and bootstrap application
 const requires = [
+  "chat",
   "ui.router",
   "ui.bootstrap",
   "ngMaterial",
@@ -49,6 +55,8 @@ const requires = [
   "app.auth",
   "app.contact",
   "app.listProd",
+  "app.user_chat",
+  "app.admin_chat",
   "ngMap",
   toastr
 ];
@@ -57,6 +65,19 @@ const requires = [
 window.app = angular.module('app', requires);
 
 angular.module('app').constant('AppConstants', constants);
+angular.module("chat").constant('config', {
+  /* rltm: {
+    service: "pubnub",
+    config: {
+      "publish-key": "pub-c-a18ba866-281a-4d97-a060-7ac4b0ebcdd6",
+      "subscribe-key": "sub-c-dc8424e8-6439-11e8-b753-ce5efc28367f"
+    }
+  } */
+  "pubnub": {
+    "publish-key": "pub-c-a18ba866-281a-4d97-a060-7ac4b0ebcdd6",
+    "subscribe-key": "sub-c-dc8424e8-6439-11e8-b753-ce5efc28367f"
+  }
+});
 
 angular.module('app').config(appConfig);
 

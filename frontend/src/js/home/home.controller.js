@@ -1,15 +1,20 @@
 class HomeCtrl {
-  constructor(NgMap, AppConstants, $scope, categories, $stateParams, $state, auth, JWT) {
+  constructor(NgMap, Messages, AppConstants, User, $scope, categories, $stateParams, $state, auth, JWT) {
     "ngInject";
-    console.log("hom ctr l4",auth)  
+
+
+    Messages.user({ id: "support-agent", name: "Support Agent" });
+    console.log("Messages", Messages.user);
+
+
+
     this.appName = AppConstants.appName;
     this._$scope = $scope;
     this.categories = categories.category;
-    console.log("hom ctr l8",this.current)
     this.css = {
       "background-color": "red"
     };
-
+    console.log(User.current);
     
    
     this.page_1 = { title: "Lorem ipsum dolor", subtitle: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque eius, officia velit animi veritatis assumenda quasi ipsam, quam ab illo sint obcaecati temporibus repellendus natus amet eaque rerum sequi inventore?" };

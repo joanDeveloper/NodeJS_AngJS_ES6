@@ -1,9 +1,11 @@
 class Profile_userCtrl {
-  constructor( datos_user, User, AppConstants, $scope,  $stateParams, $state, auth, JWT) {
+  constructor(datos_user,  User, Toaster, AppConstants, $scope,  $stateParams, $state, auth, JWT) {
     "ngInject";
-    console.log("datos_user-------------",datos_user);
+
+    var vm = this;
+    this.__User=User;
+    this._Toaster = Toaster;
     this.datos_usuario = datos_user.data.user;
-    console.log("000000000000000-------------", this.datos_usuario);
     this.hero = {
       info: {
         title: "Perfil de Usuario",
@@ -11,14 +13,40 @@ class Profile_userCtrl {
 
       }
     };
+    console.log("this.datos_usuario", this.datos_usuario);
+    /* this._User.getCurrent().then(res => {
+      console.log("1111", res);
+    }); */
+    $scope.$watch('User.current', (newUser) => {
+      console.log("newUser",typeof newUser);
+      if (!newUser) {
+        vm.user = this.datos_usuario;
+      } else {
+        vm.user = newUser;
+      }
+      if (vm.user.media == "https://robohash.org/") {
+        vm.user.media = vm.user.media + vm.user.name;
+      }
+    })
+
+    
   }/*end constructor*/
 
+  changeAvatar(){
+    this.datos_usuario.media ="https://robohash.org/eramoncin";
+    this.__User.ola(this.datos_usuario);
+  }
+
   Submitprofile(){
-    if (this.datos_usuario.user === "" || this.datos_usuario.surname === "" || this.datos_usuario.name === "" || this.datos_usuario.email === ""){
-      console.log("error")
-      return false;
-    }
-    console.log("nonononononononononono",this.datos_usuario);
+    this.__User.updateUser(this.datos_usuario).
+    then(res=>{
+      this._Toaster.showToaster('success', 'Tus datos se han actualizado exitosamente');
+    },
+      err => {
+        this._Toaster.showToaster("error", "No se han podido actualizar los datos correctamente. Intentalo mas tarde");
+        console.log(err)
+    });
+
   }
 
 }
