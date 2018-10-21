@@ -1,10 +1,13 @@
 export default class TestService {
-    constructor(AppConstants, $http, $q) {
+    constructor(JWT,AppConstants, $http, $q, Toaster, $state) {
         'ngInject';
 
+        this._JWT = JWT;
         this._AppConstants = AppConstants;
         this._$http = $http;
         this._$q = $q;
+        this._Toaster = Toaster;
+        this._state = $state;
     }
 
 
@@ -49,6 +52,35 @@ export default class TestService {
         );
         return deferred.promise;
     }
+
+    stripe(card) {
+        console.log("estic en stripe service: ", card);
+        return this._$http({
+          url: this._AppConstants.api + "/test/card",
+          method: "POST",
+          headers: {
+            authorization: this._JWT.get()
+          },
+          data: {card:card}
+        }).then(
+            (res) => {
+                console.log("res us", res);
+               return this._state.go("app.stripeSuccess");
+               // return res;
+            },
+            (err) => {
+                console.log("err midelware: " , JSON.stringify(err));
+                let errMidelware = JSON.stringify(err);
+                this._Toaster.showToaster(
+                    "error",
+                    "Tienes que registratrte para poder comprar el plan"
+                  );
+                deferred.resolve(false);
+            });
+
+      }
+
+
 
     
 

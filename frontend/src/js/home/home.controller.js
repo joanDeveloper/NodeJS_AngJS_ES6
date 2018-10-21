@@ -21,74 +21,51 @@ class HomeCtrl {
       },
       info: {
         title: "Cognitive Brain",
-        subtitle: "Le ayudamos a mantenerte la mente sana",
-        /*slides : [
-          {
-            title: "1 title",
-            image: 'http://lorempixel.com/560/400/sports/1', 
-          },
-          {
-            title: "2 title",
-            image: 'http://lorempixel.com/560/400/sports/2', 
-          },
-          {
-            title: "3 title",
-            image: 'http://lorempixel.com/560/400/sports/3', 
-          },
-          {
-            title: "4 title",
-            image: 'http://lorempixel.com/560/400/sports/4',
-          },
-          {
-            title: "5 title",
-            image: 'http://lorempixel.com/560/400/sports/5', 
-          },
-        ]*/
+        subtitle: "Le ayudamos a mantenerte la mente sana"
       }
     };
     console.log(this.categories);
-/* 
-    var vm = this;
-    NgMap.getMap().then(function(map) {
-      vm.map = map;
-    }); */
 
     $scope.openCategory = function() {
       console.log( JWT.decodeToken());
     };
 
     
-
-    // if ("geolocation" in navigator) {
-    //   // check if geolocation is supported/enabled on current browser
-    //   navigator.geolocation.getCurrentPosition(
-    //     function success(position) {
-    //       // para cuando obtener la ubicación es un éxito
-    //       console.log('latitude', position.coords.latitude,
-    //         'longitude', position.coords.longitude);
-    //     },
-
-    //     function error(error_message) {
-    //       // for when getting location results in an error
-    //       console.error('An error has occured while retrieving location', error_message)
-    //     }
-
-    //   )
-    // };
-    // Get list of all tags
-    /* Tags
-      .getAll()
-      .then(
-        (tags) => {
-          this.tagsLoaded = true;
-          this.tags = tags
-        }
-      );
-
-    // Set current list to either feed or all, depending on auth status.
-    this.listConfig = {
-      type: User.current ? 'feed' : 'all'
-    }; */
+    /*************** Stripe *************/
+    var handler = StripeCheckout.configure({
+      key: 'pk_test_nfZNnLw26rO7n0KpqjlVxlLv',
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
+      token: function(token) {
+        console.log(token);
+        let plan = localStorage.getItem("Plan");
+        let price = localStorage.getItem("price");
+        $state.go("app.stripe", { 
+          token: token.id, 
+          price:price, 
+          plan: plan
+        });
+      }
+    });
+      
+      document.getElementById('btnStripe').addEventListener('click', function(e) {
+        localStorage.removeItem("Plan");
+        localStorage.removeItem("price");
+        localStorage.setItem('Plan', 'Plan Basic');
+        localStorage.setItem('price', 2000);
+        handler.open({
+          name: 'Cognitive Brain',
+          description: 'Plan Basic',
+          currency: 'eur',
+          amount: 2000
+        });
+        e.preventDefault();
+      });
+      
+      // Close Checkout on page navigation:
+      window.addEventListener('popstate', function() {
+        handler.close();
+      });
   }
 
   changeList(newList) {

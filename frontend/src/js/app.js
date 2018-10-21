@@ -23,6 +23,7 @@ import './layout';
 import './components';
 import './home';
 import "./admin";
+import "./stripe";
 import "./recover_pass";;
 import "./listDetails";
 import './services';
@@ -45,6 +46,7 @@ const requires = [
   "app.components",
   "app.home",
   "app.admin",
+  "app.stripe",
   "app.listDetails",
   "app.services",
   "app.auth",

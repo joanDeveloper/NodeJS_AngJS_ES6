@@ -16,6 +16,7 @@ function ListDetailsConfig($stateProvider) {
           err => $state.go("app.home"));
         return { hola: $stateParams.slug, h: "2" };
       }
+      
     }
   });
 };

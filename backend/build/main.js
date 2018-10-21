@@ -98548,6 +98548,8 @@ require("./home");
 
 require("./admin");
 
+require("./stripe");
+
 require("./recover_pass");
 
 require("./listDetails");
@@ -98587,7 +98589,7 @@ import 'angular-aria'; */
 // Create and bootstrap application
 var requires = ["ui.router",
 /* "base64", */
-"ui.bootstrap", "ngMaterial", "templates", "app.layout", "app.recover_pass", "app.components", "app.home", "app.admin", "app.listDetails", "app.services", "app.auth", "app.contact", "app.listProd", "ngMap", _angularToastr.default]; // Mount on window for testing
+"ui.bootstrap", "ngMaterial", "templates", "app.layout", "app.recover_pass", "app.components", "app.home", "app.admin", "app.stripe", "app.listDetails", "app.services", "app.auth", "app.contact", "app.listProd", "ngMap", _angularToastr.default]; // Mount on window for testing
 
 window.app = _angular.default.module('app', requires);
 
@@ -98605,7 +98607,7 @@ _angular.default.bootstrap(document, ['app'], {
 
 _angular.default.module('app', ['ui.carousel']);
 
-},{"./admin":18,"./auth":22,"./components":34,"./config/app.config":37,"./config/app.constants":38,"./config/app.run":39,"./config/app.templates":40,"./contact":44,"./home":47,"./layout":50,"./listDetails":51,"./listProd":54,"./recover_pass":57,"./services":62,"angular":13,"angular-material":6,"angular-toastr":8,"angular-ui-bootstrap":10,"angular-ui-router":11,"ngmap":14}],20:[function(require,module,exports){
+},{"./admin":18,"./auth":22,"./components":34,"./config/app.config":37,"./config/app.constants":38,"./config/app.run":39,"./config/app.templates":40,"./contact":44,"./home":47,"./layout":50,"./listDetails":51,"./listProd":54,"./recover_pass":57,"./services":62,"./stripe":69,"angular":13,"angular-material":6,"angular-toastr":8,"angular-ui-bootstrap":10,"angular-ui-router":11,"ngmap":14}],20:[function(require,module,exports){
 "use strict";
 
 AuthConfig.$inject = ["$stateProvider", "$httpProvider"];
@@ -99627,7 +99629,7 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('components/list-errors.html', '<ul class="error-messages" ng-show="$ctrl.errors">\n  <div ng-repeat="(field, errors) in $ctrl.errors">\n    <li ng-repeat="error in errors">\n      {{field}} {{error}}\n    </li>\n  </div>\n</ul>\n');
   $templateCache.put('contact/contact.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<section class="containerContact"> \n    <h4>Escribe su consulta {{$ctrl.datosUser.name}}</h4>\n        \n    <form id="contact_form" name="contact_form" class="form-contact" ng-submit="vm.SubmitContact()">\n        <input class="inputs" required ng-model="vm.inputName" type="text" id="inputName" name="inputName" placeholder="Your name" class="" dir="auto" maxlength="100">    \n        <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">The name is required</span>\n        <br>\n        <input class="inputs" required ng-model="vm.inputEmail" type="email" id="inputEmail" name="inputEmail" placeholder="Your email" class="" maxlength="100" ng-pattern="/^[a-z0-9!#$%&\'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*$/i"> \n        <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">The email is required</span>\n        <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">The email is not valid</span>\n        <br>\n            \n        <select  ng-model="vm.inputSubject" class="form-control" id="inputSubject" name="inputSubject" title="Choose subject">\n            <option value="">Select subject</option>\n            <option value="order">SEL_ORDER</option>\n            <option value="programming_dept">SEL_PROG_DEPT</option>\n        </select>\n                \n        <br>   \n        <textarea required ng-model="vm.inputMessage" class="input-block-level" rows="4" id="inputMessage" name="inputMessage" placeholder="Your comment here..." style="max-width: 100%;" dir="auto"></textarea>\n        <br>\n        <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">The comment is required</span>\n        <input class="btnContact" type="submit" class="btn btn-primary" name="submit" id="submitBtn" value="Enviar consulta" ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputMessage.$valid" ng-click="SubmitContact()" />\n            \n        <div id="resultMessageOk" class="msg_ok">{{vm.resultMessageOk}}</div>\n        <div id="resultMessageFail" class="msg_error">{{vm.resultMessageFail}}</div>\n    </form>\n\n</section>\n\n<div map-lazy-load="https://maps.google.com/maps/api/js">\n    <ng-map center="[38.8100743, -0.6066551]" style="width: 100%;" zoom="15">\n    <marker no-watcher="true" title="prueba" position="[38.8100743, -0.6066551]"></marker>\n    </ng-map>\n    <!-- <ng-map  center="[40.74, -74.18]" style="width:100%; height: 100%; " zoom="15"></ng-map> -->\n</div>\n');
   $templateCache.put('editor/editor.html', '<div class="editor-page">\n  <div class="container page">\n    <div class="row">\n      <div class="col-md-10 offset-md-1 col-xs-12">\n\n        <list-errors errors="$ctrl.errors"></list-errors>\n\n        <form>\n          <fieldset ng-disabled="$ctrl.isSubmitting">\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                ng-model="$ctrl.article.title"\n                type="text"\n                placeholder="Article Title" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control"\n                ng-model="$ctrl.article.description"\n                type="text"\n                placeholder="What\'s this article about?" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <textarea class="form-control"\n                rows="8"\n                ng-model="$ctrl.article.body"\n                placeholder="Write your article (in markdown)">\n              </textarea>\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control"\n                type="text"\n                placeholder="Enter tags"\n                ng-model="$ctrl.tagField"\n                ng-keyup="$event.keyCode == 13 && $ctrl.addTag()" />\n\n              <div class="tag-list">\n                <span ng-repeat="tag in $ctrl.article.tagList"\n                  class="tag-default tag-pill">\n                  <i class="ion-close-round" ng-click="$ctrl.removeTag(tag)"></i>\n                  {{ tag }}\n                </span>\n              </div>\n            </fieldset>\n\n            <button class="btn btn-lg pull-xs-right btn-primary" type="button" ng-click="$ctrl.submit()">\n              Publish Article\n            </button>\n\n          </fieldset>\n        </form>\n\n      </div>\n    </div>\n  </div>\n</div>\n');
-  $templateCache.put('home/home.html', " <div class=\"home-page\">\n   <!-- <button ng-click=\"openCategory()\" type=\"button\" class=\"btn btn-large btn-block btn-primary\">button</button> -->\n   \n  <My-Hero info=\"$ctrl.hero\"></My-Hero> \n   \n  <section>\n    <My-Page info=\"$ctrl.page_1\"></My-Page>\n  </section>\n\n  <!-- <Follow-Btn css=\"$ctrl.css\" user=\"$ctrl.a\" u=\"poco\"></Follow-Btn>\n  \n  \n  \n  <div class=\"divmio\">divmio\n    <md-button class=\"md-fab\" aria-label=\"Eat cake\" ng>\n      material diseny\n    </md-button>\n  </div> -->\n   \n  <!--<button ng-click=\"openCategory()\" type=\"button\" class=\"btn btn-large btn-block btn-primary\">button</button>-->\n  \n  <div class=\"container-text divStandar\">\n    <div class=\"container-text__section\">\n      <h3 class=\"container-text__title\">Nuestros Servicios</h3>\n      <img src=\"../images/customer-service.svg\" class=\"container-text__imgHome\" alt=\"Servicios\">\n      <p class=\"container-text__parrafo\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n\n    <div class=\"container-text__section\">\n      <h3 class=\"container-text__title\">Nuestro compromiso</h3>\n      <img src=\"../images/compromise.svg\" class=\"container-text__imgHome\" alt=\"Compromiso\">\n      <p class=\"container-text__parrafo\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n  </div>\n\n<h3 align=\"center\">Categor\xEDas</h3>\n\n<section>\n  <div class=\"divStandar gridCategoryContainer\">\n    <my-card ng-repeat=\"category in $ctrl.categories\" info=\"category\"></my-card>\n  </div>\n</section>\n\n<section class=\"container-plan divStandar\">\n  <div class=\"container-plan__section\">\n    <h2>Plan Basico</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy1.svg\" alt=\"Plan Basico\">\n    <p class=\"container-text__parrafo\">Test</p>\n    <p class=\"container-text__parrafo\">20\u20AC/mes</p>\n    <button type=\"submit\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Intermedio</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy2.svg\" alt=\"Plan Intermedio\">\n    <p class=\"container-text__parrafo\">Soporte email + Test</p>\n    <p class=\"container-text__parrafo\">35\u20AC/mes</p>\n    <button type=\"submit\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Experto</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy3.svg\" alt=\"Plan Experto\">\n    <p class=\"container-text__parrafo\">Soporte email +  Skype + Test</p>\n    <p class=\"container-text__parrafo\">50\u20AC/mes</p>\n    <button type=\"submit\" class=\"btnColor\">Comprar</button>\n  </div>\n</section>\n\n</div>\n");
+  $templateCache.put('home/home.html', " <div class=\"home-page\">\n   <!-- <button ng-click=\"openCategory()\" type=\"button\" class=\"btn btn-large btn-block btn-primary\">button</button> -->\n   \n  <My-Hero info=\"$ctrl.hero\"></My-Hero> \n   \n  <section>\n    <My-Page info=\"$ctrl.page_1\"></My-Page>\n  </section>\n\n  <!-- <Follow-Btn css=\"$ctrl.css\" user=\"$ctrl.a\" u=\"poco\"></Follow-Btn>\n  \n  \n  \n  <div class=\"divmio\">divmio\n    <md-button class=\"md-fab\" aria-label=\"Eat cake\" ng>\n      material diseny\n    </md-button>\n  </div> -->\n   \n  <!--<button ng-click=\"openCategory()\" type=\"button\" class=\"btn btn-large btn-block btn-primary\">button</button>-->\n  \n  <div class=\"container-text divStandar\">\n    <div class=\"container-text__section\">\n      <h3 class=\"container-text__title\">Nuestros Servicios</h3>\n      <img src=\"../images/customer-service.svg\" class=\"container-text__imgHome\" alt=\"Servicios\">\n      <p class=\"container-text__parrafo\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n\n    <div class=\"container-text__section\">\n      <h3 class=\"container-text__title\">Nuestro compromiso</h3>\n      <img src=\"../images/compromise.svg\" class=\"container-text__imgHome\" alt=\"Compromiso\">\n      <p class=\"container-text__parrafo\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n  </div>\n\n<h3 align=\"center\">Categor\xEDas</h3>\n\n<section>\n  <div class=\"divStandar gridCategoryContainer\">\n    <my-card ng-repeat=\"category in $ctrl.categories\" info=\"category\"></my-card>\n  </div>\n</section>\n\n<section class=\"container-plan divStandar\">\n  <div class=\"container-plan__section\">\n    <h2>Plan Basico</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy1.svg\" alt=\"Plan Basico\">\n    <p class=\"container-text__parrafo\">Test</p>\n    <p class=\"container-text__parrafo\">20\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripe\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Intermedio</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy2.svg\" alt=\"Plan Intermedio\">\n    <p class=\"container-text__parrafo\">Soporte email + Test</p>\n    <p class=\"container-text__parrafo\">35\u20AC/mes</p>\n    <button type=\"submit\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Experto</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy3.svg\" alt=\"Plan Experto\">\n    <p class=\"container-text__parrafo\">Soporte email +  Skype + Test</p>\n    <p class=\"container-text__parrafo\">50\u20AC/mes</p>\n    <button type=\"submit\" class=\"btnColor\">Comprar</button>\n  </div>\n</section>\n\n</div>\n");
   $templateCache.put('layout/app-view.html', '<app-header></app-header>\n    <div ui-view class="containerBody"></div>\n<app-footer></app-footer>\n');
   $templateCache.put('layout/footer.html', '<footer id="footer">\n  <div >\n    <div class="gloriaGrid">\n  \n      <div class="elem1">\n        <div class="elemsTitle">\n          <p>Cognitive Brain S.L.</p>\n        </div>\n        <div>\n          <div>Cognitive Brain</div>\n          <div>C/ islas canarias 6,</div>\n          <div>46870 Ontinyent, Valencia, Espa\xF1a.</div>\n          <div>cognitivebrain@info.com</div>\n          <div>+34 960 00 00 00</div>\n        </div>\n      </div>\n  \n      <div class="elem2">\n        <div>\n          <p>Apuntate a nuestra newsletter para estar siempre al d\xEDa.</p>\n        </div>\n        <div class="gloriaTitle">\n          <input id="inpEmail" type="email" placegolder="Tu email"></input>\n          <button type="button" class="btnColor">SUSCRIBETE</button>\n        </div>\n      </div>\n  \n      <div class="elem3">\n        <div class="elemsTitle">\n          <p>MISI\xD3N</p>\n        </div>\n        <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae velit aliquid expedita dolorem pariatur amet nemo dicta, repudiandae totam, inventore natus, quos sed repellat quo ipsa et nostrum magni delectus</div>\n      </div>\n  \n    </div>\n  </div>\n\n</footer>\n');
   $templateCache.put('layout/header.html', '\n<header class="header" >\n  <a ui-sref="app.home" class="logo" style="color:#EA5047">Cognitive Brain</a>\n  <input class="menu-btn" type="checkbox" id="menu-btn" />\n  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>\n  <ul class="menu">\n    \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.home">Home</a>\n    </li>\n   \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">Contact</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.login">Sing in</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a ng-click="$ctrl.logout()" >Log out</a>\n    </li>\n    \n    <li show-authed="true" class="nav-item">\n      <a style="padding: 0px;">\n        <img ng-src="{{$ctrl.user.media}}" style="height: 60px; padding:4px 30px 4px 30px;" alt="">\n      </a>\n    </li>\n    \n<!-- \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.listDetails">ListDetails</a>\n    </li> -->\n\n  </ul>\n</header>\n<!-- \n\n<nav class="navbar navbar-light">\n  <div class="container">\n\n    <a class="navbar-brand"\n      ui-sref="app.home"\n      ng-bind="::$ctrl.appName | lowercase">\n    </a>\n\n    \n    <ul show-authed="false"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.login">\n          Sign in\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.register">\n          Sign up\n        </a>\n      </li>\n\n    </ul>\n\n    \n    <ul show-authed="true"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.editor">\n          <i class="ion-compose"></i>&nbsp;New Article\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.settings">\n          <i class="ion-gear-a"></i>&nbsp;Settings\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">\n          Contact\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.listProd">\n          Lista productos\n        </a>\n      </li>\n\n     \n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.profile.main({ username: $ctrl.currentUser.username})">\n          <img ng-src="{{$ctrl.currentUser.image}}" class="user-pic" />\n          {{ $ctrl.currentUser.username }}\n        </a>\n      </li>\n\n    </ul>\n\n\n  </div>\n</nav>\n -->');
@@ -99886,69 +99888,48 @@ function () {
       info: {
         title: "Cognitive Brain",
         subtitle: "Le ayudamos a mantenerte la mente sana"
-        /*slides : [
-          {
-            title: "1 title",
-            image: 'http://lorempixel.com/560/400/sports/1', 
-          },
-          {
-            title: "2 title",
-            image: 'http://lorempixel.com/560/400/sports/2', 
-          },
-          {
-            title: "3 title",
-            image: 'http://lorempixel.com/560/400/sports/3', 
-          },
-          {
-            title: "4 title",
-            image: 'http://lorempixel.com/560/400/sports/4',
-          },
-          {
-            title: "5 title",
-            image: 'http://lorempixel.com/560/400/sports/5', 
-          },
-        ]*/
-
       }
     };
     console.log(this.categories);
-    /* 
-        var vm = this;
-        NgMap.getMap().then(function(map) {
-          vm.map = map;
-        }); */
 
     $scope.openCategory = function () {
       console.log(JWT.decodeToken());
-    }; // if ("geolocation" in navigator) {
-    //   // check if geolocation is supported/enabled on current browser
-    //   navigator.geolocation.getCurrentPosition(
-    //     function success(position) {
-    //       // para cuando obtener la ubicación es un éxito
-    //       console.log('latitude', position.coords.latitude,
-    //         'longitude', position.coords.longitude);
-    //     },
-    //     function error(error_message) {
-    //       // for when getting location results in an error
-    //       console.error('An error has occured while retrieving location', error_message)
-    //     }
-    //   )
-    // };
-    // Get list of all tags
+    };
+    /*************** Stripe *************/
 
-    /* Tags
-      .getAll()
-      .then(
-        (tags) => {
-          this.tagsLoaded = true;
-          this.tags = tags
-        }
-      );
-     // Set current list to either feed or all, depending on auth status.
-    this.listConfig = {
-      type: User.current ? 'feed' : 'all'
-    }; */
 
+    var handler = StripeCheckout.configure({
+      key: 'pk_test_nfZNnLw26rO7n0KpqjlVxlLv',
+      image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+      locale: 'auto',
+      token: function token(_token) {
+        console.log(_token);
+        var plan = localStorage.getItem("Plan");
+        var price = localStorage.getItem("price");
+        $state.go("app.stripe", {
+          token: _token.id,
+          price: price,
+          plan: plan
+        });
+      }
+    });
+    document.getElementById('btnStripe').addEventListener('click', function (e) {
+      localStorage.removeItem("Plan");
+      localStorage.removeItem("price");
+      localStorage.setItem('Plan', 'Plan Basic');
+      localStorage.setItem('price', 2000);
+      handler.open({
+        name: 'Cognitive Brain',
+        description: 'Plan Basic',
+        currency: 'eur',
+        amount: 2000
+      });
+      e.preventDefault();
+    }); // Close Checkout on page navigation:
+
+    window.addEventListener('popstate', function () {
+      handler.close();
+    });
   }
 
   _createClass(HomeCtrl, [{
@@ -100200,7 +100181,8 @@ var ListDetailsCtrl = function ListDetailsCtrl(AppConstants, $scope, tests, $sta
   this.u = tests.test;
 
   $scope.openTest = function (id_) {
-    console.log("id_test: " + id_);
+    console.log("id_test: " + id_); //enviar al backend para comprobar si esta registrado
+
     $state.go("app.listProd", {
       id: id_
     });
@@ -100635,6 +100617,8 @@ var _contact = _interopRequireDefault(require("./contact.service"));
 
 var _test = _interopRequireDefault(require("./test.service"));
 
+var _stripe = _interopRequireDefault(require("./stripe.service"));
+
 var _jwt = _interopRequireDefault(require("./jwt.service"));
 
 var _user = _interopRequireDefault(require("./user.service"));
@@ -100651,6 +100635,7 @@ var servicesModule = _angular.default.module('app.services', []);
 servicesModule.service('Toaster', _toaster.default);
 servicesModule.service('Contact', _contact.default);
 servicesModule.service('TestService', _test.default);
+servicesModule.service('StripeService', _stripe.default);
 servicesModule.service('JWT', _jwt.default);
 servicesModule.service('User', _user.default);
 servicesModule.service("Admin", _admin.default);
@@ -100658,7 +100643,7 @@ servicesModule.service('Tags', _tags.default);
 var _default = servicesModule;
 exports.default = _default;
 
-},{"./admin.service":60,"./contact.service":61,"./jwt.service":63,"./tags.service":64,"./test.service":65,"./toaster.service":66,"./user.service":67,"angular":13}],63:[function(require,module,exports){
+},{"./admin.service":60,"./contact.service":61,"./jwt.service":63,"./stripe.service":64,"./tags.service":65,"./test.service":66,"./toaster.service":67,"./user.service":68,"angular":13}],63:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100767,6 +100752,56 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+var StripeService =
+/*#__PURE__*/
+function () {
+  StripeService.$inject = ["AppConstants", "$http", "$state", "$q"];
+  function StripeService(AppConstants, $http, $state, $q) {
+    'ngInject';
+
+    _classCallCheck(this, StripeService);
+
+    this._AppConstants = AppConstants;
+    this._$http = $http;
+    this._$q = $q;
+    this._$state = $state;
+    this.current = null;
+  }
+
+  _createClass(StripeService, [{
+    key: "stripe",
+    value: function stripe(card) {
+      console.log("estic en stripe service: ", card);
+      return this._$http({
+        url: this._AppConstants.api + "/contact",
+        method: "POST",
+        data: card
+      }).then(function (res) {
+        console.log("res us", res);
+        return res;
+      });
+    }
+  }]);
+
+  return StripeService;
+}();
+
+exports.default = StripeService;
+
+},{}],65:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
 var Tags =
 /*#__PURE__*/
 function () {
@@ -100797,7 +100832,7 @@ function () {
 
 exports.default = Tags;
 
-},{}],65:[function(require,module,exports){
+},{}],66:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100814,15 +100849,18 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var TestService =
 /*#__PURE__*/
 function () {
-  TestService.$inject = ["AppConstants", "$http", "$q"];
-  function TestService(AppConstants, $http, $q) {
+  TestService.$inject = ["JWT", "AppConstants", "$http", "$q", "Toaster", "$state"];
+  function TestService(JWT, AppConstants, $http, $q, Toaster, $state) {
     'ngInject';
 
     _classCallCheck(this, TestService);
 
+    this._JWT = JWT;
     this._AppConstants = AppConstants;
     this._$http = $http;
     this._$q = $q;
+    this._Toaster = Toaster;
+    this._state = $state;
   }
 
   _createClass(TestService, [{
@@ -100879,6 +100917,33 @@ function () {
 
       return deferred.promise;
     }
+  }, {
+    key: "stripe",
+    value: function stripe(card) {
+      var _this = this;
+
+      console.log("estic en stripe service: ", card);
+      return this._$http({
+        url: this._AppConstants.api + "/test/card",
+        method: "POST",
+        headers: {
+          authorization: this._JWT.get()
+        },
+        data: {
+          card: card
+        }
+      }).then(function (res) {
+        console.log("res us", res);
+        return _this._state.go("app.stripeSuccess"); // return res;
+      }, function (err) {
+        console.log("err midelware: ", JSON.stringify(err));
+        var errMidelware = JSON.stringify(err);
+
+        _this._Toaster.showToaster("error", "Tienes que registratrte para poder comprar el plan");
+
+        deferred.resolve(false);
+      });
+    }
   }]);
 
   return TestService;
@@ -100886,7 +100951,7 @@ function () {
 
 exports.default = TestService;
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -100924,6 +100989,8 @@ function () {
           break;
 
         case 'error':
+          console.log("entra en toaster error");
+
           this._toastr.error(message);
 
           break;
@@ -100946,7 +101013,7 @@ function () {
 
 exports.default = Toaster;
 
-},{}],67:[function(require,module,exports){
+},{}],68:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -101144,5 +101211,112 @@ function () {
 }();
 
 exports.default = User;
+
+},{}],69:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _angular = _interopRequireDefault(require("angular"));
+
+var _stripe = _interopRequireDefault(require("./stripe.config"));
+
+var _stripe2 = _interopRequireDefault(require("./stripe.controller"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* import datepicker from 'angular-ui-bootstrap/src/alert'; */
+// Create the module where our functionality can attach to
+var StripeModule = _angular.default.module("app.stripe", []); // Include our UI-Router config settings
+
+
+StripeModule.config(_stripe.default); // Controllers
+
+StripeModule.controller("StripeCtrl", _stripe2.default);
+var _default = StripeModule;
+exports.default = _default;
+
+},{"./stripe.config":70,"./stripe.controller":71,"angular":13}],70:[function(require,module,exports){
+"use strict";
+
+StripeConfig.$inject = ["$stateProvider"];
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function StripeConfig($stateProvider) {
+  'ngInject';
+
+  $stateProvider.state('app.stripe', {
+    url: '/stripe/:token:price:plan',
+    controller: 'Ctrl',
+    controllerAs: '$ctrl',
+    // templateUrl: 'home/home.html',
+    title: 'Stripe',
+    resolve: {
+      stripe: ["TestService", "$state", "$stateParams", function stripe(TestService, $state, $stateParams) {
+        console.log($stateParams);
+        return TestService.stripe($stateParams).then(function (stripe) {
+          return stripe;
+        }, function (err) {
+          return $state.go("app.home");
+        });
+        return {
+          hola: $stateParams,
+          h: "2"
+        };
+      }]
+    }
+  }).state('app.stripeSuccess', {
+    url: '/event_stripe/:stripe',
+    controller: 'StripeCtrl as $ctrl',
+    title: 'Stripes',
+    resolve: {
+      stripeBuy: ["TestService", "$state", "$stateParams", function stripeBuy(TestService, $state, $stateParams) {
+        console.log("hi; " + $stateParams);
+        return {
+          hola: $stateParams,
+          h: "2"
+        };
+      }]
+    }
+  });
+}
+
+;
+var _default = StripeConfig;
+exports.default = _default;
+
+},{}],71:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var StripeCtrl = function StripeCtrl(AppConstants, $scope, stripeBuy, Toaster, $state) {
+  "ngInject";
+
+  _classCallCheck(this, StripeCtrl);
+
+  console.log("llega aquiiiii stripe", stripeBuy);
+  this.appName = AppConstants.appName;
+  this._$scope = $scope;
+  this._state = $state;
+  Toaster.showToaster("success", "Compra realizada correctamente");
+
+  this._state.go("app.home");
+};
+StripeCtrl.$inject = ["AppConstants", "$scope", "stripeBuy", "Toaster", "$state"];
+
+var _default = StripeCtrl;
+exports.default = _default;
 
 },{}]},{},[19]);

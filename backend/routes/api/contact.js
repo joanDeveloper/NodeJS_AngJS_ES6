@@ -6,9 +6,9 @@ var email = require('../../utils/email.js');
 router.post('/', function(req, res, next) {
   console.log("aplega a node");
   //console.log(req,res,next);
-
-  email.sendEmail(req,res);
-  return true;
+  
+  /*email.sendEmail(req,res);
+  return true;*/
 });
 
 module.exports = router;

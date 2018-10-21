@@ -8,8 +8,12 @@ class ListDetailsCtrl {
 
     $scope.openTest = function(id_) {
       console.log("id_test: "+id_);
+      //enviar al backend para comprobar si esta registrado
+      
       $state.go("app.listProd", { id: id_ });
     };
+
+
 
   }
 }
