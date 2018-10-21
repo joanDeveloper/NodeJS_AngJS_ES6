@@ -50,11 +50,8 @@ const requires = [
   "app.components",
   "app.home",
   "app.admin",
-<<<<<<< HEAD
   "app.stripe",
-=======
   "app.profile_user",
->>>>>>> da1e3b73819ea991c9118a6c284751f898a6c1b8
   "app.listDetails",
   "app.services",
   "app.auth",

@@ -78,7 +78,27 @@ export default class TestService {
                 deferred.resolve(false);
             });
 
-      }
+    }
+
+    checkUser() {
+        console.log("estic en user chech service: ");
+        return this._$http({
+          url: this._AppConstants.api + "/users/check",
+          method: "GET",
+          headers: {
+            authorization: this._JWT.get()
+          }
+        }).then(
+            (res) => {
+                console.log("response user success", res.data.user);
+                return res.data.user;
+            },
+            (err) => {
+                console.log("err midelware: " , JSON.stringify(err));
+                return err;
+            
+            });
+    }
 
 
 
