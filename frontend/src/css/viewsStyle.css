@@ -53,6 +53,47 @@
     max-width: var(--mediumWidth);
 }
 
+/* 
+    ******************************************  Chat WIEW 
+    ******************************************  
+    ******************************************  
+*/
+
+.contChat{
+    min-height: 800px
+}
+/* 
+    ******************************************  Profile WIEW 
+    ******************************************  
+    ******************************************  
+*/
+
+.contForm {
+    max-width: var(--mediumWidth);
+}
+
+.inputsProfile {
+    width: 100%;
+}
+
+.divInput {
+    padding-top: 30px;
+}
+
+.btnActualizar {
+    height: 50px;
+    font-weight: var(--boldLetters);
+    /* font-size: var(--fontSizeSubtitle) */
+}
+
+.contMedia {
+    max-width: var(--smallWidth)
+}
+
+.avatar {
+    width: 100%;
+}
+
 /*
     ****************************************** CSS category
     ******************************************  

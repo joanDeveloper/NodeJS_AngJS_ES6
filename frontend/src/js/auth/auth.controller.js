@@ -82,14 +82,14 @@ class AuthCtrl {
       this._User.attemptAuth(this.authType, this.formData).then(
         res => {
           if (this.authType == "login") {
-            this._JWT.decodeToken().then(function (data) {
+            /* this._JWT.decodeToken().then(function (data) {
               console.log("$datassssssssssssssss", data);
               $rootScope.user = data;
               if (data.media == "https://robohash.org/") {
                 $rootScope.user.media = data.media + data.name;
               }
               console.log("$rootScope", $rootScope.user);
-            });
+            }); */
 
             this._Toaster.showToaster(
               "success",

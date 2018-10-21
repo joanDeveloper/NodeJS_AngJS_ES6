@@ -1,7 +1,7 @@
 export default class User {
-  constructor(JWT, AppConstants, $http, $state, $q) {
+  constructor(JWT, AppConstants, $http, $state, $q, Toaster) {
     'ngInject';
-
+    this._Toaster = Toaster;
     this._JWT = JWT;
     this._AppConstants = AppConstants;
     this._$http = $http;
@@ -39,7 +39,11 @@ export default class User {
       if (type === "login") {
         console.log("us l35", res)
         this._JWT.save(res.data.token);
-        this.current = res.data.token;
+        this._JWT.decodeToken().then(
+        (res) => { 
+          this.current = res;
+          console.log("this.current-----", res);
+        })
         /* this._JWT.decodeToken().then(function(data) {
           console.log("$datassssssssssssssss", data);
           $rootScope.user = data;
@@ -63,11 +67,42 @@ export default class User {
       }
     )
   }
+ 
+  updateUser(datos) {
+    return this._$http({
+      url: this._AppConstants.api + "/profile/data-update",
+      method: "POST",
+      headers: {
+        authorization: this._JWT.get()
+      },
+      data: datos
+    }).then(res => {
+      return res;
+    });
+  }
+
+  userDetails() {
+    let deferred = this._$q.defer();
+    this._$http({
+      url: this._AppConstants.api + "/profile/",
+      method: "GET",
+      headers: {
+        authorization: this._JWT.get()
+      }
+    }).then(res => {
+        deferred.resolve(res);
+      },
+      err => {
+        deferred.resolve(null);
+      });
+    return deferred.promise;
+  }
 
   logout() {
     this.current = null;
     this._JWT.destroy();
-    this._$state.go(this._$state.$current, null, { reload: true });
+    this._Toaster.showToaster("info", "Has cerrado sesion exitosamente");
+    this._$state.go("app.home");
   }
 
   verifyAuth() {
@@ -85,7 +120,7 @@ export default class User {
     } else {
       console.log("us 75", typeof this._JWT.get())
       this._$http({
-        url: this._AppConstants.api + '/users/',
+        url: this._AppConstants.api + '/profile/',
         method: 'GET',
         headers: {
           authorization: this._JWT.get()
@@ -108,13 +143,14 @@ export default class User {
     return deferred.promise;
   }
 
-  getCurrent() {
-    return this.current;
+  ola(nuevosDatos) {
+    var x = document.getElementById("file");
+    console.log("nuevosDatos", nuevosDatos, x.files[0]);
+    this.current = nuevosDatos;
   }
 
-  ensureAuthIs(bool) {
+ ensureAuthIs(bool) {
     let deferred = this._$q.defer();
-    console.log("us ensureAuthIs l108", bool);
     this.verifyAuth().then((authValid) => {
       console.log("us ensureAuthIs l108", authValid);
       if (authValid !== bool) {
@@ -125,7 +161,7 @@ export default class User {
       }
 
     });
-
+    console.log("Userserv  ensureAuthIs ", deferred.promise);
     return deferred.promise;
   }
 

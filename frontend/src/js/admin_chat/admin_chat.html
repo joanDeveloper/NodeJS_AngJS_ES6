@@ -1,0 +1,19 @@
+<My-Hero info="$ctrl.hero"></My-Hero>
+
+<div class="lateralMarginAuto contChat">
+    <h1>Soporte</h1>
+    <div ng-repeat="chat in chats">
+        <h2>Chat with {{chat.user.name}}</h2>
+        <hr />
+        <div ng-repeat="message in chat.messages">
+            <strong>{{message.user.name}}:</strong>
+            <span>{{message.data}}</span>
+        </div>
+        <form ng-submit="send(chat.user.id, chat.textbox)">
+            <div class="form-group">
+                <input ng-model="chat.textbox">
+            </div>
+        </form>
+        <hr />
+    </div>
+</div>

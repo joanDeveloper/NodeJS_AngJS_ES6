@@ -37,15 +37,12 @@
   --textGeneral: #888888;
   --blueGeneral: #363949;
   --CompanyColor: #EA5047;
-
-
-
-  
   /*
   * Sizes
   * ======================================================================== */
   --generalWidth: 1000px;
   --mediumWidth: 500px;
+  --smallWidth: 250px;
   --iconSize: 85px;
   --fontSizeTitle: 3.5rem;
   --fontSizeSubtitle: 2.5rem;
@@ -79,11 +76,10 @@ section {
     ******************************************  
     ******************************************          
 */
-#cardList {
 
+#cardList {
   /*position: absolute;*/
   width: 600px;
-
 }
 
 div[cl^="card"] {
@@ -126,7 +122,8 @@ div.cardOrange {
 }
 
 div.cardGrey {
-  background-color: grey;/*94f9c2*/
+  background-color: grey;
+  /*94f9c2*/
 }
 
 div.cardTurquesa {
@@ -137,15 +134,16 @@ div.cardPink {
   background-color: pink;
 }
 
-div#text{
-    font-size: 40px;
-    color: blue;
+div#text {
+  font-size: 40px;
+  color: blue;
 }
 
-div#text-game-over{
-    font-size: 40px;
-    color: red;
+div#text-game-over {
+  font-size: 40px;
+  color: red;
 }
+
 /* .businInte{
     width: 1000px;
     margin-left: auto;
@@ -162,5 +160,7 @@ div#text-game-over{
     grid-area: cont1;    
   }
   .a{
-    grid-area: a;    
+    grid-area: a;
+    https://robohash.org/giovanny_user    
+    https://robohash.org/giovanny_userName
   } */

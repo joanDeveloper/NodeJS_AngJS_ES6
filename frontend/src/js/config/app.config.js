@@ -17,18 +17,7 @@ function AppConfig($httpProvider, $stateProvider, $locationProvider, $urlRouterP
     templateUrl: 'layout/app-view.html',
     resolve: {
       auth: function (User, JWT, $rootScope) {
-        /* console.log("tokennnnn", JWT.decodeToken()); */
-        console.log("appconfig 20",User.verifyAuth()); 
-        JWT.decodeToken().then(function(data){
-          console.log("$data", data);
-          $rootScope.user=data;
-          $rootScope.yo = "data";
-          console.log("$rootScope", $rootScope.user);
-        })
-        
-        
         return User.verifyAuth();
-        /* console.log($rootScope.user);*/
       }
     }
   });

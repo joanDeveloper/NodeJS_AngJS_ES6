@@ -6,6 +6,8 @@ class Recover_passCtrl {
     if (tipo=="email") {
       this.formemail=true;
     }
+
+    
     this.appName = AppConstants.appName;
     this._User=User;
     this.hero = {
