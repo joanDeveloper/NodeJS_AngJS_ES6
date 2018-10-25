@@ -145,7 +145,8 @@ export default class User {
 
   ola(nuevosDatos) {
     var x = document.getElementById("file");
-    console.log("nuevosDatos", nuevosDatos, x.files[0]);
+    console.log(98989898989,  x);
+    console.log(77777777777777777, x.files[0]);
     this.current = nuevosDatos;
   }
 
