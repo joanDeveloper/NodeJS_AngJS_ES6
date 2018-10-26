@@ -81,16 +81,7 @@ class AuthCtrl {
 
       this._User.attemptAuth(this.authType, this.formData).then(
         res => {
-          if (this.authType == "login") {
-            /* this._JWT.decodeToken().then(function (data) {
-              console.log("$datassssssssssssssss", data);
-              $rootScope.user = data;
-              if (data.media == "https://robohash.org/") {
-                $rootScope.user.media = data.media + data.name;
-              }
-              console.log("$rootScope", $rootScope.user);
-            }); */
-
+          if (this.authType != "register") {
             this._Toaster.showToaster(
               "success",
               "Has iniciado sesion exitosamente"
@@ -104,8 +95,7 @@ class AuthCtrl {
           this.isSubmitting = false;
           this.errorDB = true;
           this.errorMessage = err.data.message;
-        }
-      );
+        });
     }
 
   } /*end Constructor */
@@ -114,7 +104,23 @@ class AuthCtrl {
   logSocial(tipo) {
     console.log("entra");
     console.log(tipo);
-    this._User.socialAuth(tipo);
+    debugger
+    this._User.socialAuth(tipo).then(
+        res => {
+          console.log("xx",res)
+          this._Toaster.showToaster(
+            "success",
+            "Has iniciado sesion exitosamente"
+          );
+          this._$state.go("app.home");
+        },
+          err => {
+            console.log("error");
+            console.log(err);
+            this.isSubmitting = false;
+            this.errorDB = true;
+            this.errorMessage = err.data.message;
+          });
   }
 }
 

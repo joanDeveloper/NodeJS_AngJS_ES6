@@ -8,7 +8,7 @@ class User_chatCtrl {
         subtitle: ""
       }
     };
-
+    
     $scope.chats = {};
     Messages.user({ id: "support-agent", name: "Support Agent" });
     Messages.receive(function (message, isPrivate) {
@@ -18,6 +18,7 @@ class User_chatCtrl {
           messages: []
         };
       }
+      /* console.log("1", $scope.chats[message.user.id].messages.push(message)) */
       $scope.chats[message.user.id].messages.push(message);
     });
 
@@ -27,7 +28,8 @@ class User_chatCtrl {
         data: text,
         user: Messages.user()
       };
-      $scope.text == "";
+      text = "";
+      $scope.textbox = "";
       Messages.send(message);
       $scope.chats[to].messages.push(message);
     };

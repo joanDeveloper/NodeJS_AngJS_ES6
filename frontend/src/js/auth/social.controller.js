@@ -15,7 +15,7 @@ class SocialCtrl {
       (res) => {
         console.log("res: ctr social", res)
         this._toaster.showToaster('success','Successfully Logged In');
-        /* this._$state.go('app.home'); */
+        this._$state.go("app.home");
       },
       (err) => {
         this._toaster.showToaster('error','Error trying to login');

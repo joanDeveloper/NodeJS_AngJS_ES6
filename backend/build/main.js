@@ -107584,6 +107584,7 @@ function () {
     this._rootScope = $rootScope;
     this._uibModal = $uibModal;
     this._Admin = Admin;
+    this._$state = $state;
 
     $scope.lockUser = function (radioModel, user) {
       var el1 = document.getElementById("No".concat(user._id));
@@ -107716,6 +107717,8 @@ function () {
             console.log(res);
 
             _this._rootScope.swal("Eliminacion exitosa!", "El usuario ha sido eliminado");
+
+            _this._$state.go("app.admin");
           });
         }
       });
@@ -107826,6 +107829,8 @@ var User_chatCtrl = function User_chatCtrl(Toaster, User, Messages, AppConstants
         messages: []
       };
     }
+    /* console.log("1", $scope.chats[message.user.id].messages.push(message)) */
+
 
     $scope.chats[message.user.id].messages.push(message);
   });
@@ -107836,7 +107841,8 @@ var User_chatCtrl = function User_chatCtrl(Toaster, User, Messages, AppConstants
       data: text,
       user: Messages.user()
     };
-    $scope.text == "";
+    text = "";
+    $scope.textbox = "";
     Messages.send(message);
     $scope.chats[to].messages.push(message);
   };
@@ -107958,13 +107964,13 @@ window.app = _angular.default.module('app', requires);
 _angular.default.module('app').constant('AppConstants', _app.default);
 
 _angular.default.module("chat").constant('config', {
-  /* rltm: {
+  rltm: {
     service: "pubnub",
     config: {
       "publish-key": "pub-c-a18ba866-281a-4d97-a060-7ac4b0ebcdd6",
       "subscribe-key": "sub-c-dc8424e8-6439-11e8-b753-ce5efc28367f"
     }
-  } */
+  },
   "pubnub": {
     "publish-key": "pub-c-a18ba866-281a-4d97-a060-7ac4b0ebcdd6",
     "subscribe-key": "sub-c-dc8424e8-6439-11e8-b753-ce5efc28367f"
@@ -108158,15 +108164,7 @@ function () {
       this.isSubmitting = true;
 
       this._User.attemptAuth(this.authType, this.formData).then(function (res) {
-        if (_this.authType == "login") {
-          /* this._JWT.decodeToken().then(function (data) {
-            console.log("$datassssssssssssssss", data);
-            $rootScope.user = data;
-            if (data.media == "https://robohash.org/") {
-              $rootScope.user.media = data.media + data.name;
-            }
-            console.log("$rootScope", $rootScope.user);
-          }); */
+        if (_this.authType != "register") {
           _this._Toaster.showToaster("success", "Has iniciado sesion exitosamente");
 
           _this._$state.go("app.home");
@@ -108186,10 +108184,25 @@ function () {
   _createClass(AuthCtrl, [{
     key: "logSocial",
     value: function logSocial(tipo) {
+      var _this2 = this;
+
       console.log("entra");
       console.log(tipo);
+      debugger;
 
-      this._User.socialAuth(tipo);
+      this._User.socialAuth(tipo).then(function (res) {
+        console.log("xx", res);
+
+        _this2._Toaster.showToaster("success", "Has iniciado sesion exitosamente");
+
+        _this2._$state.go("app.home");
+      }, function (err) {
+        console.log("error");
+        console.log(err);
+        _this2.isSubmitting = false;
+        _this2.errorDB = true;
+        _this2.errorMessage = err.data.message;
+      });
     }
   }]);
 
@@ -108257,8 +108270,8 @@ var SocialCtrl = function SocialCtrl(User, $state, $scope, Toaster) {
     console.log("res: ctr social", res);
 
     _this._toaster.showToaster('success', 'Successfully Logged In');
-    /* this._$state.go('app.home'); */
 
+    _this._$state.go("app.home");
   }, function (err) {
     _this._toaster.showToaster('error', 'Error trying to login');
 
@@ -109084,7 +109097,11 @@ exports.default = _default;
 angular.module('templates', []).run(['$templateCache', function ($templateCache) {
   $templateCache.put('admin/admin.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n<section>\n    <My-Page info="$ctrl.page_1"></My-Page>\n</section>\n\n<section><!-- MAP SECTION -->\n    <div map-lazy-load="https://maps.google.com/maps/api/js">\n        <ng-map id="mapUsers" center="[38.8100743, -0.6066551]" style="width: 100%; height: 500px;" default-style="false"\n            zoom="6">\n            <marker ng-repeat="us in $ctrl._Users" no-watcher="true" id="{{us.id}}" title="{{us.name}}" position="[{{us.lat}}, {{us.long}}]"\n                on-click="showDetailsOnMap(us)" animation="DROP">\n            </marker>\n            <info-window id="myInfoWindows">\n                <div class="infoWindowDiv" ng-non-bindable="true">\n                    <img class="myInfoWindows__imagenMap" src="{{info.media}}" align="center" />\n                    <span class="myInfoWindows__userNameMap">{{info.name}}</span>\n                    <div class="myInfoWindows__divInfo">\n                        <span class="myInfoWindows__label">Email:  </span>\n                        <span class="myInfoWindows__infoLabel">{{info.email}}</span>\n                    </div>\n                    <div class="myInfoWindows__divInfo">\n                        <span class="myInfoWindows__label">Tipo de Usuario: </span>\n                        <span class="myInfoWindows__infoLabel">{{info.type_user}}</span>\n                    </div>\n                    <div class="myInfoWindows__divInfo">\n                        <span class="myInfoWindows__label">Plan Contratado: </span>\n                        <span class="myInfoWindows__infoLabel">{{info.type_plan}}</span>\n                    </div>\n            \n                </div>\n            </info-window>\n        </ng-map>\n    </div>\n</section>\n\n\n\n\n<section>\n    <My-Page info="$ctrl.page_1"></My-Page>\n</section>\n\n\n\n\n<section  ><!-- Users TABLE -->\n    <div class="divTableAdmin lateralMarginAuto">\n        <div class="row"><!-- SEARCH and PAGE-SIZE -->\n            <div class="col-sm-2 pull-left">\n                <label>PageSize:</label>\n                <select ng-model="data_limit" class="form-control">\n                    <option selected>3</option>\n                    <option>5</option>\n                    <option>10</option>\n                </select>\n            </div>\n            <div class="col-sm-6 pull-right">\n                <label>Search:</label>\n                <input type="text" ng-model="search" ng-change="filter()" placeholder="Search" class="form-control" />\n            </div>\n        </div>\n        <br />\n        \n        <div><!-- div TABLE -->\n            <table class="table table-striped table-bordered">\n                <!-- CABECERAS PARA ORDENAR -->\n                <thead>\n                    <th>Name&nbsp;\n                        <a ng-click="sort_with(\'name\');">\n                            <i class="glyphicon glyphicon-sort pointer"></i>\n                        </a>\n                    </th>\n                    <th class="divTableAdmin__email">Email&nbsp;\n                        <a ng-click="sort_with(\'email\');">\n                            <i class="glyphicon glyphicon-sort pointer"></i>\n                        </a>\n                    </th>\n                    <th class="divTableAdmin__email">T. Usuario&nbsp;\n                        <a ng-click="sort_with(\'type_user\');">\n                            <i class="glyphicon glyphicon-sort pointer"></i>\n                        </a>\n                    </th>\n                    <th>T. Plan&nbsp;\n                        <a ng-click="sort_with(\'type_plan\');">\n                            <i class="glyphicon glyphicon-sort pointer"></i>\n                        </a>\n                    </th>\n                    <th>Bloqueado</th>\n                    <th>Operaciones&nbsp;</th>\n                </thead>\n                <tbody>\n                    <tr ng-repeat="data in searched = (fileUsuarios | filter:search | orderBy : base :reverse) | beginning_data2:(current_grid-1)*data_limit |  limitTo:data_limit  ">\n                        <td>{{data.name}}</td>\n                        <td class="divTableAdmin__email">{{data.email}}</td>\n                        <td class="divTableAdmin__email">{{data.type_user}}</td>\n                        <td>{{data.type_plan}}</td>\n                        <td>\n                            <div class="btn-group">\n                                <label class="{{data.lockClassYes}}" id="Yes{{data._id}}" ng-click="lockUser(radioModel, data)" ng-model="radioModel" uib-btn-radio="\'Yes\'">Yes</label>\n                                <label class="{{data.lockClassNo}}" id="No{{data._id}}" ng-click="lockUser(radioModel, data)" ng-model="radioModel" uib-btn-radio="\'No\'">No</label>\n                            </div>\n                        </td>\n                        <td>\n                            <a ng-click="$ctrl.deleteUser(data)" class="btn btn-danger" title="Eliminar usuario">\n                                <i class="glyphicon glyphicon-remove"></i>\n                            </a>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n\n        <!-- \n            Mensaje si no hay registros \n        -->\n        <div class="col-md-12" ng-show="filter_data == 0">\n            <div class="col-md-12">\n                <center>\n                    <h4>No records found..</h4>\n                </center>\n            </div>\n        </div>\n        \n        <!-- \n            Parte de bajo paginacion y mensaje de cantidad\n\n            maxSize =====>>>>>>     NUMERO MAXIMO DE PAGINAS (NUMERO DE BOTONES MAXIMO) \n            total items =====>>>>>> Numero de ITEMS que a PAGINAR\n            ng-model =====>>>>>>    PAGINA ACTUAL EN LA QUE SE PINCHA\n        \n        -->\n        <div >\n            <div >\n                <h5>{{filter_data}} Showing {{ searched.length }} of {{ entire_user}} entries</h5>\n            </div>\n            <div  ng-show="filter_data > 0">\n                <center>\n                    <ul uib-pagination class="pagination-sm" total-items="filter_data" ng-model="current_grid" max-size="5"\n                        on-select-page="page_position(page)" boundary-links="true" items-per-page="data_limit" rotate="false">\n                    </ul>\n                </center>\n            </div>\n        </div>\n    </div>\n</section>\n');
   $templateCache.put('admin/pregunta.html', 'hola modal');
+<<<<<<< HEAD
   $templateCache.put('admin_chat/admin_chat.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<div class="lateralMarginAuto contChat">\n    <h1>Soporte</h1>\n    <div ng-repeat="chat in chats">\n        <h2>Chat with {{chat.user.name}}</h2>\n        <hr />\n        <div ng-repeat="message in chat.messages">\n            <strong>{{message.user.name}}:</strong>\n            <span>{{message.data}}</span>\n        </div>\n        <form ng-submit="send(chat.user.id, chat.textbox)">\n            <div class="form-group">\n                <input ng-model="chat.textbox">\n            </div>\n        </form>\n        <hr />\n    </div>\n</div>\n');
+=======
+  $templateCache.put('admin_chat/admin_chat.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<div class="lateralMarginAuto contChat">\n    <h1>Soporte</h1>\n    <div ng-repeat="chat in chats">\n        <h2>Chat with {{chat.user.name}}</h2>\n        <hr />\n        <div ng-repeat="message in chat.messages">\n            <strong>{{message.user.name}}:</strong>\n            <span>{{message.data}}</span>\n        </div>\n        <form ng-submit="send(chat.user.id, chat.textbox)">\n            <div class="form-group">\n                <input ng-model="chat.textbox">\n                <button type="button" ng-click="send(chat.user.id, chat.textbox)">enviar</button>\n            </div>\n        </form>\n        <hr />\n    </div>\n</div>\n');
+>>>>>>> 9732762b6389c78906eafb1721c21a29afe77f3f
   $templateCache.put('article/article-actions.html', '<article-meta article="$ctrl.article">\n\n  <span ng-show="$ctrl.canModify">\n    <a class="btn btn-sm btn-outline-secondary"\n      ui-sref="app.editor({ slug: $ctrl.article.slug })">\n      <i class="ion-edit"></i> Edit Article\n    </a>\n\n    <button class="btn btn-sm btn-outline-danger"\n      ng-class="{disabled: $ctrl.isDeleting}"\n      ng-click="$ctrl.deleteArticle()">\n      <i class="ion-trash-a"></i> Delete Article\n    </button>\n  </span>\n\n  <span ng-hide="$ctrl.canModify">\n    <follow-btn user="$ctrl.article.author"></follow-btn>\n    <favorite-btn article="$ctrl.article">\n      {{ $ctrl.article.favorited ? \'Unfavorite\' : \'Favorite\' }} Article <span class="counter">({{$ctrl.article.favoritesCount}})</span>\n    </favorite-btn>\n  </span>\n\n</article-meta>\n');
   $templateCache.put('article/article.html', '<div class="article-page">\n\n  <!-- Banner for article title, action buttons -->\n  <div class="banner">\n    <div class="container">\n\n      <h1 ng-bind="::$ctrl.article.title"></h1>\n\n      <div class="article-meta">\n        <!-- Show author info + favorite & follow buttons -->\n        <article-actions article="$ctrl.article"></article-actions>\n\n      </div>\n\n    </div>\n  </div>\n\n\n\n  <!-- Main view. Contains article html and comments -->\n  <div class="container page">\n\n    <!-- Article\'s HTML & tags rendered here -->\n    <div class="row article-content">\n      <div class="col-xs-12">\n\n        <div ng-bind-html="::$ctrl.article.body"></div>\n\n        <ul class="tag-list">\n          <li class="tag-default tag-pill tag-outline"\n            ng-repeat="tag in ::$ctrl.article.tagList">\n            {{ tag }}\n          </li>\n        </ul>\n\n      </div>\n    </div>\n\n    <hr />\n\n    <div class="article-actions">\n\n      <!-- Show author info + favorite & follow buttons -->\n      <article-actions article="$ctrl.article"></article-actions>\n\n    </div>\n\n    <!-- Comments section -->\n    <div class="row">\n      <div class="col-xs-12 col-md-8 offset-md-2">\n\n        <div show-authed="true">\n          <list-errors from="$crl.commentForm.errors"></list-errors>\n          <form class="card comment-form" ng-submit="$ctrl.addComment()">\n            <fieldset ng-disabled="$ctrl.commentForm.isSubmitting">\n              <div class="card-block">\n                <textarea class="form-control"\n                  placeholder="Write a comment..."\n                  rows="3"\n                  ng-model="$ctrl.commentForm.body"></textarea>\n              </div>\n              <div class="card-footer">\n                <img ng-src="{{::$ctrl.currentUser.image}}" class="comment-author-img" />\n                <button class="btn btn-sm btn-primary" type="submit">\n                 Post Comment\n                </button>\n              </div>\n            </fieldset>\n          </form>\n        </div>\n\n        <div show-authed="false">\n          <a ui-sref="app.login">Sign in</a> or <a ui-sref="app.register">sign up</a> to add comments on this article.\n        </div>\n\n        <comment ng-repeat="cmt in $ctrl.comments"\n          data="cmt"\n          delete-cb="$ctrl.deleteComment(cmt.id, $index)">\n        </comment>\n\n\n      </div>\n    </div>\n\n  </div>\n\n\n\n</div>\n');
   $templateCache.put('article/comment.html', '<div class="card">\n  <div class="card-block">\n    <p class="card-text" ng-bind="::$ctrl.data.body"></p>\n  </div>\n  <div class="card-footer">\n    <a class="comment-author" ui-sref="app.profile.main({ username: $ctrl.data.author.username })">\n      <img ng-src="{{::$ctrl.data.author.image}}" class="comment-author-img" />\n    </a>\n    &nbsp;\n    <a class="comment-author" ui-sref="app.profile.main({ username: $ctrl.data.author.username })" ng-bind="::$ctrl.data.author.username">\n    </a>\n    <span class="date-posted"\n      ng-bind="::$ctrl.data.createdAt | date: \'longDate\'">\n    </span>\n    <span class="mod-options" ng-show="$ctrl.canModify">\n      <i class="ion-trash-a" ng-click="$ctrl.deleteCb()"></i>\n    </span>\n  </div>\n</div>\n');
@@ -109092,14 +109109,22 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('components/list-errors.html', '<ul class="error-messages" ng-show="$ctrl.errors">\n  <div ng-repeat="(field, errors) in $ctrl.errors">\n    <li ng-repeat="error in errors">\n      {{field}} {{error}}\n    </li>\n  </div>\n</ul>\n');
   $templateCache.put('contact/contact.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<section class="containerContact"> \n    <h4>Escribe su consulta {{$ctrl.datosUser.name}}</h4>\n        \n    <form id="contact_form" name="contact_form" class="form-contact" ng-submit="vm.SubmitContact()">\n        <input class="inputs" required ng-model="vm.inputName" type="text" id="inputName" name="inputName" placeholder="Your name" class="" dir="auto" maxlength="100">    \n        <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">The name is required</span>\n        <br>\n        <input class="inputs" required ng-model="vm.inputEmail" type="email" id="inputEmail" name="inputEmail" placeholder="Your email" class="" maxlength="100" ng-pattern="/^[a-z0-9!#$%&\'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*$/i"> \n        <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">The email is required</span>\n        <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">The email is not valid</span>\n        <br>\n            \n        <select  ng-model="vm.inputSubject" class="form-control" id="inputSubject" name="inputSubject" title="Choose subject">\n            <option value="">Select subject</option>\n            <option value="order">SEL_ORDER</option>\n            <option value="programming_dept">SEL_PROG_DEPT</option>\n        </select>\n                \n        <br>   \n        <textarea required ng-model="vm.inputMessage" class="input-block-level" rows="4" id="inputMessage" name="inputMessage" placeholder="Your comment here..." style="max-width: 100%;" dir="auto"></textarea>\n        <br>\n        <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">The comment is required</span>\n        <input class="btnContact" type="submit" class="btn btn-primary" name="submit" id="submitBtn" value="Enviar consulta" ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputMessage.$valid" ng-click="SubmitContact()" />\n            \n        <div id="resultMessageOk" class="msg_ok">{{vm.resultMessageOk}}</div>\n        <div id="resultMessageFail" class="msg_error">{{vm.resultMessageFail}}</div>\n    </form>\n\n</section>\n\n<div map-lazy-load="https://maps.google.com/maps/api/js">\n    <ng-map center="[38.8100743, -0.6066551]" style="width: 100%;" zoom="15">\n    <marker no-watcher="true" title="prueba" position="[38.8100743, -0.6066551]"></marker>\n    </ng-map>\n    <!-- <ng-map  center="[40.74, -74.18]" style="width:100%; height: 100%; " zoom="15"></ng-map> -->\n</div>\n');
   $templateCache.put('editor/editor.html', '<div class="editor-page">\n  <div class="container page">\n    <div class="row">\n      <div class="col-md-10 offset-md-1 col-xs-12">\n\n        <list-errors errors="$ctrl.errors"></list-errors>\n\n        <form>\n          <fieldset ng-disabled="$ctrl.isSubmitting">\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                ng-model="$ctrl.article.title"\n                type="text"\n                placeholder="Article Title" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control"\n                ng-model="$ctrl.article.description"\n                type="text"\n                placeholder="What\'s this article about?" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <textarea class="form-control"\n                rows="8"\n                ng-model="$ctrl.article.body"\n                placeholder="Write your article (in markdown)">\n              </textarea>\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control"\n                type="text"\n                placeholder="Enter tags"\n                ng-model="$ctrl.tagField"\n                ng-keyup="$event.keyCode == 13 && $ctrl.addTag()" />\n\n              <div class="tag-list">\n                <span ng-repeat="tag in $ctrl.article.tagList"\n                  class="tag-default tag-pill">\n                  <i class="ion-close-round" ng-click="$ctrl.removeTag(tag)"></i>\n                  {{ tag }}\n                </span>\n              </div>\n            </fieldset>\n\n            <button class="btn btn-lg pull-xs-right btn-primary" type="button" ng-click="$ctrl.submit()">\n              Publish Article\n            </button>\n\n          </fieldset>\n        </form>\n\n      </div>\n    </div>\n  </div>\n</div>\n');
+<<<<<<< HEAD
   $templateCache.put('home/home.html', ' <div class="home-page">\n   <!-- <button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button> -->\n   \n  <My-Hero info="$ctrl.hero"></My-Hero> \n   \n  <section>\n    <My-Page info="$ctrl.page_1"></My-Page>\n  </section>\n  \n  <!-- <Follow-Btn css="$ctrl.css" user="$ctrl.a" u="poco"></Follow-Btn>\n  \n  \n  \n  <div class="divmio">divmio\n    <md-button class="md-fab" aria-label="Eat cake" ng>\n      material diseny\n    </md-button>\n  </div> -->\n   \n  <!--<button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button>-->\n  \n  <div class="container-text divStandar">\n    <div class="container-text__section">\n      <h3 class="container-text__title">Nuestros Servicios</h3>\n      <img src="../images/customer-service.svg" class="container-text__imgHome" alt="Servicios">\n      <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n\n    <div class="container-text__section">\n      <h3 class="container-text__title">Nuestro compromiso</h3>\n      <img src="../images/compromise.svg" class="container-text__imgHome" alt="Compromiso">\n      <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n  </div>\n\n<h3 align="center">Categor\xEDas</h3>\n<section>\n  <div class="divStandar gridCategoryContainer">\n    <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>\n  </div>\n</section>\n\n<my-plan info="plans"></my-plan>\n\n</div>\n');
   $templateCache.put('layout/app-view.html', '<app-header></app-header>\n    <div ui-view class="containerBody"></div>\n<app-footer></app-footer>\n');
   $templateCache.put('layout/footer.html', '<footer id="footer">\n  <div >\n    <div class="gloriaGrid">\n  \n      <div class="elem1">\n        <div class="elemsTitle">\n          <p>Cognitive Brain S.L.</p>\n        </div>\n        <div>\n          <div>Cognitive Brain</div>\n          <div>C/ islas canarias 6,</div>\n          <div>46870 Ontinyent, Valencia, Espa\xF1a.</div>\n          <div>cognitivebrain@info.com</div>\n          <div>+34 960 00 00 00</div>\n        </div>\n      </div>\n  \n      <div class="elem2">\n        <div>\n          <p>Apuntate a nuestra newsletter para estar siempre al d\xEDa.</p>\n        </div>\n        <div class="gloriaTitle">\n          <input id="inpEmail" type="email" placegolder="Tu email"></input>\n          <button type="button" class="btnColor">SUSCRIBETE</button>\n        </div>\n      </div>\n  \n      <div class="elem3">\n        <div class="elemsTitle">\n          <p>MISI\xD3N</p>\n        </div>\n        <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae velit aliquid expedita dolorem pariatur amet nemo dicta, repudiandae totam, inventore natus, quos sed repellat quo ipsa et nostrum magni delectus</div>\n      </div>\n  \n    </div>\n  </div>\n\n</footer>\n');
   $templateCache.put('layout/header.html', '\n<header class="header" >\n  <a ui-sref="app.home" class="logo" style="color:#EA5047">Cognitive Brain</a>\n  <input class="menu-btn" type="checkbox" id="menu-btn" />\n  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>\n  <ul class="menu">\n    \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.home">Home</a>\n    </li>\n   \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">Contact</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.user_chat">Chat</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.login">Sing in</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>\n    </li>\n\n    <li show-authed="true" class="nav-item" ng-if="$ctrl.user.type==1 || $ctrl.user.type_user==1">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a style="cursor: pointer" ng-click="$ctrl.logout()" >Log out</a>\n    </li>\n    \n    <li show-authed="true" class="nav-item">\n      <a style="padding: 0px;" ui-sref="app.profile_user">\n        <img ng-src="{{$ctrl.user.media}}" style="height: 60px; padding:4px 30px 4px 30px;" alt="">\n      </a>\n    </li>\n    \n<!-- \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.listDetails">ListDetails</a>\n    </li> -->\n\n  </ul>\n</header>\n<!-- \n\n<nav class="navbar navbar-light">\n  <div class="container">\n\n    <a class="navbar-brand"\n      ui-sref="app.home"\n      ng-bind="::$ctrl.appName | lowercase">\n    </a>\n\n    \n    <ul show-authed="false"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.login">\n          Sign in\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.register">\n          Sign up\n        </a>\n      </li>\n\n    </ul>\n\n    \n    <ul show-authed="true"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.editor">\n          <i class="ion-compose"></i>&nbsp;New Article\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.settings">\n          <i class="ion-gear-a"></i>&nbsp;Settings\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">\n          Contact\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.listProd">\n          Lista productos\n        </a>\n      </li>\n\n     \n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.profile.main({ username: $ctrl.currentUser.username})">\n          <img ng-src="{{$ctrl.currentUser.image}}" class="user-pic" />\n          {{ $ctrl.currentUser.username }}\n        </a>\n      </li>\n\n    </ul>\n\n\n  </div>\n</nav>\n -->');
   $templateCache.put('listDetails/listDetails.html', '<section>\n  <div class="divStandar gridCategoryContainer">\n    <a class="pointer" ng-repeat="test in loadTest" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">\n        <div class="gridCategory">\n            <div class="imgCategory">\n                <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n            </div>\n            <div class="textCategory">\n                <p>{{test.name}}</p>\n            </div>\n        </div>\n    </a>\n    <!--<img ng-repeat=\'image in images\' ng-src=\'http://placehold.it/225x250&text={{image}}\'>-->\n  </div>\n  <input type="submit" style="margin-left: 540px;" class="btnColor" name="loadMore" id="loadMore" value="More" ng-click="getMore()">\n</section>');
+=======
+  $templateCache.put('home/home.html', " <div class=\"home-page\">\n   <!-- <button ng-click=\"openCategory()\" type=\"button\" class=\"btn btn-large btn-block btn-primary\">button</button> -->\n   \n  <My-Hero info=\"$ctrl.hero\"></My-Hero> \n   \n  <section>\n    <My-Page info=\"$ctrl.page_1\"></My-Page>\n  </section>\n\n  <!-- <Follow-Btn css=\"$ctrl.css\" user=\"$ctrl.a\" u=\"poco\"></Follow-Btn>\n  \n  \n  \n  <div class=\"divmio\">divmio\n    <md-button class=\"md-fab\" aria-label=\"Eat cake\" ng>\n      material diseny\n    </md-button>\n  </div> -->\n   \n  <!--<button ng-click=\"openCategory()\" type=\"button\" class=\"btn btn-large btn-block btn-primary\">button</button>-->\n  \n  <div class=\"container-text divStandar\">\n    <div class=\"container-text__section\">\n      <h3 class=\"container-text__title\">Nuestros Servicios</h3>\n      <img src=\"../images/customer-service.svg\" class=\"container-text__imgHome\" alt=\"Servicios\">\n      <p class=\"container-text__parrafo\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n\n    <div class=\"container-text__section\">\n      <h3 class=\"container-text__title\">Nuestro compromiso</h3>\n      <img src=\"../images/compromise.svg\" class=\"container-text__imgHome\" alt=\"Compromiso\">\n      <p class=\"container-text__parrafo\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n  </div>\n\n<h3 align=\"center\">Categor\xEDas</h3>\n<section>\n  <div class=\"divStandar gridCategoryContainer\">\n    <my-card ng-repeat=\"category in $ctrl.categories\" info=\"category\"></my-card>\n  </div>\n</section>\n\n<section class=\"container-plan divStandar\">\n  <div class=\"container-plan__section\">\n    <h2>Plan Basico</h2>\n    <img src=\"../../../../backend/uploads/users/7cMlg83XGAewMlCANd4mUpC5.jpg\" height=\"50\" width=\"50\">\n    <img class=\"container-plan__imgHome\" src=\"../images/buy1.svg\" alt=\"Plan Basico\">\n    <p class=\"container-text__parrafo\">Test</p>\n    <p class=\"container-text__parrafo\">20\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeBa\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Intermedio</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy2.svg\" alt=\"Plan Intermedio\">\n    <p class=\"container-text__parrafo\">Soporte email + Test</p>\n    <p class=\"container-text__parrafo\">35\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeInt\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Experto</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy3.svg\" alt=\"Plan Experto\">\n    <p class=\"container-text__parrafo\">Soporte email +  Skype + Test</p>\n    <p class=\"container-text__parrafo\">50\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeEx\" class=\"btnColor\">Comprar</button>\n  </div>\n</section>\n\n</div>\n");
+  $templateCache.put('layout/app-view.html', '<app-header></app-header>\n    <div ui-view class="containerBody"></div>\n<app-footer></app-footer>\n');
+  $templateCache.put('layout/footer.html', '<footer id="footer">\n  <div >\n    <div class="gloriaGrid">\n  \n      <div class="elem1">\n        <div class="elemsTitle">\n          <p>Cognitive Brain S.L.</p>\n        </div>\n        <div>\n          <div>Cognitive Brain</div>\n          <div>C/ islas canarias 6,</div>\n          <div>46870 Ontinyent, Valencia, Espa\xF1a.</div>\n          <div>cognitivebrain@info.com</div>\n          <div>+34 960 00 00 00</div>\n        </div>\n      </div>\n  \n      <div class="elem2">\n        <div>\n          <p>Apuntate a nuestra newsletter para estar siempre al d\xEDa.</p>\n        </div>\n        <div class="gloriaTitle">\n          <input id="inpEmail" type="email" placegolder="Tu email"></input>\n          <button type="button" class="btnColor">SUSCRIBETE</button>\n        </div>\n      </div>\n  \n      <div class="elem3">\n        <div class="elemsTitle">\n          <p>MISI\xD3N</p>\n        </div>\n        <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae velit aliquid expedita dolorem pariatur amet nemo dicta, repudiandae totam, inventore natus, quos sed repellat quo ipsa et nostrum magni delectus</div>\n      </div>\n  \n    </div>\n  </div>\n\n</footer>\n');
+  $templateCache.put('layout/header.html', '\n<header class="header" >\n  <a ui-sref="app.home" class="logo" style="color:#EA5047">Cognitive Brain</a>\n  <input class="menu-btn" type="checkbox" id="menu-btn" />\n  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>\n  <ul class="menu">\n    \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.home">Home</a>\n    </li>\n   \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">Contact</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.user_chat">Chat</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.login">Sing in</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a style="cursor: pointer" ng-click="$ctrl.logout()" >Log out</a>\n    </li>\n    \n    <li show-authed="true" class="nav-item">\n      <a style="padding: 0px;" ui-sref="app.profile_user">\n        <img ng-src="{{$ctrl.user.media}}" style="height: 60px; padding:4px 30px 4px 30px;" alt="">\n      </a>\n    </li>\n    \n<!-- \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.listDetails">ListDetails</a>\n    </li> -->\n\n  </ul>\n</header>\n');
+  $templateCache.put('listDetails/listDetails.html', '<section>\n  <div class="divStandar gridCategoryContainer">\n    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">\n        <div class="gridCategory">\n            <div class="imgCategory">\n                <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n            </div>\n            <div class="textCategory">\n                <p>{{test.name}}</p>\n            </div>\n        </div>\n    </a>\n  </div>\n</section>');
+>>>>>>> 9732762b6389c78906eafb1721c21a29afe77f3f
   $templateCache.put('listProd/listProd.html', '<my-test ng-repeat="detailTest in $ctrl.detailTest" info="detailTest"></my-test>');
   $templateCache.put('profile_user/profile_user.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<div class="lateralMarginAuto contMedia">\n    <img class="avatar" src="{{$ctrl.user.media}}" alt="">\n</div>\n<div class="lateralMarginAuto contMedia">\n    <button ng-click="$ctrl.changeAvatar()" type="button">Cambiar avatar</button>\n    <input ng-model="$ctrl.file" type="file" id="file" name="file">\n</div>\n\n<div class="lateralMarginAuto contForm">\n    <form id="profile_form" name="profile_form" class="form-profile" ng-submit="$ctrl.Submitprofile()">   \n\n        <div class="divInput">\n            <label for="user_name">Nombre de usuario</label>\n            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.user" type="text" id="user_name" name="user_name" required>\n            <div ng-show=\'sfIn.tb.$dirty && sfIn.tb.$invalid\'>\n                <span ng-show=\'sfIn.tb.$error.required\'>Required</span>\n            </div>\n        </div>\n\n        <div class="divInput">\n            <label for="name">Nombre </label>\n            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.name" id="name" name="name" type="text" required>\n        </div>\n\n        <div class="divInput">\n            <label for="surname">Apellido</label>\n            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.surname" id="surname" name="surname" type="text" required>\n        </div>\n\n        <div class="divInput">\n            <label for="email">Email</label>\n            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.email" type="email" id="email" name="email"  required>\n        </div>\n\n        <div class="divInput">\n            <input class="btnContact btnActualizar inputsProfile" type="submit" value="Actualizar"/>\n\n        </div>\n        \n    </form>\n\n</div>');
-  $templateCache.put('recover_pass/recover_pass.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<section>\n  <div class="container-recoverPass lateralMarginAuto" ng-show="$ctrl.formemail">\n\n    <form ng-submit="$ctrl.submitFormEmail()">\n      <fieldset ng-disabled="$ctrl.isSubmitting">\n\n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Your email" ng-model="$ctrl.formData.email"\n            ng-style="$ctrl.emailError" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n\n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Repeat your email" ng-model="$ctrl.formData.email2" ng-style="$ctrl.emailError"\n            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}"/>\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n\n        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>\n\n      </fieldset>\n    </form>\n\n  </div>\n</section>\n\n\n<section>\n  <div class="container-recoverPass lateralMarginAuto" ng-show="!$ctrl.formemail">\n\n    <form ng-submit="$ctrl.submitFormChangePass()">\n      <fieldset ng-disabled="$ctrl.isSubmitting">\n    \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Your password" ng-model="$ctrl.formDataPas.password" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n    \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Repeat your password" ng-model="$ctrl.formDataPas.password2" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n    \n        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>\n    \n      </fieldset>\n    </form>\n  </div>\n</section>');
+  $templateCache.put('recover_pass/recover_pass.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<section>\n  <div class="container-recoverPass lateralMarginAuto" ng-show="$ctrl.formemail">\n\n    <form ng-submit="$ctrl.submitFormEmail()">\n      <fieldset ng-disabled="$ctrl.isSubmitting">\n\n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Your email" ng-model="$ctrl.formData.email"\n            ng-style="$ctrl.emailError" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n\n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Repeat your email" ng-model="$ctrl.formData.email2" ng-style="$ctrl.emailError"\n            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}"/>\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n\n        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>\n\n      </fieldset>\n    </form>\n\n  </div>\n</section>\n\n\n<section>\n  <div class="container-recoverPass lateralMarginAuto" ng-show="!$ctrl.formemail">\n\n    <form ng-submit="$ctrl.submitFormChangePass()">\n      <fieldset ng-disabled="$ctrl.isSubmitting">\n    \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Your password" ng-model="$ctrl.formDataPas.password" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n    \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Repeat your password" ng-model="$ctrl.formDataPas.password2" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n        \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userNameError" class="form-control form-control-lg" type="email" placeholder="User name"\n            ng-model="$ctrl.formDataPas.name" ng-style="$ctrl.name" ng-focus="$ctrl.userNameError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userNameError.border">{{$ctrl.errorMessageUser}}</p>\n\n        <button class="btn btn-primary col-md-12" type="submit">Enviaxr</button>\n    \n      </fieldset>\n    </form>\n  </div>\n</section>');
   $templateCache.put('testDetails/testDetails.html', '<section>\n  dentro de tests details\n</section>');
   $templateCache.put('user_chat/user_chat.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<div class="lateralMarginAuto contChat">\n    <h1>Chat with support</h1>\n    <div ng-repeat="message in messages">\n        <strong>{{message.user.name}}:</strong>\n        <span>{{message.data}}</span>\n    </div>\n    <form ng-submit="send()">\n        <div class="form-group">\n            <input ng-model="textbox">\n        </div>\n    </form>\n\n</div>\n');
   $templateCache.put('components/Card/card.html', '<a ng-click="openCategory($ctrl.info)" class="pointer">\n    <div class="gridCategory">\n        <div class="imgCategory">\n            <img src="../../../images/{{$ctrl.info.name | lowercase}}.svg" alt="Image">\n        </div>\n        <div class="textCategory">\n            <p>{{$ctrl.info.name}}</p>\n        </div>\n    </div>\n</a>');
@@ -109446,14 +109471,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var AppHeaderCtrl = function AppHeaderCtrl(AppConstants, User, $scope, $rootScope, JWT) {
   'ngInject';
-  /* this.__currentUser = User.current; */
 
   _classCallCheck(this, AppHeaderCtrl);
 
   this._JWT = JWT;
   var vm = this;
-  /* console.log("this.currentUser", this.__currentUser); */
-
   $scope.$watch('User.current', function (newUser) {
     console.log("newUser header component", newUser);
     vm.user = newUser;
@@ -109471,24 +109493,8 @@ var AppHeaderCtrl = function AppHeaderCtrl(AppConstants, User, $scope, $rootScop
         vm.user.type_user = vm.user.type_user;
       }
     }
-    /* vm._JWT.decodeToken().then(
-      (res) => { 
-        vm.currentUser = res;
-        vm.user = res;
-        console.log("-------user-----", res );
-      }) */
-
   });
   this.logout = User.logout.bind(User);
-  /*  if (this.currentUser) {
-     $scope.avatarUrl = function () {
-       if (vm.currentUser.image == "" || vm.currentUser.image == null) {
-         return 'http://robohash.org/' + vm.currentUser.username + '?set=set2&bgset=bg2&size=70x70';
-       } else {
-         return vm.currentUser.image;
-       }
-     };
-   } */
 };
 AppHeaderCtrl.$inject = ["AppConstants", "User", "$scope", "$rootScope", "JWT"];
 
@@ -109990,8 +109996,8 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 var Recover_passCtrl =
 /*#__PURE__*/
 function () {
-  Recover_passCtrl.$inject = ["NgMap", "User", "AppConstants", "$scope", "tipo", "$stateParams", "$state", "auth", "JWT"];
-  function Recover_passCtrl(NgMap, User, AppConstants, $scope, tipo, $stateParams, $state, auth, JWT) {
+  Recover_passCtrl.$inject = ["NgMap", "User", "Toaster", "AppConstants", "$scope", "tipo", "$stateParams", "$state", "auth", "JWT"];
+  function Recover_passCtrl(NgMap, User, Toaster, AppConstants, $scope, tipo, $stateParams, $state, auth, JWT) {
     "ngInject";
 
     _classCallCheck(this, Recover_passCtrl);
@@ -110003,6 +110009,8 @@ function () {
       this.formemail = true;
     }
 
+    this._$state = $state;
+    this._Toaster = Toaster;
     this.appName = AppConstants.appName;
     this._User = User;
     this.hero = {
@@ -110021,6 +110029,8 @@ function () {
       }
     };
     this.errorDB = false;
+    this.formData = {};
+    this.formDataPas = {};
   }
 
   _createClass(Recover_passCtrl, [{
@@ -110031,11 +110041,14 @@ function () {
       console.log(this.formData);
 
       if (this.formData.email != this.formData.email2) {
+        console.log("fallo");
         this.userError = this.colError.border;
         this.errorDB = true;
-        this.errorMessage = "los email no son iguales";
+        this.errorMessage = "Los email no son iguales";
         return false;
       }
+
+      console.log("correcto");
 
       this._User.recoverPass(this.formData.email).then(function (res) {
         console.log("res ok", res);
@@ -110046,6 +110059,8 @@ function () {
   }, {
     key: "submitFormChangePass",
     value: function submitFormChangePass() {
+      var _this = this;
+
       this.errorDB = false;
       this.errorMessage = "";
 
@@ -110056,7 +110071,32 @@ function () {
         return false;
       }
 
-      console.log(this.formDataPas);
+      if (this.formDataPas.password2 === undefined || this.formDataPas.password === undefined) {
+        this.userError = this.colError.border;
+        this.errorDB = true;
+        this.errorMessage = "Rellena los datos de password ";
+        return false;
+      }
+
+      if (this.formDataPas.name === undefined) {
+        this.userNameError = this.colError.border;
+        this.errorDB = true;
+        this.errorMessageUser = "Este campo tiene que estar relleno";
+        return false;
+      }
+
+      this._User.updatePass({
+        email: this.formDataPas.name,
+        password: this.formDataPas.password
+      }).then(function (res) {
+        console.log("res ok", res);
+
+        _this._Toaster.showToaster("success", "Su password ha sido cambiado");
+
+        _this._$state.go("app.login");
+      }, function (err) {
+        console.log("conf admin", err);
+      });
     }
   }]);
 
@@ -110739,8 +110779,9 @@ function () {
         data: credentials
       }).then(function (res) {
         console.log("res us", res);
+        console.log("res chgchgch", type);
 
-        if (type === "login") {
+        if (type != "register") {
           console.log("us l35", res);
 
           _this._JWT.save(res.data.token);
@@ -110749,13 +110790,6 @@ function () {
             _this.current = res;
             console.log("this.current-----", res);
           });
-          /* this._JWT.decodeToken().then(function(data) {
-            console.log("$datassssssssssssssss", data);
-            $rootScope.user = data;
-            $rootScope.yo = "data";
-            console.log("$rootScope", $rootScope.user);
-          }); */
-
         }
 
         return res;
@@ -110786,6 +110820,18 @@ function () {
         headers: {
           authorization: this._JWT.get()
         },
+        data: datos
+      }).then(function (res) {
+        return res;
+      });
+    }
+  }, {
+    key: "updatePass",
+    value: function updatePass(datos) {
+      console.log("datos", datos);
+      return this._$http({
+        url: this._AppConstants.api + "/profile/change-passwd",
+        method: "POST",
         data: datos
       }).then(function (res) {
         return res;
@@ -110864,7 +110910,8 @@ function () {
     key: "ola",
     value: function ola(nuevosDatos) {
       var x = document.getElementById("file");
-      console.log("nuevosDatos", nuevosDatos, x.files[0]);
+      console.log(98989898989, x);
+      console.log(77777777777777777, x.files[0]);
       this.current = nuevosDatos;
     }
   }, {

@@ -7,6 +7,7 @@ class AdminCtrl {
     this._rootScope = $rootScope;
     this._uibModal = $uibModal;
     this._Admin = Admin;
+    this._$state = $state;
     $scope.lockUser = function (radioModel, user) {
       let el1 = document.getElementById(`No${user._id}`);
       let el2 = document.getElementById(`Yes${user._id}`);
@@ -129,6 +130,7 @@ class AdminCtrl {
         this._Admin.deleteUser(data.email).then(res => {
           console.log(res)
           this._rootScope.swal("Eliminacion exitosa!", "El usuario ha sido eliminado");
+          this._$state.go("app.admin");
         });
       }
     })
