@@ -9,6 +9,9 @@ componentsModule.component('myHero', MyHero);
 import MyTest from './Test/test.component';
 componentsModule.component('myTest', MyTest);
 
+import MyPlan from './Plan/plan.component';
+componentsModule.component('myPlan', MyPlan);
+
 import MyCard from "./Card/card.componet";
 componentsModule.component("myCard", MyCard);
 

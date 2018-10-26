@@ -55,8 +55,6 @@ router.get('/check', md_auth.ensureAuth, function (req, res, next) {
 
 });
 
-
-
 //return details user
 router.get('/:id', function (req, res, next) {
   /*console.log("hola user");
@@ -70,30 +68,6 @@ router.get('/:id', function (req, res, next) {
 
   }).catch(next);
 
-});
-
-router.post('/users/sociallogin', function (req, res, next) {
-  let memorystore = req.sessionStore;
-  let sessions = memorystore.sessions;
-  let sessionUser;
-  for (var key in sessions) {
-    sessionUser = (JSON.parse(sessions[key]).passport.user);
-  }
-
-  User.findOne({ '_id': sessionUser }, function (err, user) {
-    console.log(err);
-    console.log(user);
-    if (err)
-      return done(err);
-    // if the user is found then log them in
-    if (user) {
-      console.log(user);
-      user.token = user.generateJWT();
-      return res.json({ user: user.toAuthJSON() });// user found, return that user
-    } else {
-      return res.status(422).json(err);
-    }
-  });
 });
 
 //Sign up manual
@@ -186,6 +160,7 @@ router.post('/login', function (req, res, next) {
     }
 
     if (users) {
+      if(users.lock == 1) return res.status(422).send({ message: 'lock user' });
       //console.log("passUs: "+users.password);
       bcrypt.compare(password, users.password, (err, check) => {
         //console.log(check);
@@ -250,13 +225,6 @@ router.get('/auth/googleplus/callback',
     successRedirect: 'http://localhost:8081/#!/sociallogin',
     failureRedirect: '/'
   }));
-
-/*
-router.get('/auth/twitter', passport.authenticate('twitter'));
-router.get('/auth/twitter/callback',
-    passport.authenticate('twitter',{
-      successRedirect: 'http://localhost:3000/api/category',
-      failureRedirect: '/' }));*/
 
 router.get('/auth/github', passport.authenticate('github', { scope: ['user:email'] }));
 router.get('/auth/github/callback',
