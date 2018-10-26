@@ -25,6 +25,7 @@ import './layout';
 import './components';
 import './home';
 import "./admin";
+import "./stripe";
 import "./recover_pass";;
 import "./listDetails";
 import './services';
@@ -49,6 +50,7 @@ const requires = [
   "app.components",
   "app.home",
   "app.admin",
+  "app.stripe",
   "app.profile_user",
   "app.listDetails",
   "app.services",
@@ -66,13 +68,13 @@ window.app = angular.module('app', requires);
 
 angular.module('app').constant('AppConstants', constants);
 angular.module("chat").constant('config', {
-  /* rltm: {
+  rltm: {
     service: "pubnub",
     config: {
       "publish-key": "pub-c-a18ba866-281a-4d97-a060-7ac4b0ebcdd6",
       "subscribe-key": "sub-c-dc8424e8-6439-11e8-b753-ce5efc28367f"
     }
-  } */
+  },
   "pubnub": {
     "publish-key": "pub-c-a18ba866-281a-4d97-a060-7ac4b0ebcdd6",
     "subscribe-key": "sub-c-dc8424e8-6439-11e8-b753-ce5efc28367f"
@@ -88,8 +90,5 @@ angular.module('app').run(appRun);
 angular.bootstrap(document, ['app'], {
   strictDi: true
 });
-
-
-
 
 angular.module('app', ['ui.carousel']);

@@ -42,8 +42,14 @@
           <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Repeat your password" ng-model="$ctrl.formDataPas.password2" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />
         </fieldset>
         <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>
-    
-        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>
+        
+        <fieldset class="form-group">
+          <input ng-style="$ctrl.userNameError" class="form-control form-control-lg" type="email" placeholder="User name"
+            ng-model="$ctrl.formDataPas.name" ng-style="$ctrl.name" ng-focus="$ctrl.userNameError={}" />
+        </fieldset>
+        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userNameError.border">{{$ctrl.errorMessageUser}}</p>
+
+        <button class="btn btn-primary col-md-12" type="submit">Enviaxr</button>
     
       </fieldset>
     </form>

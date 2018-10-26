@@ -12,6 +12,9 @@ servicesModule.service('Contact', ContactService);
 import TestService from './test.service';
 servicesModule.service('TestService', TestService);
 
+import StripeService from './stripe.service';
+servicesModule.service('StripeService', StripeService);
+
 
 
 import JwtService from './jwt.service'

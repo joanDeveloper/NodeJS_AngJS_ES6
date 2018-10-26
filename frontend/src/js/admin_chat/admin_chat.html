@@ -12,6 +12,7 @@
         <form ng-submit="send(chat.user.id, chat.textbox)">
             <div class="form-group">
                 <input ng-model="chat.textbox">
+                <button type="button" ng-click="send(chat.user.id, chat.textbox)">enviar</button>
             </div>
         </form>
         <hr />

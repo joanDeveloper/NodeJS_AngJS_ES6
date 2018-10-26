@@ -13,6 +13,7 @@ export default class Toaster {
         this._toastr.success(message);
         break;
       case 'error':
+      console.log("entra en toaster error");
         this._toastr.error(message);
         break;
       case 'info':

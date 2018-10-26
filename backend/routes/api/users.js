@@ -34,6 +34,27 @@ router.get('/', md_auth.ensureAuth, function (req, res, next) {
 
 });
 
+router.get('/check', md_auth.ensureAuth, function (req, res, next) {
+  //console.log(res);
+  //console.log("hola user");
+  console.log(req.user.sub);
+  User.findOne({ '_id': req.user.sub }, (err, users) => {
+    if (err) {
+      return res.status(500).send({ message: 'Error petition user' });
+
+    }
+
+    if (users) {
+      return res.json({ user: users });
+    } else {
+      return res.status(404).send({ message: 'User invalid' });
+
+    }
+
+  });
+
+});
+
 
 
 //return details user
@@ -97,6 +118,8 @@ router.post('/register', function (req, res, next) {
     user.date_expiration = "";
     user.ubication = "";
     user.media = 'http://robohash.org/';
+    user.token = "";
+    user.lock = 0;
 
     //falta comparar el password 1 amb el 2
     User.find({ $or: [{ email: user.email.toLowerCase() }, { user: user.user.toLowerCase() }] })

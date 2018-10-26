@@ -36,7 +36,8 @@ export default class User {
       data: credentials
     }).then(res => {
       console.log("res us", res);
-      if (type === "login") {
+      console.log("res chgchgch", type);
+      if (type != "register") {
         console.log("us l35", res)
         this._JWT.save(res.data.token);
         this._JWT.decodeToken().then(
@@ -44,12 +45,6 @@ export default class User {
           this.current = res;
           console.log("this.current-----", res);
         })
-        /* this._JWT.decodeToken().then(function(data) {
-          console.log("$datassssssssssssssss", data);
-          $rootScope.user = data;
-          $rootScope.yo = "data";
-          console.log("$rootScope", $rootScope.user);
-        }); */
       }
       return res;
     });
@@ -80,6 +75,18 @@ export default class User {
       return res;
     });
   }
+
+   updatePass(datos) {
+     console.log("datos",datos)
+     
+     return this._$http({
+       url: this._AppConstants.api + "/profile/change-passwd",
+       method: "POST",
+       data: datos
+     }).then(res => {
+       return res;
+     });
+   }
 
   userDetails() {
     let deferred = this._$q.defer();
