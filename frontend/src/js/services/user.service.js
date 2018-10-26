@@ -1,5 +1,5 @@
 export default class User {
-  constructor(JWT, AppConstants, $http, $state, $q, Toaster) {
+  constructor(JWT, AppConstants, Upload, $http, $state, $q, Toaster) {
     'ngInject';
     this._Toaster = Toaster;
     this._JWT = JWT;
@@ -87,6 +87,23 @@ export default class User {
        return res;
      });
    }
+  
+  upload (file) {
+    Upload.upload({
+      url: this._AppConstants.api + "/profile/upload-avatar",
+      method: 'POST',
+      data: {
+        file: file,
+      }
+    }).then(function (resp) {
+      console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+    }, function (resp) {
+      console.log('Error status: ' + resp.status);
+    }, function (evt) {
+      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+    });
+  };
 
   userDetails() {
     let deferred = this._$q.defer();
