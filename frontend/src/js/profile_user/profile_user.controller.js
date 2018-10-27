@@ -26,15 +26,29 @@ class Profile_userCtrl {
       }
       if (vm.user.media == "https://robohash.org/") {
         vm.user.media = vm.user.media + vm.user.name;
+      }else{
+        vm.user.media = "./images/" + vm.user.media;
       }
     })
 
     
   }/*end constructor*/
 
-  changeAvatar(){
+  changeAvatar(file, errFiles) {
     this.datos_usuario.media ="https://robohash.org/eramoncin";
-    this.__User.ola(this.datos_usuario);
+    /* console.log(document.getElementById("file").files) */
+    console.log(file)
+    this.__User.upload(file).then(res => {
+        console.log(res)
+        this._Toaster.showToaster('success', 'Imagen cambiada');
+        location.reload();
+      },
+      err => {
+        this._Toaster.showToaster("error", "Error al cambiar la imagen");
+        console.log(err)
+      });
+    
+    /* this.__User.ola(this.datos_usuario); */
   }
 
   Submitprofile(){

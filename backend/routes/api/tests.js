@@ -62,32 +62,38 @@ router.post('/create', md_auth.ensureAuth, function (req, res, next) {
 router.post('/card', md_auth.ensureAuth, function (req, res, next) {
   console.log(req.body.card);
   console.log(req.user);
-  let stripeToken = req.body.card.token;
-  let price = req.body.card.price;
-  let plan = req.body.card.plan;
+  User.findOne({ '_id': req.user.sub }, (err, user) => {
+    if(err) res.status(422).send({ message: 'Error peticion find user'});
+    if (user) {
+      let stripeToken = req.body.card.token;
+      let price = req.body.card.price;
+      let plan = req.body.card.plan;
+      console.log(plan);
+      let charge = {
+        amount: price,
+        currency: 'eur',
+        card: stripeToken
+      };
 
-  let charge = {
-    amount: price,
-    currency: 'eur',
-    card: stripeToken
-  };
+      stripe.charges.create(charge, function(err, charge) {
+        console.log(charge);
+        if(err) {
+          return next(err);
+        }else{
+          //console.log("entra en stripe redirect");
+          /* update user plan */
+          User.update({'_id':req.user.sub}, {type_plan:plan},(err, user_updated) => {
+            if(err) res.status(422).send({ message: 'Error peticion update plan user'});
+            let u_up = JSON.stringify(user_updated);
+            let json = JSON.parse(u_up);
+            if(json.ok==1 && json.nModified==1)return res.status(200).send({ message: 'success buy' });
+            else res.status(422).send({ message: 'Plan not saved' });
 
-  stripe.charges.create(charge, function(err, charge) {
-    console.log(charge);
-    if(err) {
-      return next(err);
-    }else{
-      //console.log("entra en stripe redirect");
-      /* update user plan */
-      User.update({'_id':req.user.sub}, {type_plan:plan},(err, user_updated) => {
-        if(err) res.status(422).send({ message: 'Error peticion update plan user'});
-        let u_up = JSON.stringify(user_updated);
-        let json = JSON.parse(u_up);
-        if(json.ok==1 && json.nModified==1)return res.status(200).send({ message: 'success buy' });
-        else res.status(422).send({ message: 'Plan not saved' });
-
+          });
+        }
       });
-    }
+    }else res.status(422).send({ message: 'User no registrado' });
+    
   });
 });
 // return a list of all test

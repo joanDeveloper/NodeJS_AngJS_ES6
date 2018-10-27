@@ -6,6 +6,7 @@ export default class User {
     this._AppConstants = AppConstants;
     this._$http = $http;
     this._$q = $q;
+    this._Upload = Upload;
     this._$state = $state;
 
     this.current = null;
@@ -88,21 +89,30 @@ export default class User {
      });
    }
   
-  upload (file) {
-    Upload.upload({
+  upload(file) {
+    let deferred = this._$q.defer();
+    console.log("file user service",file)
+    this._Upload.upload({
       url: this._AppConstants.api + "/profile/upload-avatar",
       method: 'POST',
+      headers: {
+        authorization: this._JWT.get()
+      },
       data: {
         file: file,
       }
     }).then(function (resp) {
-      console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+      /* console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data); */
+      console.log(resp)
+      deferred.resolve(resp);
     }, function (resp) {
       console.log('Error status: ' + resp.status);
     }, function (evt) {
-      var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+      /* var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+      console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name); */
+      deferred.resolve(null);
     });
+    return deferred.promise;
   };
 
   userDetails() {

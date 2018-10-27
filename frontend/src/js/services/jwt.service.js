@@ -34,9 +34,9 @@ export default class JWT {
       (res) => {
         let answ = token.split(".");
         let datos = JSON.parse(atob(answ[1]));
-        if (datos.media =="https://robohash.org/"){
+        /* if (datos.media =="https://robohash.org/"){
           datos.media = datos.media + datos.name;
-        }
+        } */
         let p = { 
           type: datos.type_user, 
           name: datos.name,

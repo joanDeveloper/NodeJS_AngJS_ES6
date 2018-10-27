@@ -1,6 +1,6 @@
 <section>
   <div class="divStandar gridCategoryContainer">
-    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">
+    <a class="pointer" ng-repeat="test in loadTest" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">
         <div class="gridCategory">
             <div class="imgCategory">
                 <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">
@@ -10,5 +10,7 @@
             </div>
         </div>
     </a>
+    <!--<img ng-repeat='image in images' ng-src='http://placehold.it/225x250&text={{image}}'>-->
   </div>
+  <input type="submit" style="margin-left: 540px;" class="btnColor" name="loadMore" id="loadMore" value="More" ng-click="getMore()">
 </section>

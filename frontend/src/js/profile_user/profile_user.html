@@ -4,8 +4,13 @@
     <img class="avatar" src="{{$ctrl.user.media}}" alt="">
 </div>
 <div class="lateralMarginAuto contMedia">
-    <button ng-click="$ctrl.changeAvatar()" type="button">Cambiar avatar</button>
-    <input ng-model="$ctrl.file" type="file" id="file" name="file">
+    <!-- <button ng-click="$ctrl.changeAvatar()" type="button">Cambiar avatar</button> -->
+
+    <button type="file" ngf-select="$ctrl.changeAvatar($file, $invalidFiles)" accept="image/*" ngf-max-height="5000"
+    ngf-max-size="10MB">
+    Select File</button>
+
+    <!-- <input ng-model="$ctrl.file" type="file" id="file" name="file"> -->
 </div>
 
 <div class="lateralMarginAuto contForm">

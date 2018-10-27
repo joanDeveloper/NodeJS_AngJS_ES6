@@ -66,6 +66,12 @@ gulp.task('html', function() {
       .pipe(gulp.dest('./build/images'));
   });
 
+  gulp.task('img', function () {
+    return gulp.src("./uploads/users/*.*")
+      .on('error', interceptErrors)
+      .pipe(gulp.dest('./build/images'));
+  });
+  
   gulp.task('fonts', function () {
     return gulp.src("../frontend/src/fonts/*.*")
       .on('error', interceptErrors)

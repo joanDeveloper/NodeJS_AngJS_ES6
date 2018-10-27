@@ -25,7 +25,7 @@
       <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>
     </li>
 
-    <li show-authed="true" class="nav-item">
+    <li show-authed="true" class="nav-item" ng-if="$ctrl.user.type==1 || $ctrl.user.type_user==1">
       <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>
     </li>
 
