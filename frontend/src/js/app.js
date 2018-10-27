@@ -91,4 +91,4 @@ angular.bootstrap(document, ['app'], {
   strictDi: true
 });
 
-angular.module('app', ['ui.carousel']);
+//angular.module('app', ['ui.carousel']);

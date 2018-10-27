@@ -107985,11 +107985,9 @@ _angular.default.module('app').run(_app3.default);
 
 _angular.default.bootstrap(document, ['app'], {
   strictDi: true
-});
+}); //angular.module('app', ['ui.carousel']);
 
-_angular.default.module('app', ['ui.carousel']);
-
-},{"./admin":74,"./admin_chat":77,"./auth":81,"./components":94,"./config/app.config":97,"./config/app.constants":98,"./config/app.run":99,"./config/app.templates":100,"./contact":104,"./home":107,"./layout":110,"./listDetails":111,"./listProd":114,"./profile_user":117,"./recover_pass":120,"./services":125,"./stripe":132,"./user_chat":135,"angular":18,"angular-chat":9,"angular-material":11,"angular-toastr":13,"angular-ui-bootstrap":15,"angular-ui-router":16,"ngmap":29,"rltm":65}],79:[function(require,module,exports){
+},{"./admin":74,"./admin_chat":77,"./auth":81,"./components":95,"./config/app.config":98,"./config/app.constants":99,"./config/app.run":100,"./config/app.templates":101,"./contact":105,"./home":108,"./layout":111,"./listDetails":112,"./listProd":115,"./profile_user":118,"./recover_pass":121,"./services":126,"./stripe":133,"./user_chat":136,"angular":18,"angular-chat":9,"angular-material":11,"angular-toastr":13,"angular-ui-bootstrap":15,"angular-ui-router":16,"ngmap":29,"rltm":65}],79:[function(require,module,exports){
 "use strict";
 
 AuthConfig.$inject = ["$stateProvider", "$httpProvider"];
@@ -108330,6 +108328,52 @@ exports.default = void 0;
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+var CarouselCtrl = function CarouselCtrl($state, $scope) {
+  "ngInject";
+
+  _classCallCheck(this, CarouselCtrl);
+
+  this._$state = $state;
+  $scope.myInterval = 5000;
+  $scope.noWrapSlides = true;
+  $scope.active = 0;
+  var slides = $scope.slides = [];
+  var currIndex = 0;
+
+  $scope.addSlide = function () {
+    slides.push({
+      image: '../../images/cog' + currIndex + '.jpg',
+      text: "Cognitive Brain - entrena su mente y gana vida",
+      id: currIndex++
+    });
+  };
+
+  [0, 1, 2, 3, 4].reduce(function (valorAnterior, valorActual, indice, vector) {
+    $scope.addSlide(indice);
+  });
+};
+CarouselCtrl.$inject = ["$state", "$scope"];
+
+var CarouselComponent = {
+  bindings: {
+    info: "="
+  },
+  controller: CarouselCtrl,
+  templateUrl: "components/Carousel/carousel.html"
+};
+var _default = CarouselComponent;
+exports.default = _default;
+
+},{}],85:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 var HeroCtrl = function HeroCtrl($state) {
   'ngInject';
 
@@ -108349,7 +108393,7 @@ var heroComponent = {
 var _default = heroComponent;
 exports.default = _default;
 
-},{}],85:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108379,7 +108423,7 @@ var pageComponent = {
 var _default = pageComponent;
 exports.default = _default;
 
-},{}],86:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108474,7 +108518,7 @@ var PlanComponent = {
 var _default = PlanComponent;
 exports.default = _default;
 
-},{}],87:[function(require,module,exports){
+},{}],88:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108579,7 +108623,7 @@ var TestComponent = {
 var _default = TestComponent;
 exports.default = _default;
 
-},{}],88:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108675,7 +108719,7 @@ var ArticleList = {
 var _default = ArticleList;
 exports.default = _default;
 
-},{}],89:[function(require,module,exports){
+},{}],90:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108692,7 +108736,7 @@ var ArticleMeta = {
 var _default = ArticleMeta;
 exports.default = _default;
 
-},{}],90:[function(require,module,exports){
+},{}],91:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108708,7 +108752,7 @@ var ArticlePreview = {
 var _default = ArticlePreview;
 exports.default = _default;
 
-},{}],91:[function(require,module,exports){
+},{}],92:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108766,7 +108810,7 @@ var ListPagination = {
 var _default = ListPagination;
 exports.default = _default;
 
-},{}],92:[function(require,module,exports){
+},{}],93:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108837,7 +108881,7 @@ var FavoriteBtn = {
 var _default = FavoriteBtn;
 exports.default = _default;
 
-},{}],93:[function(require,module,exports){
+},{}],94:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108872,7 +108916,7 @@ var FollowBtn = {
 var _default = FollowBtn;
 exports.default = _default;
 
-},{}],94:[function(require,module,exports){
+},{}],95:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108887,6 +108931,8 @@ var _hero = _interopRequireDefault(require("./Hero/hero.component"));
 var _test = _interopRequireDefault(require("./Test/test.component"));
 
 var _plan = _interopRequireDefault(require("./Plan/plan.component"));
+
+var _carousel = _interopRequireDefault(require("./Carousel/carousel.component"));
 
 var _card = _interopRequireDefault(require("./Card/card.componet"));
 
@@ -108915,6 +108961,7 @@ var componentsModule = _angular.default.module('app.components', []);
 componentsModule.component('myHero', _hero.default);
 componentsModule.component('myTest', _test.default);
 componentsModule.component('myPlan', _plan.default);
+componentsModule.component('myCarousel', _carousel.default);
 componentsModule.component("myCard", _card.default);
 componentsModule.component("myPage", _page.default);
 componentsModule.component('listErrors', _listErrors.default);
@@ -108928,7 +108975,7 @@ componentsModule.component('listPagination', _listPagination.default);
 var _default = componentsModule;
 exports.default = _default;
 
-},{"./Card/card.componet":83,"./Hero/hero.component":84,"./Page/page.component":85,"./Plan/plan.component":86,"./Test/test.component":87,"./article-helpers/article-list.component":88,"./article-helpers/article-meta.component":89,"./article-helpers/article-preview.component":90,"./article-helpers/list-pagination.component":91,"./buttons/favorite-btn.component":92,"./buttons/follow-btn.component":93,"./list-errors.component":95,"./show-authed.directive":96,"angular":18}],95:[function(require,module,exports){
+},{"./Card/card.componet":83,"./Carousel/carousel.component":84,"./Hero/hero.component":85,"./Page/page.component":86,"./Plan/plan.component":87,"./Test/test.component":88,"./article-helpers/article-list.component":89,"./article-helpers/article-meta.component":90,"./article-helpers/article-preview.component":91,"./article-helpers/list-pagination.component":92,"./buttons/favorite-btn.component":93,"./buttons/follow-btn.component":94,"./list-errors.component":96,"./show-authed.directive":97,"angular":18}],96:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -108944,7 +108991,7 @@ var ListErrors = {
 var _default = ListErrors;
 exports.default = _default;
 
-},{}],96:[function(require,module,exports){
+},{}],97:[function(require,module,exports){
 "use strict";
 
 ShowAuthed.$inject = ["User"];
@@ -108992,7 +109039,7 @@ function ShowAuthed(User) {
 var _default = ShowAuthed;
 exports.default = _default;
 
-},{}],97:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 "use strict";
 
 AppConfig.$inject = ["$httpProvider", "$stateProvider", "$locationProvider", "$urlRouterProvider", "toastrConfig"];
@@ -109040,7 +109087,7 @@ function AppConfig($httpProvider, $stateProvider, $locationProvider, $urlRouterP
 var _default = AppConfig;
 exports.default = _default;
 
-},{"./auth.interceptor":101}],98:[function(require,module,exports){
+},{"./auth.interceptor":102}],99:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109058,7 +109105,7 @@ var AppConstants = {
 var _default = AppConstants;
 exports.default = _default;
 
-},{}],99:[function(require,module,exports){
+},{}],100:[function(require,module,exports){
 "use strict";
 
 AppRun.$inject = ["AppConstants", "$rootScope"];
@@ -109091,17 +109138,13 @@ function AppRun(AppConstants, $rootScope) {
 var _default = AppRun;
 exports.default = _default;
 
-},{"sweetalert2":68}],100:[function(require,module,exports){
+},{"sweetalert2":68}],101:[function(require,module,exports){
 "use strict";
 
 angular.module('templates', []).run(['$templateCache', function ($templateCache) {
   $templateCache.put('admin/admin.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n<section>\n    <My-Page info="$ctrl.page_1"></My-Page>\n</section>\n\n<section><!-- MAP SECTION -->\n    <div map-lazy-load="https://maps.google.com/maps/api/js">\n        <ng-map id="mapUsers" center="[38.8100743, -0.6066551]" style="width: 100%; height: 500px;" default-style="false"\n            zoom="6">\n            <marker ng-repeat="us in $ctrl._Users" no-watcher="true" id="{{us.id}}" title="{{us.name}}" position="[{{us.lat}}, {{us.long}}]"\n                on-click="showDetailsOnMap(us)" animation="DROP">\n            </marker>\n            <info-window id="myInfoWindows">\n                <div class="infoWindowDiv" ng-non-bindable="true">\n                    <img class="myInfoWindows__imagenMap" src="{{info.media}}" align="center" />\n                    <span class="myInfoWindows__userNameMap">{{info.name}}</span>\n                    <div class="myInfoWindows__divInfo">\n                        <span class="myInfoWindows__label">Email:  </span>\n                        <span class="myInfoWindows__infoLabel">{{info.email}}</span>\n                    </div>\n                    <div class="myInfoWindows__divInfo">\n                        <span class="myInfoWindows__label">Tipo de Usuario: </span>\n                        <span class="myInfoWindows__infoLabel">{{info.type_user}}</span>\n                    </div>\n                    <div class="myInfoWindows__divInfo">\n                        <span class="myInfoWindows__label">Plan Contratado: </span>\n                        <span class="myInfoWindows__infoLabel">{{info.type_plan}}</span>\n                    </div>\n            \n                </div>\n            </info-window>\n        </ng-map>\n    </div>\n</section>\n\n\n\n\n<section>\n    <My-Page info="$ctrl.page_1"></My-Page>\n</section>\n\n\n\n\n<section  ><!-- Users TABLE -->\n    <div class="divTableAdmin lateralMarginAuto">\n        <div class="row"><!-- SEARCH and PAGE-SIZE -->\n            <div class="col-sm-2 pull-left">\n                <label>PageSize:</label>\n                <select ng-model="data_limit" class="form-control">\n                    <option selected>3</option>\n                    <option>5</option>\n                    <option>10</option>\n                </select>\n            </div>\n            <div class="col-sm-6 pull-right">\n                <label>Search:</label>\n                <input type="text" ng-model="search" ng-change="filter()" placeholder="Search" class="form-control" />\n            </div>\n        </div>\n        <br />\n        \n        <div><!-- div TABLE -->\n            <table class="table table-striped table-bordered">\n                <!-- CABECERAS PARA ORDENAR -->\n                <thead>\n                    <th>Name&nbsp;\n                        <a ng-click="sort_with(\'name\');">\n                            <i class="glyphicon glyphicon-sort pointer"></i>\n                        </a>\n                    </th>\n                    <th class="divTableAdmin__email">Email&nbsp;\n                        <a ng-click="sort_with(\'email\');">\n                            <i class="glyphicon glyphicon-sort pointer"></i>\n                        </a>\n                    </th>\n                    <th class="divTableAdmin__email">T. Usuario&nbsp;\n                        <a ng-click="sort_with(\'type_user\');">\n                            <i class="glyphicon glyphicon-sort pointer"></i>\n                        </a>\n                    </th>\n                    <th>T. Plan&nbsp;\n                        <a ng-click="sort_with(\'type_plan\');">\n                            <i class="glyphicon glyphicon-sort pointer"></i>\n                        </a>\n                    </th>\n                    <th>Bloqueado</th>\n                    <th>Operaciones&nbsp;</th>\n                </thead>\n                <tbody>\n                    <tr ng-repeat="data in searched = (fileUsuarios | filter:search | orderBy : base :reverse) | beginning_data2:(current_grid-1)*data_limit |  limitTo:data_limit  ">\n                        <td>{{data.name}}</td>\n                        <td class="divTableAdmin__email">{{data.email}}</td>\n                        <td class="divTableAdmin__email">{{data.type_user}}</td>\n                        <td>{{data.type_plan}}</td>\n                        <td>\n                            <div class="btn-group">\n                                <label class="{{data.lockClassYes}}" id="Yes{{data._id}}" ng-click="lockUser(radioModel, data)" ng-model="radioModel" uib-btn-radio="\'Yes\'">Yes</label>\n                                <label class="{{data.lockClassNo}}" id="No{{data._id}}" ng-click="lockUser(radioModel, data)" ng-model="radioModel" uib-btn-radio="\'No\'">No</label>\n                            </div>\n                        </td>\n                        <td>\n                            <a ng-click="$ctrl.deleteUser(data)" class="btn btn-danger" title="Eliminar usuario">\n                                <i class="glyphicon glyphicon-remove"></i>\n                            </a>\n                        </td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n\n        <!-- \n            Mensaje si no hay registros \n        -->\n        <div class="col-md-12" ng-show="filter_data == 0">\n            <div class="col-md-12">\n                <center>\n                    <h4>No records found..</h4>\n                </center>\n            </div>\n        </div>\n        \n        <!-- \n            Parte de bajo paginacion y mensaje de cantidad\n\n            maxSize =====>>>>>>     NUMERO MAXIMO DE PAGINAS (NUMERO DE BOTONES MAXIMO) \n            total items =====>>>>>> Numero de ITEMS que a PAGINAR\n            ng-model =====>>>>>>    PAGINA ACTUAL EN LA QUE SE PINCHA\n        \n        -->\n        <div >\n            <div >\n                <h5>{{filter_data}} Showing {{ searched.length }} of {{ entire_user}} entries</h5>\n            </div>\n            <div  ng-show="filter_data > 0">\n                <center>\n                    <ul uib-pagination class="pagination-sm" total-items="filter_data" ng-model="current_grid" max-size="5"\n                        on-select-page="page_position(page)" boundary-links="true" items-per-page="data_limit" rotate="false">\n                    </ul>\n                </center>\n            </div>\n        </div>\n    </div>\n</section>\n');
   $templateCache.put('admin/pregunta.html', 'hola modal');
-<<<<<<< HEAD
-  $templateCache.put('admin_chat/admin_chat.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<div class="lateralMarginAuto contChat">\n    <h1>Soporte</h1>\n    <div ng-repeat="chat in chats">\n        <h2>Chat with {{chat.user.name}}</h2>\n        <hr />\n        <div ng-repeat="message in chat.messages">\n            <strong>{{message.user.name}}:</strong>\n            <span>{{message.data}}</span>\n        </div>\n        <form ng-submit="send(chat.user.id, chat.textbox)">\n            <div class="form-group">\n                <input ng-model="chat.textbox">\n            </div>\n        </form>\n        <hr />\n    </div>\n</div>\n');
-=======
   $templateCache.put('admin_chat/admin_chat.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<div class="lateralMarginAuto contChat">\n    <h1>Soporte</h1>\n    <div ng-repeat="chat in chats">\n        <h2>Chat with {{chat.user.name}}</h2>\n        <hr />\n        <div ng-repeat="message in chat.messages">\n            <strong>{{message.user.name}}:</strong>\n            <span>{{message.data}}</span>\n        </div>\n        <form ng-submit="send(chat.user.id, chat.textbox)">\n            <div class="form-group">\n                <input ng-model="chat.textbox">\n                <button type="button" ng-click="send(chat.user.id, chat.textbox)">enviar</button>\n            </div>\n        </form>\n        <hr />\n    </div>\n</div>\n');
->>>>>>> 9732762b6389c78906eafb1721c21a29afe77f3f
   $templateCache.put('article/article-actions.html', '<article-meta article="$ctrl.article">\n\n  <span ng-show="$ctrl.canModify">\n    <a class="btn btn-sm btn-outline-secondary"\n      ui-sref="app.editor({ slug: $ctrl.article.slug })">\n      <i class="ion-edit"></i> Edit Article\n    </a>\n\n    <button class="btn btn-sm btn-outline-danger"\n      ng-class="{disabled: $ctrl.isDeleting}"\n      ng-click="$ctrl.deleteArticle()">\n      <i class="ion-trash-a"></i> Delete Article\n    </button>\n  </span>\n\n  <span ng-hide="$ctrl.canModify">\n    <follow-btn user="$ctrl.article.author"></follow-btn>\n    <favorite-btn article="$ctrl.article">\n      {{ $ctrl.article.favorited ? \'Unfavorite\' : \'Favorite\' }} Article <span class="counter">({{$ctrl.article.favoritesCount}})</span>\n    </favorite-btn>\n  </span>\n\n</article-meta>\n');
   $templateCache.put('article/article.html', '<div class="article-page">\n\n  <!-- Banner for article title, action buttons -->\n  <div class="banner">\n    <div class="container">\n\n      <h1 ng-bind="::$ctrl.article.title"></h1>\n\n      <div class="article-meta">\n        <!-- Show author info + favorite & follow buttons -->\n        <article-actions article="$ctrl.article"></article-actions>\n\n      </div>\n\n    </div>\n  </div>\n\n\n\n  <!-- Main view. Contains article html and comments -->\n  <div class="container page">\n\n    <!-- Article\'s HTML & tags rendered here -->\n    <div class="row article-content">\n      <div class="col-xs-12">\n\n        <div ng-bind-html="::$ctrl.article.body"></div>\n\n        <ul class="tag-list">\n          <li class="tag-default tag-pill tag-outline"\n            ng-repeat="tag in ::$ctrl.article.tagList">\n            {{ tag }}\n          </li>\n        </ul>\n\n      </div>\n    </div>\n\n    <hr />\n\n    <div class="article-actions">\n\n      <!-- Show author info + favorite & follow buttons -->\n      <article-actions article="$ctrl.article"></article-actions>\n\n    </div>\n\n    <!-- Comments section -->\n    <div class="row">\n      <div class="col-xs-12 col-md-8 offset-md-2">\n\n        <div show-authed="true">\n          <list-errors from="$crl.commentForm.errors"></list-errors>\n          <form class="card comment-form" ng-submit="$ctrl.addComment()">\n            <fieldset ng-disabled="$ctrl.commentForm.isSubmitting">\n              <div class="card-block">\n                <textarea class="form-control"\n                  placeholder="Write a comment..."\n                  rows="3"\n                  ng-model="$ctrl.commentForm.body"></textarea>\n              </div>\n              <div class="card-footer">\n                <img ng-src="{{::$ctrl.currentUser.image}}" class="comment-author-img" />\n                <button class="btn btn-sm btn-primary" type="submit">\n                 Post Comment\n                </button>\n              </div>\n            </fieldset>\n          </form>\n        </div>\n\n        <div show-authed="false">\n          <a ui-sref="app.login">Sign in</a> or <a ui-sref="app.register">sign up</a> to add comments on this article.\n        </div>\n\n        <comment ng-repeat="cmt in $ctrl.comments"\n          data="cmt"\n          delete-cb="$ctrl.deleteComment(cmt.id, $index)">\n        </comment>\n\n\n      </div>\n    </div>\n\n  </div>\n\n\n\n</div>\n');
   $templateCache.put('article/comment.html', '<div class="card">\n  <div class="card-block">\n    <p class="card-text" ng-bind="::$ctrl.data.body"></p>\n  </div>\n  <div class="card-footer">\n    <a class="comment-author" ui-sref="app.profile.main({ username: $ctrl.data.author.username })">\n      <img ng-src="{{::$ctrl.data.author.image}}" class="comment-author-img" />\n    </a>\n    &nbsp;\n    <a class="comment-author" ui-sref="app.profile.main({ username: $ctrl.data.author.username })" ng-bind="::$ctrl.data.author.username">\n    </a>\n    <span class="date-posted"\n      ng-bind="::$ctrl.data.createdAt | date: \'longDate\'">\n    </span>\n    <span class="mod-options" ng-show="$ctrl.canModify">\n      <i class="ion-trash-a" ng-click="$ctrl.deleteCb()"></i>\n    </span>\n  </div>\n</div>\n');
@@ -109109,25 +109152,18 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('components/list-errors.html', '<ul class="error-messages" ng-show="$ctrl.errors">\n  <div ng-repeat="(field, errors) in $ctrl.errors">\n    <li ng-repeat="error in errors">\n      {{field}} {{error}}\n    </li>\n  </div>\n</ul>\n');
   $templateCache.put('contact/contact.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<section class="containerContact"> \n    <h4>Escribe su consulta {{$ctrl.datosUser.name}}</h4>\n        \n    <form id="contact_form" name="contact_form" class="form-contact" ng-submit="vm.SubmitContact()">\n        <input class="inputs" required ng-model="vm.inputName" type="text" id="inputName" name="inputName" placeholder="Your name" class="" dir="auto" maxlength="100">    \n        <span class="text-danger" ng-show="contact_form.inputName.$error.required && (contact_form.inputName.$dirty || contact_form.inputName.$touched)">The name is required</span>\n        <br>\n        <input class="inputs" required ng-model="vm.inputEmail" type="email" id="inputEmail" name="inputEmail" placeholder="Your email" class="" maxlength="100" ng-pattern="/^[a-z0-9!#$%&\'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\\.[a-z0-9-]+)*$/i"> \n        <span class="text-danger" ng-show="contact_form.inputEmail.$error.required && (contact_form.inputEmail.$dirty || contact_form.inputEmail.$touched)">The email is required</span>\n        <span class="text-danger" ng-show="contact_form.inputEmail.$error.email">The email is not valid</span>\n        <br>\n            \n        <select  ng-model="vm.inputSubject" class="form-control" id="inputSubject" name="inputSubject" title="Choose subject">\n            <option value="">Select subject</option>\n            <option value="order">SEL_ORDER</option>\n            <option value="programming_dept">SEL_PROG_DEPT</option>\n        </select>\n                \n        <br>   \n        <textarea required ng-model="vm.inputMessage" class="input-block-level" rows="4" id="inputMessage" name="inputMessage" placeholder="Your comment here..." style="max-width: 100%;" dir="auto"></textarea>\n        <br>\n        <span class="text-danger" ng-show="contact_form.inputMessage.$error.required && (contact_form.inputMessage.$dirty || contact_form.inputMessage.$touched)">The comment is required</span>\n        <input class="btnContact" type="submit" class="btn btn-primary" name="submit" id="submitBtn" value="Enviar consulta" ng-show="contact_form.inputName.$valid && contact_form.inputEmail.$valid && contact_form.inputMessage.$valid" ng-click="SubmitContact()" />\n            \n        <div id="resultMessageOk" class="msg_ok">{{vm.resultMessageOk}}</div>\n        <div id="resultMessageFail" class="msg_error">{{vm.resultMessageFail}}</div>\n    </form>\n\n</section>\n\n<div map-lazy-load="https://maps.google.com/maps/api/js">\n    <ng-map center="[38.8100743, -0.6066551]" style="width: 100%;" zoom="15">\n    <marker no-watcher="true" title="prueba" position="[38.8100743, -0.6066551]"></marker>\n    </ng-map>\n    <!-- <ng-map  center="[40.74, -74.18]" style="width:100%; height: 100%; " zoom="15"></ng-map> -->\n</div>\n');
   $templateCache.put('editor/editor.html', '<div class="editor-page">\n  <div class="container page">\n    <div class="row">\n      <div class="col-md-10 offset-md-1 col-xs-12">\n\n        <list-errors errors="$ctrl.errors"></list-errors>\n\n        <form>\n          <fieldset ng-disabled="$ctrl.isSubmitting">\n\n            <fieldset class="form-group">\n              <input class="form-control form-control-lg"\n                ng-model="$ctrl.article.title"\n                type="text"\n                placeholder="Article Title" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control"\n                ng-model="$ctrl.article.description"\n                type="text"\n                placeholder="What\'s this article about?" />\n            </fieldset>\n\n            <fieldset class="form-group">\n              <textarea class="form-control"\n                rows="8"\n                ng-model="$ctrl.article.body"\n                placeholder="Write your article (in markdown)">\n              </textarea>\n            </fieldset>\n\n            <fieldset class="form-group">\n              <input class="form-control"\n                type="text"\n                placeholder="Enter tags"\n                ng-model="$ctrl.tagField"\n                ng-keyup="$event.keyCode == 13 && $ctrl.addTag()" />\n\n              <div class="tag-list">\n                <span ng-repeat="tag in $ctrl.article.tagList"\n                  class="tag-default tag-pill">\n                  <i class="ion-close-round" ng-click="$ctrl.removeTag(tag)"></i>\n                  {{ tag }}\n                </span>\n              </div>\n            </fieldset>\n\n            <button class="btn btn-lg pull-xs-right btn-primary" type="button" ng-click="$ctrl.submit()">\n              Publish Article\n            </button>\n\n          </fieldset>\n        </form>\n\n      </div>\n    </div>\n  </div>\n</div>\n');
-<<<<<<< HEAD
-  $templateCache.put('home/home.html', ' <div class="home-page">\n   <!-- <button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button> -->\n   \n  <My-Hero info="$ctrl.hero"></My-Hero> \n   \n  <section>\n    <My-Page info="$ctrl.page_1"></My-Page>\n  </section>\n  \n  <!-- <Follow-Btn css="$ctrl.css" user="$ctrl.a" u="poco"></Follow-Btn>\n  \n  \n  \n  <div class="divmio">divmio\n    <md-button class="md-fab" aria-label="Eat cake" ng>\n      material diseny\n    </md-button>\n  </div> -->\n   \n  <!--<button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button>-->\n  \n  <div class="container-text divStandar">\n    <div class="container-text__section">\n      <h3 class="container-text__title">Nuestros Servicios</h3>\n      <img src="../images/customer-service.svg" class="container-text__imgHome" alt="Servicios">\n      <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n\n    <div class="container-text__section">\n      <h3 class="container-text__title">Nuestro compromiso</h3>\n      <img src="../images/compromise.svg" class="container-text__imgHome" alt="Compromiso">\n      <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n  </div>\n\n<h3 align="center">Categor\xEDas</h3>\n<section>\n  <div class="divStandar gridCategoryContainer">\n    <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>\n  </div>\n</section>\n\n<my-plan info="plans"></my-plan>\n\n</div>\n');
+  $templateCache.put('home/home.html', '<div class="home-page">\n  <my-carousel info="carousel"></my-carousel>\n  <section>\n    <My-Page info="$ctrl.page_1"></My-Page>\n  </section>\n    \n    <div class="container-text divStandar">\n      <div class="container-text__section">\n        <h3 class="container-text__title">Nuestros Servicios</h3>\n        <img src="../images/customer-service.svg" class="container-text__imgHome" alt="Servicios">\n        <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n          Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n          Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n        </p>\n      </div>\n\n      <div class="container-text__section">\n        <h3 class="container-text__title">Nuestro compromiso</h3>\n        <img src="../images/compromise.svg" class="container-text__imgHome" alt="Compromiso">\n        <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n          Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n          Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n        </p>\n      </div>\n    </div>\n\n  <h3 align="center">Categor\xEDas</h3>\n  <section>\n    <div class="divStandar gridCategoryContainer">\n      <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>\n    </div>\n  </section>\n\n  <my-plan info="plans"></my-plan>\n\n</div>\n');
   $templateCache.put('layout/app-view.html', '<app-header></app-header>\n    <div ui-view class="containerBody"></div>\n<app-footer></app-footer>\n');
   $templateCache.put('layout/footer.html', '<footer id="footer">\n  <div >\n    <div class="gloriaGrid">\n  \n      <div class="elem1">\n        <div class="elemsTitle">\n          <p>Cognitive Brain S.L.</p>\n        </div>\n        <div>\n          <div>Cognitive Brain</div>\n          <div>C/ islas canarias 6,</div>\n          <div>46870 Ontinyent, Valencia, Espa\xF1a.</div>\n          <div>cognitivebrain@info.com</div>\n          <div>+34 960 00 00 00</div>\n        </div>\n      </div>\n  \n      <div class="elem2">\n        <div>\n          <p>Apuntate a nuestra newsletter para estar siempre al d\xEDa.</p>\n        </div>\n        <div class="gloriaTitle">\n          <input id="inpEmail" type="email" placegolder="Tu email"></input>\n          <button type="button" class="btnColor">SUSCRIBETE</button>\n        </div>\n      </div>\n  \n      <div class="elem3">\n        <div class="elemsTitle">\n          <p>MISI\xD3N</p>\n        </div>\n        <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae velit aliquid expedita dolorem pariatur amet nemo dicta, repudiandae totam, inventore natus, quos sed repellat quo ipsa et nostrum magni delectus</div>\n      </div>\n  \n    </div>\n  </div>\n\n</footer>\n');
-  $templateCache.put('layout/header.html', '\n<header class="header" >\n  <a ui-sref="app.home" class="logo" style="color:#EA5047">Cognitive Brain</a>\n  <input class="menu-btn" type="checkbox" id="menu-btn" />\n  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>\n  <ul class="menu">\n    \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.home">Home</a>\n    </li>\n   \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">Contact</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.user_chat">Chat</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.login">Sing in</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>\n    </li>\n\n    <li show-authed="true" class="nav-item" ng-if="$ctrl.user.type==1 || $ctrl.user.type_user==1">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a style="cursor: pointer" ng-click="$ctrl.logout()" >Log out</a>\n    </li>\n    \n    <li show-authed="true" class="nav-item">\n      <a style="padding: 0px;" ui-sref="app.profile_user">\n        <img ng-src="{{$ctrl.user.media}}" style="height: 60px; padding:4px 30px 4px 30px;" alt="">\n      </a>\n    </li>\n    \n<!-- \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.listDetails">ListDetails</a>\n    </li> -->\n\n  </ul>\n</header>\n<!-- \n\n<nav class="navbar navbar-light">\n  <div class="container">\n\n    <a class="navbar-brand"\n      ui-sref="app.home"\n      ng-bind="::$ctrl.appName | lowercase">\n    </a>\n\n    \n    <ul show-authed="false"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.login">\n          Sign in\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.register">\n          Sign up\n        </a>\n      </li>\n\n    </ul>\n\n    \n    <ul show-authed="true"\n      class="nav navbar-nav pull-xs-right">\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.home">\n          Home\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.editor">\n          <i class="ion-compose"></i>&nbsp;New Article\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.settings">\n          <i class="ion-gear-a"></i>&nbsp;Settings\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">\n          Contact\n        </a>\n      </li>\n\n      <li class="nav-item">\n        <a class="nav-link" ui-sref-active="active" ui-sref="app.listProd">\n          Lista productos\n        </a>\n      </li>\n\n     \n      <li class="nav-item">\n        <a class="nav-link"\n          ui-sref-active="active"\n          ui-sref="app.profile.main({ username: $ctrl.currentUser.username})">\n          <img ng-src="{{$ctrl.currentUser.image}}" class="user-pic" />\n          {{ $ctrl.currentUser.username }}\n        </a>\n      </li>\n\n    </ul>\n\n\n  </div>\n</nav>\n -->');
+  $templateCache.put('layout/header.html', '\n<header class="header" >\n  <a ui-sref="app.home" class="logo" style="color:#EA5047">Cognitive Brain</a>\n  <input class="menu-btn" type="checkbox" id="menu-btn" />\n  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>\n  <ul class="menu">\n    \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.home">Home</a>\n    </li>\n   \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">Contact</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.user_chat">Chat</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.login">Sing in</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>\n    </li>\n\n    <li show-authed="true" class="nav-item" ng-if="$ctrl.user.type==1 || $ctrl.user.type_user==1">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a style="cursor: pointer" ng-click="$ctrl.logout()" >Log out</a>\n    </li>\n    \n    <li show-authed="true" class="nav-item">\n      <a style="padding: 0px;" ui-sref="app.profile_user">\n        <img ng-src="{{$ctrl.user.media}}" style="height: 60px; padding:4px 30px 4px 30px;" alt="">\n      </a>\n    </li>\n    \n<!-- \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.listDetails">ListDetails</a>\n    </li> -->\n\n  </ul>\n</header>\n');
   $templateCache.put('listDetails/listDetails.html', '<section>\n  <div class="divStandar gridCategoryContainer">\n    <a class="pointer" ng-repeat="test in loadTest" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">\n        <div class="gridCategory">\n            <div class="imgCategory">\n                <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n            </div>\n            <div class="textCategory">\n                <p>{{test.name}}</p>\n            </div>\n        </div>\n    </a>\n    <!--<img ng-repeat=\'image in images\' ng-src=\'http://placehold.it/225x250&text={{image}}\'>-->\n  </div>\n  <input type="submit" style="margin-left: 540px;" class="btnColor" name="loadMore" id="loadMore" value="More" ng-click="getMore()">\n</section>');
-=======
-  $templateCache.put('home/home.html', " <div class=\"home-page\">\n   <!-- <button ng-click=\"openCategory()\" type=\"button\" class=\"btn btn-large btn-block btn-primary\">button</button> -->\n   \n  <My-Hero info=\"$ctrl.hero\"></My-Hero> \n   \n  <section>\n    <My-Page info=\"$ctrl.page_1\"></My-Page>\n  </section>\n\n  <!-- <Follow-Btn css=\"$ctrl.css\" user=\"$ctrl.a\" u=\"poco\"></Follow-Btn>\n  \n  \n  \n  <div class=\"divmio\">divmio\n    <md-button class=\"md-fab\" aria-label=\"Eat cake\" ng>\n      material diseny\n    </md-button>\n  </div> -->\n   \n  <!--<button ng-click=\"openCategory()\" type=\"button\" class=\"btn btn-large btn-block btn-primary\">button</button>-->\n  \n  <div class=\"container-text divStandar\">\n    <div class=\"container-text__section\">\n      <h3 class=\"container-text__title\">Nuestros Servicios</h3>\n      <img src=\"../images/customer-service.svg\" class=\"container-text__imgHome\" alt=\"Servicios\">\n      <p class=\"container-text__parrafo\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n\n    <div class=\"container-text__section\">\n      <h3 class=\"container-text__title\">Nuestro compromiso</h3>\n      <img src=\"../images/compromise.svg\" class=\"container-text__imgHome\" alt=\"Compromiso\">\n      <p class=\"container-text__parrafo\">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. \n        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. \n        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.\n      </p>\n    </div>\n  </div>\n\n<h3 align=\"center\">Categor\xEDas</h3>\n<section>\n  <div class=\"divStandar gridCategoryContainer\">\n    <my-card ng-repeat=\"category in $ctrl.categories\" info=\"category\"></my-card>\n  </div>\n</section>\n\n<section class=\"container-plan divStandar\">\n  <div class=\"container-plan__section\">\n    <h2>Plan Basico</h2>\n    <img src=\"../../../../backend/uploads/users/7cMlg83XGAewMlCANd4mUpC5.jpg\" height=\"50\" width=\"50\">\n    <img class=\"container-plan__imgHome\" src=\"../images/buy1.svg\" alt=\"Plan Basico\">\n    <p class=\"container-text__parrafo\">Test</p>\n    <p class=\"container-text__parrafo\">20\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeBa\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Intermedio</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy2.svg\" alt=\"Plan Intermedio\">\n    <p class=\"container-text__parrafo\">Soporte email + Test</p>\n    <p class=\"container-text__parrafo\">35\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeInt\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Experto</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy3.svg\" alt=\"Plan Experto\">\n    <p class=\"container-text__parrafo\">Soporte email +  Skype + Test</p>\n    <p class=\"container-text__parrafo\">50\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeEx\" class=\"btnColor\">Comprar</button>\n  </div>\n</section>\n\n</div>\n");
-  $templateCache.put('layout/app-view.html', '<app-header></app-header>\n    <div ui-view class="containerBody"></div>\n<app-footer></app-footer>\n');
-  $templateCache.put('layout/footer.html', '<footer id="footer">\n  <div >\n    <div class="gloriaGrid">\n  \n      <div class="elem1">\n        <div class="elemsTitle">\n          <p>Cognitive Brain S.L.</p>\n        </div>\n        <div>\n          <div>Cognitive Brain</div>\n          <div>C/ islas canarias 6,</div>\n          <div>46870 Ontinyent, Valencia, Espa\xF1a.</div>\n          <div>cognitivebrain@info.com</div>\n          <div>+34 960 00 00 00</div>\n        </div>\n      </div>\n  \n      <div class="elem2">\n        <div>\n          <p>Apuntate a nuestra newsletter para estar siempre al d\xEDa.</p>\n        </div>\n        <div class="gloriaTitle">\n          <input id="inpEmail" type="email" placegolder="Tu email"></input>\n          <button type="button" class="btnColor">SUSCRIBETE</button>\n        </div>\n      </div>\n  \n      <div class="elem3">\n        <div class="elemsTitle">\n          <p>MISI\xD3N</p>\n        </div>\n        <div> Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae velit aliquid expedita dolorem pariatur amet nemo dicta, repudiandae totam, inventore natus, quos sed repellat quo ipsa et nostrum magni delectus</div>\n      </div>\n  \n    </div>\n  </div>\n\n</footer>\n');
-  $templateCache.put('layout/header.html', '\n<header class="header" >\n  <a ui-sref="app.home" class="logo" style="color:#EA5047">Cognitive Brain</a>\n  <input class="menu-btn" type="checkbox" id="menu-btn" />\n  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>\n  <ul class="menu">\n    \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.home">Home</a>\n    </li>\n   \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.contact">Contact</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.user_chat">Chat</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.login">Sing in</a>\n    </li>\n\n    <li show-authed="false" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.register">Sing up</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.admin">Administracion</a>\n    </li>\n\n    <li show-authed="true" class="nav-item">\n      <a style="cursor: pointer" ng-click="$ctrl.logout()" >Log out</a>\n    </li>\n    \n    <li show-authed="true" class="nav-item">\n      <a style="padding: 0px;" ui-sref="app.profile_user">\n        <img ng-src="{{$ctrl.user.media}}" style="height: 60px; padding:4px 30px 4px 30px;" alt="">\n      </a>\n    </li>\n    \n<!-- \n    <li class="nav-item">\n      <a class="nav-link" ui-sref-active="active" ui-sref="app.listDetails">ListDetails</a>\n    </li> -->\n\n  </ul>\n</header>\n');
-  $templateCache.put('listDetails/listDetails.html', '<section>\n  <div class="divStandar gridCategoryContainer">\n    <a class="pointer" ng-repeat="test in $ctrl.u" ng-click="openTest(test.slug_test)"  id="{{test.slug_test}}">\n        <div class="gridCategory">\n            <div class="imgCategory">\n                <img src="../../../images/{{test.name | lowercase}}.svg" alt="Image">\n            </div>\n            <div class="textCategory">\n                <p>{{test.name}}</p>\n            </div>\n        </div>\n    </a>\n  </div>\n</section>');
->>>>>>> 9732762b6389c78906eafb1721c21a29afe77f3f
   $templateCache.put('listProd/listProd.html', '<my-test ng-repeat="detailTest in $ctrl.detailTest" info="detailTest"></my-test>');
   $templateCache.put('profile_user/profile_user.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<div class="lateralMarginAuto contMedia">\n    <img class="avatar" src="{{$ctrl.user.media}}" alt="">\n</div>\n<div class="lateralMarginAuto contMedia">\n    <button ng-click="$ctrl.changeAvatar()" type="button">Cambiar avatar</button>\n    <input ng-model="$ctrl.file" type="file" id="file" name="file">\n</div>\n\n<div class="lateralMarginAuto contForm">\n    <form id="profile_form" name="profile_form" class="form-profile" ng-submit="$ctrl.Submitprofile()">   \n\n        <div class="divInput">\n            <label for="user_name">Nombre de usuario</label>\n            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.user" type="text" id="user_name" name="user_name" required>\n            <div ng-show=\'sfIn.tb.$dirty && sfIn.tb.$invalid\'>\n                <span ng-show=\'sfIn.tb.$error.required\'>Required</span>\n            </div>\n        </div>\n\n        <div class="divInput">\n            <label for="name">Nombre </label>\n            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.name" id="name" name="name" type="text" required>\n        </div>\n\n        <div class="divInput">\n            <label for="surname">Apellido</label>\n            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.surname" id="surname" name="surname" type="text" required>\n        </div>\n\n        <div class="divInput">\n            <label for="email">Email</label>\n            <input class="inputsProfile" ng-model="$ctrl.datos_usuario.email" type="email" id="email" name="email"  required>\n        </div>\n\n        <div class="divInput">\n            <input class="btnContact btnActualizar inputsProfile" type="submit" value="Actualizar"/>\n\n        </div>\n        \n    </form>\n\n</div>');
   $templateCache.put('recover_pass/recover_pass.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<section>\n  <div class="container-recoverPass lateralMarginAuto" ng-show="$ctrl.formemail">\n\n    <form ng-submit="$ctrl.submitFormEmail()">\n      <fieldset ng-disabled="$ctrl.isSubmitting">\n\n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Your email" ng-model="$ctrl.formData.email"\n            ng-style="$ctrl.emailError" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n\n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="email" placeholder="Repeat your email" ng-model="$ctrl.formData.email2" ng-style="$ctrl.emailError"\n            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$" ng-focus="$ctrl.userError={}"/>\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n\n        <button class="btn btn-primary col-md-12" type="submit">Enviar</button>\n\n      </fieldset>\n    </form>\n\n  </div>\n</section>\n\n\n<section>\n  <div class="container-recoverPass lateralMarginAuto" ng-show="!$ctrl.formemail">\n\n    <form ng-submit="$ctrl.submitFormChangePass()">\n      <fieldset ng-disabled="$ctrl.isSubmitting">\n    \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Your password" ng-model="$ctrl.formDataPas.password" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n    \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userError" class="form-control form-control-lg" type="password" placeholder="Repeat your password" ng-model="$ctrl.formDataPas.password2" ng-style="$ctrl.passError" ng-focus="$ctrl.userError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userError.border">{{$ctrl.errorMessage}}</p>\n        \n        <fieldset class="form-group">\n          <input ng-style="$ctrl.userNameError" class="form-control form-control-lg" type="email" placeholder="User name"\n            ng-model="$ctrl.formDataPas.name" ng-style="$ctrl.name" ng-focus="$ctrl.userNameError={}" />\n        </fieldset>\n        <p ng-style="$ctrl.colError.text" ng-show="$ctrl.userNameError.border">{{$ctrl.errorMessageUser}}</p>\n\n        <button class="btn btn-primary col-md-12" type="submit">Enviaxr</button>\n    \n      </fieldset>\n    </form>\n  </div>\n</section>');
   $templateCache.put('testDetails/testDetails.html', '<section>\n  dentro de tests details\n</section>');
   $templateCache.put('user_chat/user_chat.html', '<My-Hero info="$ctrl.hero"></My-Hero>\n\n<div class="lateralMarginAuto contChat">\n    <h1>Chat with support</h1>\n    <div ng-repeat="message in messages">\n        <strong>{{message.user.name}}:</strong>\n        <span>{{message.data}}</span>\n    </div>\n    <form ng-submit="send()">\n        <div class="form-group">\n            <input ng-model="textbox">\n        </div>\n    </form>\n\n</div>\n');
   $templateCache.put('components/Card/card.html', '<a ng-click="openCategory($ctrl.info)" class="pointer">\n    <div class="gridCategory">\n        <div class="imgCategory">\n            <img src="../../../images/{{$ctrl.info.name | lowercase}}.svg" alt="Image">\n        </div>\n        <div class="textCategory">\n            <p>{{$ctrl.info.name}}</p>\n        </div>\n    </div>\n</a>');
+  $templateCache.put('components/Carousel/carousel.html', '<div style="height: 280px">\n  <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">\n    <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">\n      <img ng-src="{{slide.image}}" style="margin:auto;" width="1300" height="300">\n      <div class="carousel-caption">\n        <h4>Cognitive Brain</h4>\n        <p>{{slide.text}}</p>\n      </div>\n    </div>\n  </div>\n</div>');
   $templateCache.put('components/Hero/hero.html', '<div class="heroDiv" ng-style={{$ctrl.info.bg}}>\n    <div class="heroContainer">   \n        <p  class="heroTitle"> {{$ctrl.info.info.title}} </p>\n        <p class="heroSubtitle"> {{$ctrl.info.info.subtitle}} </p>\n    </div>\n</div>\n<!--<ui-carousel slides="{{ $ctrl.info.info.slides }}" on-init="carouselDemo.onCarouselInit()" slides-to-show="1" slides-to-scroll="1" initial-slide="0">\n       \n    <carousel-item>\n        <h2>{{ item.title }}</h2>\n        <img src="{{ item.image }}" alt="Image" />\n         \n    </carousel-item>\n\n        \n    <carousel-prev>\n        <button>Prev</button>\n          \n    </carousel-prev>\n\n    <carousel-next>\n        <button>next</button>\n          \n    </carousel-next>\n</ui-carousel>-->\n\n \n  ');
   $templateCache.put('components/Page/page.html', '<div class="pageContainer lateralMarginAuto">   \n    <p  class="pageTitle"> {{$ctrl.info.title}} </p>\n    <p class="pageText"> {{$ctrl.info.subtitle}} </p>\n</div>\n\n \n  ');
   $templateCache.put('components/Plan/plan.html', "<section class=\"container-plan divStandar\">\n  <div class=\"container-plan__section\">\n    <h2>Plan Basico</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy1.svg\" alt=\"Plan Basico\">\n    <p class=\"container-text__parrafo\">Test</p>\n    <p class=\"container-text__parrafo\">20\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeBa\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Intermedio</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy2.svg\" alt=\"Plan Intermedio\">\n    <p class=\"container-text__parrafo\">Soporte email + Test</p>\n    <p class=\"container-text__parrafo\">35\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeInt\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Experto</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy3.svg\" alt=\"Plan Experto\">\n    <p class=\"container-text__parrafo\">Soporte email +  Skype + Test</p>\n    <p class=\"container-text__parrafo\">50\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeEx\" class=\"btnColor\">Comprar</button>\n  </div>\n</section>");
@@ -109140,7 +109176,7 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('components/buttons/follow-btn.html', '<button\n  \n  >\n  <i class="ion-plus-round"></i>\n  &nbsp;<span ng-style={{$ctrl.css}}>\n  boton{{ $ctrl.u }}\n   {{ $ctrl.user }}\n\n  {{$ctrl.css|json}}\n  </span>\n</button>\n');
 }]);
 
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 "use strict";
 
 authInterceptor.$inject = ["JWT", "AppConstants", "$window", "$q"];
@@ -109178,7 +109214,7 @@ function authInterceptor(JWT, AppConstants, $window, $q) {
 var _default = authInterceptor;
 exports.default = _default;
 
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 "use strict";
 
 ContactConfig.$inject = ["$stateProvider"];
@@ -109203,7 +109239,7 @@ function ContactConfig($stateProvider) {
 var _default = ContactConfig;
 exports.default = _default;
 
-},{}],103:[function(require,module,exports){
+},{}],104:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109272,7 +109308,7 @@ ContactCtrl.$inject = ["AppConstants", "$scope", "Contact", "Toaster", "$rootSco
 var _default = ContactCtrl;
 exports.default = _default;
 
-},{}],104:[function(require,module,exports){
+},{}],105:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109298,7 +109334,7 @@ contactModule.controller('ContactCtrl', _contact2.default);
 var _default = contactModule;
 exports.default = _default;
 
-},{"./contact.config":102,"./contact.controller":103,"angular":18}],105:[function(require,module,exports){
+},{"./contact.config":103,"./contact.controller":104,"angular":18}],106:[function(require,module,exports){
 "use strict";
 
 HomeConfig.$inject = ["$stateProvider"];
@@ -109335,7 +109371,7 @@ function HomeConfig($stateProvider) {
 var _default = HomeConfig;
 exports.default = _default;
 
-},{}],106:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109374,16 +109410,6 @@ function () {
       title: "Lorem ipsum dolor",
       subtitle: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque eius, officia velit animi veritatis assumenda quasi ipsam, quam ab illo sint obcaecati temporibus repellendus natus amet eaque rerum sequi inventore?"
     };
-    this.hero = {
-      bg: {
-        /* 
-        "background": "red", */
-      },
-      info: {
-        title: "Cognitive Brain",
-        subtitle: "Le ayudamos a mantenerte la mente sana"
-      }
-    };
     console.log(this.categories);
 
     $scope.openCategory = function () {
@@ -109404,7 +109430,7 @@ function () {
 var _default = HomeCtrl;
 exports.default = _default;
 
-},{}],107:[function(require,module,exports){
+},{}],108:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109431,7 +109457,7 @@ homeModule.controller('HomeCtrl', _home2.default);
 var _default = homeModule;
 exports.default = _default;
 
-},{"./home.config":105,"./home.controller":106,"angular":18}],108:[function(require,module,exports){
+},{"./home.config":106,"./home.controller":107,"angular":18}],109:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109459,7 +109485,7 @@ var AppFooter = {
 var _default = AppFooter;
 exports.default = _default;
 
-},{}],109:[function(require,module,exports){
+},{}],110:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109505,7 +109531,7 @@ var AppHeader = {
 var _default = AppHeader;
 exports.default = _default;
 
-},{}],110:[function(require,module,exports){
+},{}],111:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109530,7 +109556,7 @@ layoutModule.component('appFooter', _footer.default);
 var _default = layoutModule;
 exports.default = _default;
 
-},{"./footer.component":108,"./header.component":109,"angular":18}],111:[function(require,module,exports){
+},{"./footer.component":109,"./header.component":110,"angular":18}],112:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109557,7 +109583,7 @@ listDetailsModule.controller("ListDetailsCtrl", _listDetails2.default);
 var _default = listDetailsModule;
 exports.default = _default;
 
-},{"./listDetails.config":112,"./listDetails.controller":113,"angular":18}],112:[function(require,module,exports){
+},{"./listDetails.config":113,"./listDetails.controller":114,"angular":18}],113:[function(require,module,exports){
 "use strict";
 
 ListDetailsConfig.$inject = ["$stateProvider"];
@@ -109598,7 +109624,7 @@ function ListDetailsConfig($stateProvider) {
 var _default = ListDetailsConfig;
 exports.default = _default;
 
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109664,7 +109690,7 @@ ListDetailsCtrl.$inject = ["AppConstants", "$scope", "tests", "$state", "TestSer
 var _default = ListDetailsCtrl;
 exports.default = _default;
 
-},{}],114:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109690,7 +109716,7 @@ listProdModule.controller('ListProdCtrl', _listProd2.default);
 var _default = listProdModule;
 exports.default = _default;
 
-},{"./listProd.config":115,"./listProd.controller":116,"angular":18}],115:[function(require,module,exports){
+},{"./listProd.config":116,"./listProd.controller":117,"angular":18}],116:[function(require,module,exports){
 "use strict";
 
 ListProdConfig.$inject = ["$stateProvider"];
@@ -109732,7 +109758,7 @@ function ListProdConfig($stateProvider) {
 var _default = ListProdConfig;
 exports.default = _default;
 
-},{}],116:[function(require,module,exports){
+},{}],117:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109760,7 +109786,7 @@ ListProdCtrl.$inject = ["AppConstants", "$scope", "test"];
 var _default = ListProdCtrl;
 exports.default = _default;
 
-},{}],117:[function(require,module,exports){
+},{}],118:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109787,7 +109813,7 @@ profile_userModule.controller('Profile_userCtrl', _profile_user2.default);
 var _default = profile_userModule;
 exports.default = _default;
 
-},{"./profile_user.config":118,"./profile_user.controller":119,"angular":18}],118:[function(require,module,exports){
+},{"./profile_user.config":119,"./profile_user.controller":120,"angular":18}],119:[function(require,module,exports){
 "use strict";
 
 Profile_userConfig.$inject = ["$stateProvider"];
@@ -109834,7 +109860,7 @@ function Profile_userConfig($stateProvider) {
 var _default = Profile_userConfig;
 exports.default = _default;
 
-},{}],119:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109921,7 +109947,7 @@ function () {
 var _default = Profile_userCtrl;
 exports.default = _default;
 
-},{}],120:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -109948,7 +109974,7 @@ recover_passModule.controller('Recover_passCtrl', _recover_pass2.default);
 var _default = recover_passModule;
 exports.default = _default;
 
-},{"./recover_pass.config":121,"./recover_pass.controller":122,"angular":18}],121:[function(require,module,exports){
+},{"./recover_pass.config":122,"./recover_pass.controller":123,"angular":18}],122:[function(require,module,exports){
 "use strict";
 
 Recover_passConfig.$inject = ["$stateProvider"];
@@ -109979,7 +110005,7 @@ function Recover_passConfig($stateProvider) {
 var _default = Recover_passConfig;
 exports.default = _default;
 
-},{}],122:[function(require,module,exports){
+},{}],123:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110106,7 +110132,7 @@ function () {
 var _default = Recover_passCtrl;
 exports.default = _default;
 
-},{}],123:[function(require,module,exports){
+},{}],124:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110239,7 +110265,7 @@ function () {
 
 exports.default = Admin;
 
-},{}],124:[function(require,module,exports){
+},{}],125:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110291,7 +110317,7 @@ function () {
 
 exports.default = Contact;
 
-},{}],125:[function(require,module,exports){
+},{}],126:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110333,7 +110359,7 @@ servicesModule.service('Tags', _tags.default);
 var _default = servicesModule;
 exports.default = _default;
 
-},{"./admin.service":123,"./contact.service":124,"./jwt.service":126,"./stripe.service":127,"./tags.service":128,"./test.service":129,"./toaster.service":130,"./user.service":131,"angular":18}],126:[function(require,module,exports){
+},{"./admin.service":124,"./contact.service":125,"./jwt.service":127,"./stripe.service":128,"./tags.service":129,"./test.service":130,"./toaster.service":131,"./user.service":132,"angular":18}],127:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110428,7 +110454,7 @@ function () {
 
 exports.default = JWT;
 
-},{}],127:[function(require,module,exports){
+},{}],128:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110478,7 +110504,7 @@ function () {
 
 exports.default = StripeService;
 
-},{}],128:[function(require,module,exports){
+},{}],129:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110522,7 +110548,7 @@ function () {
 
 exports.default = Tags;
 
-},{}],129:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110659,7 +110685,7 @@ function () {
 
 exports.default = TestService;
 
-},{}],130:[function(require,module,exports){
+},{}],131:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110721,7 +110747,7 @@ function () {
 
 exports.default = Toaster;
 
-},{}],131:[function(require,module,exports){
+},{}],132:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110967,7 +110993,7 @@ function () {
 
 exports.default = User;
 
-},{}],132:[function(require,module,exports){
+},{}],133:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -110994,7 +111020,7 @@ StripeModule.controller("StripeCtrl", _stripe2.default);
 var _default = StripeModule;
 exports.default = _default;
 
-},{"./stripe.config":133,"./stripe.controller":134,"angular":18}],133:[function(require,module,exports){
+},{"./stripe.config":134,"./stripe.controller":135,"angular":18}],134:[function(require,module,exports){
 "use strict";
 
 StripeConfig.$inject = ["$stateProvider"];
@@ -111046,7 +111072,7 @@ function StripeConfig($stateProvider) {
 var _default = StripeConfig;
 exports.default = _default;
 
-},{}],134:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -111074,7 +111100,7 @@ StripeCtrl.$inject = ["AppConstants", "$scope", "stripeBuy", "Toaster", "$state"
 var _default = StripeCtrl;
 exports.default = _default;
 
-},{}],135:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -111101,7 +111127,7 @@ user_chatModule.controller('User_chatCtrl', _user_chat2.default);
 var _default = user_chatModule;
 exports.default = _default;
 
-},{"./user_chat.config":136,"./user_chat.controller":137,"angular":18}],136:[function(require,module,exports){
+},{"./user_chat.config":137,"./user_chat.controller":138,"angular":18}],137:[function(require,module,exports){
 "use strict";
 
 User_chatConfig.$inject = ["$stateProvider"];
@@ -111136,7 +111162,7 @@ function User_chatConfig($stateProvider) {
 var _default = User_chatConfig;
 exports.default = _default;
 
-},{}],137:[function(require,module,exports){
+},{}],138:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

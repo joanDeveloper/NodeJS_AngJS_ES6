@@ -15,16 +15,6 @@ class HomeCtrl {
     
     this.page_1 = { title: "Lorem ipsum dolor", subtitle: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque eius, officia velit animi veritatis assumenda quasi ipsam, quam ab illo sint obcaecati temporibus repellendus natus amet eaque rerum sequi inventore?" };
     
-    this.hero = {
-      bg: {
-        /* 
-        "background": "red", */
-      },
-      info: {
-        title: "Cognitive Brain",
-        subtitle: "Le ayudamos a mantenerte la mente sana"
-      }
-    };
     console.log(this.categories);
 
     $scope.openCategory = function() {
