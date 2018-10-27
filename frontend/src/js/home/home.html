@@ -1,53 +1,38 @@
- <div class="home-page">
-   <!-- <button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button> -->
-   
-  <My-Hero info="$ctrl.hero"></My-Hero> 
-   
+<div class="home-page">
+  <my-carousel info="carousel"></my-carousel>
   <section>
     <My-Page info="$ctrl.page_1"></My-Page>
   </section>
-  
-  <!-- <Follow-Btn css="$ctrl.css" user="$ctrl.a" u="poco"></Follow-Btn>
-  
-  
-  
-  <div class="divmio">divmio
-    <md-button class="md-fab" aria-label="Eat cake" ng>
-      material diseny
-    </md-button>
-  </div> -->
-   
-  <!--<button ng-click="openCategory()" type="button" class="btn btn-large btn-block btn-primary">button</button>-->
-  
-  <div class="container-text divStandar">
-    <div class="container-text__section">
-      <h3 class="container-text__title">Nuestros Servicios</h3>
-      <img src="../images/customer-service.svg" class="container-text__imgHome" alt="Servicios">
-      <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
-        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
-        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-      </p>
+    
+    <div class="container-text divStandar">
+      <div class="container-text__section">
+        <h3 class="container-text__title">Nuestros Servicios</h3>
+        <img src="../images/customer-service.svg" class="container-text__imgHome" alt="Servicios">
+        <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
+          Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
+          Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        </p>
+      </div>
+
+      <div class="container-text__section">
+        <h3 class="container-text__title">Nuestro compromiso</h3>
+        <img src="../images/compromise.svg" class="container-text__imgHome" alt="Compromiso">
+        <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
+          Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
+          Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
+          Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
+        </p>
+      </div>
     </div>
 
-    <div class="container-text__section">
-      <h3 class="container-text__title">Nuestro compromiso</h3>
-      <img src="../images/compromise.svg" class="container-text__imgHome" alt="Compromiso">
-      <p class="container-text__parrafo">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. 
-        Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. 
-        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. 
-        Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.
-      </p>
+  <h3 align="center">Categorías</h3>
+  <section>
+    <div class="divStandar gridCategoryContainer">
+      <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>
     </div>
-  </div>
+  </section>
 
-<h3 align="center">Categorías</h3>
-<section>
-  <div class="divStandar gridCategoryContainer">
-    <my-card ng-repeat="category in $ctrl.categories" info="category"></my-card>
-  </div>
-</section>
-
-<my-plan info="plans"></my-plan>
+  <my-plan info="plans"></my-plan>
 
 </div>

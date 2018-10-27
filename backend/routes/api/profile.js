@@ -140,7 +140,7 @@ router.get('/verify-token/:token', function (req, res, next) {
         if (err) res.status(422).send({ message: 'error peticion verify token' });
         if(!user) res.status(422).send({ message: 'error in token' });
         console.log(res);
-        res.redirect("http://localhost:8081/#!/");
+        res.redirect("http://localhost:8081/#!/recover_passvvg");
         //return res.json({ message: 'correct token' });
     });
 

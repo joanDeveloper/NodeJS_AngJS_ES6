@@ -12,6 +12,9 @@ componentsModule.component('myTest', MyTest);
 import MyPlan from './Plan/plan.component';
 componentsModule.component('myPlan', MyPlan);
 
+import MyCarousel from './Carousel/carousel.component';
+componentsModule.component('myCarousel', MyCarousel);
+
 import MyCard from "./Card/card.componet";
 componentsModule.component("myCard", MyCard);
 
