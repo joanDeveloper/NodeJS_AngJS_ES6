@@ -1,7 +1,6 @@
 class Recover_passCtrl {
   constructor(NgMap, User, Toaster, AppConstants, $scope, tipo, $stateParams, $state, auth, JWT) {
     "ngInject";
-    console.log("ppppppppppppppp", tipo)
     this.formemail = false;
     if (tipo=="email") {
       this.formemail=true;

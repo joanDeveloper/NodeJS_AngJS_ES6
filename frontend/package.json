@@ -24,6 +24,7 @@
     "browser-sync": "^2.11.1",
     "browserify": "^13.0.0",
     "browserify-ngannotate": "^2.0.0",
+    "graphql.js": "^0.5.2",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-notify": "^2.2.0",
