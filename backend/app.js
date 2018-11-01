@@ -14,49 +14,7 @@ var http = require('http'),
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
-// Some fake data
-const books = [{
-    title: "Harry Potter and the Sorcerer's stone",
-    author: 'J.K. Rowling',
-    protas:"10"
-  },
-  {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton',
-    protas:"10"
-  },
-  {
-    title: 'peli3',
-    author: 'autor 3',
-    protas:"10"
-  }, 
-  {
-    title: 'peli4',
-    author: 'autor 4',
-    protas:"10"
-  }
-  
-];
 
-// The GraphQL schema in string form
-const typeDefs = `
-  type Query { books: [Book] }
-  type Book { title: String, author: String }
-`;
-
-// The resolvers
-const resolvers = {
-  Query: {
-    books: () => books
-  },
-};
-
-// Put together a schema
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
-/*--------------------------------------------------------------------*/
 
 
 
@@ -65,16 +23,7 @@ var isProduction = process.env.NODE_ENV === 'production';
 var app = express();
 app.use(cors());
 
-/*--------------------------------------------------------------------*/
-// The GraphQL endpoint
-app.use('/graphql', bodyParser.json(), graphqlExpress({
-  schema
-}));
-// GraphiQL, a visual editor for queries
-app.use('/graphiql', graphiqlExpress({
-  endpointURL: '/graphql'
-}));
-/*--------------------------------------------------------------------*/
+
 
 // Normal express config defaults
 app.use(require('morgan')('dev'));
@@ -102,6 +51,66 @@ require('./models/User');
 require('./models/Category');
 require('./models/Test');
 require('./config/passport');
+
+var b = require("./prova");
+
+// Some fake data
+/*const books = [{
+  title: "Harry Potter and the Sorcerer's stone",
+  author: 'J.K. Rowling',
+  protas:"10"
+},
+{
+  title: 'Jurassic Park',
+  author: 'Michael Crichton',
+  protas:"10"
+},
+{
+  title: 'peli3',
+  author: 'autor 3',
+  protas:"10"
+}, 
+{
+  title: 'peli4',
+  author: 'autor 4',
+  protas:"10"
+}
+
+];*/
+var merge = require('lodash');
+// The GraphQL schema in string form
+setTimeout(() => {
+  console.log("abu:",b);
+  const typeDefs = `
+type Query { books: [Book] }
+type Book { title: String, author: String }
+`;
+
+// The resolvers
+const resolvers = {
+Query: {
+  books: () => b
+},
+};
+//var resolverss = merge(b);
+// Put together a schema
+const schema = makeExecutableSchema({
+typeDefs,
+resolvers,
+});
+/*--------------------------------------------------------------------*/
+/*--------------------------------------------------------------------*/
+// The GraphQL endpoint
+app.use('/graphql', bodyParser.json(), graphqlExpress({
+  schema
+}));
+}, 10000);
+
+// GraphiQL, a visual editor for queries
+app.use('/graphiql', graphiqlExpress({
+  endpointURL: '/graphql'
+}));
+/*--------------------------------------------------------------------*/
 
 app.use(passport.initialize());
 app.use(passport.session());
