@@ -11,7 +11,7 @@ var http = require('http'),
   
 
     
-async function prueba() {
+/*async function prueba() {
   var Category = mongoose.model('Category');
   const pool = await Category.find().then(function (category) {
     console.log(category);
@@ -20,7 +20,7 @@ async function prueba() {
   console.log(111111111111);
   console.log(pool);
   return pool;
-};
+};*/
 
 /*  async function getColaboradores() {
    const pool = await sql.connect(config)
@@ -35,7 +35,7 @@ const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
 // Some fake data
-const libros = [{
+/*const libros = [{
     title: "Harriiiiii Potter and the Sorcerer's stone",
     author: 'J.K. Rowling',
     protas:"10"
@@ -56,10 +56,10 @@ const libros = [{
     protas:"10"
   }
   
-];
+];*/
 
 // The GraphQL schema in string form
-const typeDefs = `
+/*const typeDefs = `
   type Query { 
     booksi: [Book]
     getCategory: [getCategoryType]
@@ -72,16 +72,17 @@ const typeDefs = `
     name: String,
     description: String
   }
-`;
-
+`;*/
+var prueba = require("./routes/api/graphql/categories");
+var typeDefs = require("./routes/api/graphql/schema");
 // The resolvers
 const resolvers = {
   Query: {
-    booksi: () => libros,
+    //booksi: () => libros,
     getCategory: () =>prueba()
   },
 };
-
+console.log("res",resolvers.Query.getCategory);
 // Put together a schema
 const schema = makeExecutableSchema({
   typeDefs,
