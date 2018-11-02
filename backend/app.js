@@ -8,15 +8,15 @@ var http = require('http'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
     mongoose = require('mongoose');
-
+    
 
 /*--------------------------------------------------------------------*/
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
 
 // Some fake data
-const books = [{
-    title: "Harry Potter and the Sorcerer's stone",
+const libros = [{
+    title: "Harriiiiii Potter and the Sorcerer's stone",
     author: 'J.K. Rowling',
     protas:"10"
   },
@@ -40,14 +40,14 @@ const books = [{
 
 // The GraphQL schema in string form
 const typeDefs = `
-  type Query { books: [Book] }
+  type Query { booksi: [Book] }
   type Book { title: String, author: String }
 `;
 
 // The resolvers
 const resolvers = {
   Query: {
-    books: () => books
+    booksi: () => libros
   },
 };
 
