@@ -7,90 +7,10 @@ var http = require('http'),
     cors = require('cors'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
-    mongoose = require('mongoose');
-  
+    mongoose = require('mongoose'),
+    schema = require("./routes/api/graphql/index");
 
-    
-/*async function prueba() {
-  var Category = mongoose.model('Category');
-  const pool = await Category.find().then(function (category) {
-    console.log(category);
-    return category;    
-  });
-  console.log(111111111111);
-  console.log(pool);
-  return pool;
-};*/
-
-/*  async function getColaboradores() {
-   const pool = await sql.connect(config)
-   const result = await pool.request().query `select grupo,'//media.grutinet.com/articulos/images/colaboradores/'+logo as icon, nombre as title, pagina_web as link  from COLABORADORES WHERE activo=1`
-   sql.close()
-
-   return result.recordset;
- } */
-
-/*--------------------------------------------------------------------*/
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
-
-// Some fake data
-/*const libros = [{
-    title: "Harriiiiii Potter and the Sorcerer's stone",
-    author: 'J.K. Rowling',
-    protas:"10"
-  },
-  {
-    title: 'Jurassic Park',
-    author: 'Michael Crichton',
-    protas:"10"
-  },
-  {
-    title: 'peli3',
-    author: 'autor 3',
-    protas:"10"
-  }, 
-  {
-    title: 'peli4',
-    author: 'autor 4',
-    protas:"10"
-  }
-  
-];*/
-
-// The GraphQL schema in string form
-/*const typeDefs = `
-  type Query { 
-    booksi: [Book]
-    getCategory: [getCategoryType]
-  }
-  type Book { 
-    title: String,
-     author: String 
-  }
-  type getCategoryType {
-    name: String,
-    description: String
-  }
-`;*/
-var prueba = require("./routes/api/graphql/categories");
-var typeDefs = require("./routes/api/graphql/schema");
-// The resolvers
-const resolvers = {
-  Query: {
-    //booksi: () => libros,
-    getCategory: () =>prueba()
-  },
-};
-console.log("res",resolvers.Query.getCategory);
-// Put together a schema
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
-});
-/*--------------------------------------------------------------------*/
-
-
 
 var isProduction = process.env.NODE_ENV === 'production';
 // Create global app object
