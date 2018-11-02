@@ -8,7 +8,27 @@ var http = require('http'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
     mongoose = require('mongoose');
+  
+
     
+async function prueba() {
+  var Category = mongoose.model('Category');
+  const pool = await Category.find().then(function (category) {
+    console.log(category);
+    return category;    
+  });
+  console.log(111111111111);
+  console.log(pool);
+  return pool;
+};
+
+/*  async function getColaboradores() {
+   const pool = await sql.connect(config)
+   const result = await pool.request().query `select grupo,'//media.grutinet.com/articulos/images/colaboradores/'+logo as icon, nombre as title, pagina_web as link  from COLABORADORES WHERE activo=1`
+   sql.close()
+
+   return result.recordset;
+ } */
 
 /*--------------------------------------------------------------------*/
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
@@ -40,14 +60,25 @@ const libros = [{
 
 // The GraphQL schema in string form
 const typeDefs = `
-  type Query { booksi: [Book] }
-  type Book { title: String, author: String }
+  type Query { 
+    booksi: [Book]
+    getCategory: [getCategoryType]
+  }
+  type Book { 
+    title: String,
+     author: String 
+  }
+  type getCategoryType {
+    name: String,
+    description: String
+  }
 `;
 
 // The resolvers
 const resolvers = {
   Query: {
-    booksi: () => libros
+    booksi: () => libros,
+    getCategory: () =>prueba()
   },
 };
 
