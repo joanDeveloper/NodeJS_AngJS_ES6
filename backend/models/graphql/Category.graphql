@@ -1,0 +1,7 @@
+const typeDefs = `
+  type getCategoryType {
+    name: String,
+    description: String
+  }
+`;
+module.exports = typeDefs;
