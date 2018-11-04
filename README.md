@@ -60,6 +60,6 @@ o con el administrador.
   19. validations in the registry and login e backend
   20. bcrypt to encrypt and decrypt password
   21. Isomorphic application to improve SEO positioning
-  22. We are currently working to incorporate graphql with apollo (not implemented yet)
+  22. GraphQl with apollo api frontend and backend implemented
 
 

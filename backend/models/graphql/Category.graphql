@@ -1,5 +1,6 @@
 const typeDefs = `
   type getCategoryType {
+    slug:String,
     name: String,
     description: String
   }

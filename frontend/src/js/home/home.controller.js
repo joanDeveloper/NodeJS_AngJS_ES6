@@ -7,7 +7,8 @@ class HomeCtrl {
 
     this.appName = AppConstants.appName;
     this._$scope = $scope;
-    this.categories = categories.category;
+    console.log("categ:",categories.data.getCategory);
+    this.categories = categories.data.getCategory;
     this.css = {
       "background-color": "red"
     };

@@ -10,10 +10,11 @@ function HomeConfig($stateProvider) {
     title: 'Home',
     resolve: {
       categories: function (TestService, $state, $stateParams) {
-        /* TestService.getAll().then(function (response) {
-          console.log(response)
-        }); */
-        return TestService.getAll().then(
+        /*return TestService.getAll().then(
+          (categories) => categories,
+          (err) => $state.go('app.home')
+        )*/
+        return TestService.getCategoryGraphQl().then(
           (categories) => categories,
           (err) => $state.go('app.home')
         )

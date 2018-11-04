@@ -25,6 +25,20 @@ export default class TestService {
         return deferred.promise;
     }
 
+    getCategoryGraphQl() {
+        let deferred = this._$q.defer();
+        this._$http({
+            url: `http://localhost:3000/graphql?query={getCategory {slug name description}}
+            `,
+            method: 'GET'
+        }).then(
+            (res) => deferred.resolve(res.data),
+            (err) => deferred.reject(err)
+        );
+        return deferred.promise;
+
+    }
+
     getTestsOfOneCategory(slug) {
         console.log("getTestsOfOneCategory:  ", slug);
 

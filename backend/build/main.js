@@ -112069,12 +112069,12 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('components/Page/page.html', '<div class="pageContainer lateralMarginAuto">   \n    <p  class="pageTitle"> {{$ctrl.info.title}} </p>\n    <p class="pageText"> {{$ctrl.info.subtitle}} </p>\n</div>\n\n \n  ');
   $templateCache.put('components/Plan/plan.html', "<section class=\"container-plan divStandar\">\n  <div class=\"container-plan__section\">\n    <h2>Plan Basico</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy1.svg\" alt=\"Plan Basico\">\n    <p class=\"container-text__parrafo\">Test</p>\n    <p class=\"container-text__parrafo\">20\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeBa\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Intermedio</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy2.svg\" alt=\"Plan Intermedio\">\n    <p class=\"container-text__parrafo\">Soporte email + Test</p>\n    <p class=\"container-text__parrafo\">35\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeInt\" class=\"btnColor\">Comprar</button>\n  </div>\n\n  <div class=\"container-plan__section\">\n    <h2>Plan Experto</h2>\n    <img class=\"container-plan__imgHome\" src=\"../images/buy3.svg\" alt=\"Plan Experto\">\n    <p class=\"container-text__parrafo\">Soporte email +  Skype + Test</p>\n    <p class=\"container-text__parrafo\">50\u20AC/mes</p>\n    <button type=\"submit\" id=\"btnStripeEx\" class=\"btnColor\">Comprar</button>\n  </div>\n</section>");
   $templateCache.put('components/Test/test.html', '<section ng-if="$ctrl.info.name==\'Monedas\' || $ctrl.info.name==\'Series\' \n|| $ctrl.info.name==\'Sopa de letras\' || $ctrl.info.name==\'Completa la frase\' \n|| $ctrl.info.name==\'Logica 1\' || $ctrl.info.name==\'Logica 2\' || $ctrl.info.name==\'Percepcion 1\' \n|| $ctrl.info.name==\'Percepcion 2\'">\n    <h3>Problema {{$ctrl.info.name}}</h3>\n    <p>\n        Susana que es la abuelita de Jose, le ha pedido a su nieto que vaya \n        a comprar a la panaderia. Tiene que comprar 3 barras de pan a 50 centimos cada una, \n        2 bollos a 80 centimos cada uno y una docena de huevos que cuestan 1,80. \n        Calcula cual es el total y que monedas debe entregar a la dependienta.\n    </p>\n    <img src="../../images/1.gif" height="50" width="50">\n    <input type="checkbox" value="1" ng-click="sumar($event)" />\n\n    <img src="../../images/1.gif" height="50" width="50">\n    <input type="checkbox" value="1" ng-click="sumar($event)"/>\n\n    <img src="../../images/2.png" height="50" width="50">\n    <input type="checkbox" value="2" ng-click="sumar($event)"/>\n\n    <img src="../../images/2.png" height="50" width="50">\n    <input type="checkbox" value="2" ng-click="sumar($event)"/>\n\n    <img src="../../images/20c.gif" height="50" width="50">\n    <input type="checkbox" value="0.20" ng-click="sumar($event)"/>\n\n    <img src="../../images/20c.gif" height="50" width="50">\n    <input type="checkbox" value="0.20" ng-click="sumar($event)"/>\n\n    <img src="../../images/5c.jpg" height="50" width="50">\n    <input type="checkbox" value="0.05" ng-click="sumar($event)"/>\n\n    <img src="../../images/50c.jpg" height="50" width="50">\n    <input type="checkbox" value="0.50" ng-click="sumar($event)"/>\n\n    <img src="../../images/1c.gif" height="50" width="50">\n    <input type="checkbox" value="0.01" ng-click="sumar($event)"/>\n\n    <div>\n        <label><strong>Total</strong><label>\n        <input type="text" id="txtValor" value="0" />\n    </div>\n</section>\n\n<section ng-if="$ctrl.info.name==\'Memoria colores\' || $ctrl.info.name==\'Memoria numeros\' ">\n    <div ng-init="colorMemory()">\n        <h3>Problema {{$ctrl.info.name}}</h3>\n        <p>{{$ctrl.info.description}}</p>\n        Intentos:<div id="test"></div>\n        <div id="audio"></div>\n        <div id="text" align="center"></div>\n        <div id="text-game-over" align="center"></div>\n        <div id="cardList" style="margin-left:325px;"></div>\n    </div>\n</section>');
-  $templateCache.put('components/buttons/favorite-btn.html', '<button class="btn btn-sm"\n  ng-class="{ \'disabled\' : $ctrl.isSubmitting,\n              \'btn-outline-primary\': !$ctrl.article.favorited,\n              \'btn-primary\': $ctrl.article.favorited }"\n  ng-click="$ctrl.submit()">\n  <i class="ion-heart"></i> <ng-transclude></ng-transclude>\n</button>\n');
-  $templateCache.put('components/buttons/follow-btn.html', '<button\n  \n  >\n  <i class="ion-plus-round"></i>\n  &nbsp;<span ng-style={{$ctrl.css}}>\n  boton{{ $ctrl.u }}\n   {{ $ctrl.user }}\n\n  {{$ctrl.css|json}}\n  </span>\n</button>\n');
   $templateCache.put('components/article-helpers/article-list.html', '<article-preview\n  article="article"\n  ng-repeat="article in $ctrl.list">\n</article-preview>\n\n<div class="article-preview"\n  ng-hide="!$ctrl.loading">\n  Loading articles...\n</div>\n\n<div class="article-preview"\n  ng-show="!$ctrl.loading && !$ctrl.list.length">\n  No articles are here... yet.\n</div>\n\n<list-pagination\n total-pages="$ctrl.listConfig.totalPages"\n current-page="$ctrl.listConfig.currentPage"\n ng-hide="$ctrl.listConfig.totalPages <= 1">\n</list-pagination>\n');
   $templateCache.put('components/article-helpers/article-meta.html', '<div class="article-meta">\n  <a ui-sref="app.profile.main({ username:$ctrl.article.author.username })">\n    <img ng-src="{{$ctrl.article.author.image}}" />\n  </a>\n\n  <div class="info">\n    <a class="author"\n      ui-sref="app.profile.main({ username:$ctrl.article.author.username })"\n      ng-bind="$ctrl.article.author.username">\n    </a>\n    <span class="date"\n      ng-bind="$ctrl.article.createdAt | date: \'longDate\' ">\n    </span>\n  </div>\n\n  <ng-transclude></ng-transclude>\n</div>\n');
   $templateCache.put('components/article-helpers/article-preview.html', '<div class="article-preview">\n  <article-meta article="$ctrl.article">\n    <favorite-btn\n      article="$ctrl.article"\n      class="pull-xs-right">\n      {{$ctrl.article.favoritesCount}}\n    </favorite-btn>\n  </article-meta>\n\n  <a ui-sref="app.article({ slug: $ctrl.article.slug })" class="preview-link">\n    <h1 ng-bind="$ctrl.article.title"></h1>\n    <p ng-bind="$ctrl.article.description"></p>\n    <span>Read more...</span>\n    <ul class="tag-list">\n      <li class="tag-default tag-pill tag-outline"\n        ng-repeat="tag in $ctrl.article.tagList">\n        {{tag}}\n      </li>\n    </ul>\n  </a>\n</div>\n');
   $templateCache.put('components/article-helpers/list-pagination.html', '<nav>\n  <ul class="pagination">\n\n    <li class="page-item"\n      ng-class="{active: pageNumber === $ctrl.currentPage }"\n      ng-repeat="pageNumber in $ctrl.pageRange($ctrl.totalPages)"\n      ng-click="$ctrl.changePage(pageNumber)">\n\n      <a class="page-link" href="">{{ pageNumber }}</a>\n\n    </li>\n\n  </ul>\n</nav>\n');
+  $templateCache.put('components/buttons/favorite-btn.html', '<button class="btn btn-sm"\n  ng-class="{ \'disabled\' : $ctrl.isSubmitting,\n              \'btn-outline-primary\': !$ctrl.article.favorited,\n              \'btn-primary\': $ctrl.article.favorited }"\n  ng-click="$ctrl.submit()">\n  <i class="ion-heart"></i> <ng-transclude></ng-transclude>\n</button>\n');
+  $templateCache.put('components/buttons/follow-btn.html', '<button\n  \n  >\n  <i class="ion-plus-round"></i>\n  &nbsp;<span ng-style={{$ctrl.css}}>\n  boton{{ $ctrl.u }}\n   {{ $ctrl.user }}\n\n  {{$ctrl.css|json}}\n  </span>\n</button>\n');
 }]);
 
 },{}],104:[function(require,module,exports){
@@ -112255,10 +112255,11 @@ function HomeConfig($stateProvider) {
     title: 'Home',
     resolve: {
       categories: ["TestService", "$state", "$stateParams", function categories(TestService, $state, $stateParams) {
-        /* TestService.getAll().then(function (response) {
-          console.log(response)
-        }); */
-        return TestService.getAll().then(function (categories) {
+        /*return TestService.getAll().then(
+          (categories) => categories,
+          (err) => $state.go('app.home')
+        )*/
+        return TestService.getCategoryGraphQl().then(function (categories) {
           return categories;
         }, function (err) {
           return $state.go('app.home');
@@ -112302,7 +112303,8 @@ function () {
     console.log("Messages", Messages.user);
     this.appName = AppConstants.appName;
     this._$scope = $scope;
-    this.categories = categories.category;
+    console.log("categ:", categories.data.getCategory);
+    this.categories = categories.data.getCategory;
     this.css = {
       "background-color": "red"
     };
@@ -113461,6 +113463,22 @@ function () {
 
       this._$http({
         url: "".concat(this._AppConstants.api, "/category"),
+        method: 'GET'
+      }).then(function (res) {
+        return deferred.resolve(res.data);
+      }, function (err) {
+        return deferred.reject(err);
+      });
+
+      return deferred.promise;
+    }
+  }, {
+    key: "getCategoryGraphQl",
+    value: function getCategoryGraphQl() {
+      var deferred = this._$q.defer();
+
+      this._$http({
+        url: "http://localhost:3000/graphql?query={getCategory {slug name description}}\n            ",
         method: 'GET'
       }).then(function (res) {
         return deferred.resolve(res.data);
