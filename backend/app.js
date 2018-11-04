@@ -10,6 +10,12 @@ var http = require('http'),
     mongoose = require('mongoose'),
     schema = require("./routes/api/graphql/index");
 
+<<<<<<< HEAD
+
+
+/*--------------------------------------------------------------------*/
+=======
+>>>>>>> f136d91b95b7ace3dbb5ac18cad3cba197e23545
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 
 var isProduction = process.env.NODE_ENV === 'production';

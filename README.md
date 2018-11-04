@@ -43,23 +43,31 @@ o con el administrador.
   2. Plans basic, intermediate, expert
   3. Carousel
   4. Web design from 0
-  5. Design responsive with grid, flexbox
-  6. breadcrumb (hero)
+  5. Design responsive with grid-layout, flexbox and use of css pseudo-classes. 
+  6. Breadcrumb (hero)
   7. Creation of components for: categories, carousel, breadcrumb (hero), home plans, test
-  8. recover password
-  9. chat with angular-chat
+  8. Recover password
+  9. Chat with angular-chat
   10. Profile (change data and upload avatar)
   11. Fs use in backend to delete the previous avatar
-  12. Panel administration control (google maps and user panel)
-  13. utilization of promises async and await in backend (admin.js)
+  12. Panel administration control (google maps and user panel) "ngMap"
+  13. Utilization of promises async and await in backend (admin.js)
   14. We previously used connect-multipary to upload photos, now we use multer
-  15. middleware in backend based on Carlos Azaustre
+  15. Middleware in backend based on Carlos Azaustre
   16. Using Slug to improve SEO positioning
   17. Schemes with validations
-  18. utilization next (); to continue with the following process
-  19. validations in the registry and login e backend
-  20. bcrypt to encrypt and decrypt password
+  18. Utilization next (); to continue with the following process
+  19. Validations in the registry and login e backend
+  20. Bcrypt to encrypt and decrypt password
   21. Isomorphic application to improve SEO positioning
   22. GraphQl with apollo api frontend and backend implemented
+  23. Frontend validation
+  24. Use of toaters to notify
+  25. Use of sweet alerts (it is works like a modal).
+  26. Utilization of promises in all frontend code
+  27. Use of ui-self and ui-router
+  28. Use of AngularJS $watch() 
+  29. Angular JS pagination, filters, order by and  view mode.
+  30. Use of directives from  UI Bootstrap.
 
 
