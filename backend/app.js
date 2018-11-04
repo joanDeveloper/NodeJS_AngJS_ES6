@@ -22,13 +22,7 @@ async function prueba() {
   return pool;
 };
 
-/*  async function getColaboradores() {
-   const pool = await sql.connect(config)
-   const result = await pool.request().query `select grupo,'//media.grutinet.com/articulos/images/colaboradores/'+logo as icon, nombre as title, pagina_web as link  from COLABORADORES WHERE activo=1`
-   sql.close()
 
-   return result.recordset;
- } */
 
 /*--------------------------------------------------------------------*/
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
